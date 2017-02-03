@@ -359,11 +359,10 @@ em {
 
 table {
 	width: 100%;
-	font-size:13px;
+	font-size:12px;
 	border-collapse: collapse;
 	border-bottom:1px solid #c1c1c1;
 	border-top:1px solid #c1c1c1;
-	margin-bottom: 20px;
 }
 
 table td {
@@ -512,7 +511,6 @@ table.price td h2 sup {
 }
 
 #wrapper {
-	width: 960px;
 	margin: 20 auto;
 	padding-top: 0;
 	line-height: 20px;
@@ -558,7 +556,7 @@ table.price td h2 sup {
 }
 #footer-wrapper {
 	height: 45px;
-	padding-top:330px;
+	padding-top:10%;
 }
 
 #footer {
@@ -738,13 +736,12 @@ table.price td h2 sup {
 
 #cycle-wrapper {
 	position: relative;
-	width:960px;
+	width:60%;
 	height: 380px;
 	margin: 0 auto 90px;
 }
 
 #sliderholder-cycle {
-	width:960px;
 	overflow: hidden;
 	background:transparent;
 	-moz-box-shadow: 0px 1px 3px #8e8e8e;

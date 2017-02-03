@@ -36,7 +36,7 @@
   
   <!-- Begin Slider -->
   <div id="cycle-wrapper">
-    <div id="sliderholder-cycle"> <img src="${contextPath}/resources/img/header.jpg" width="960"/>
+    <div id="sliderholder-cycle"> <img src="${contextPath}/resources/img/header.jpg" width="100%"/>
   </div>
   <!-- End Slider --> 
   
@@ -139,7 +139,7 @@
 			</c:if>
 			<c:if test="${userDati.autosomal == true}">
 				<c:if test="${eutest != null}">
-					<br><br>
+					<br>
 					<table>
 				    	<tr>
 				    		<td align=center><b>South Baltic</b></td>
@@ -217,7 +217,7 @@
       
       <!-- Begin Copyright -->
       <div id="copyright">
-        <p>© Copyright 2016 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
+        <p>© Copyright 2017 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
 		<img src="${contextPath}/resources/style/images/icon-facebook.png" alt="" /></a>
 		</p>
       </div>

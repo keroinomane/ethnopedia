@@ -33,7 +33,7 @@
   
   <!-- Begin Slider -->
   <div id="cycle-wrapper">
-    <div id="sliderholder-cycle"> <img src="${contextPath}/resources/img/header.jpg" width="960"/>
+    <div id="sliderholder-cycle"> <img src="${contextPath}/resources/img/header.jpg" width="100%"/>
   </div>
   <!-- End Slider --> 
   
@@ -81,7 +81,7 @@
       
       <!-- Begin Copyright -->
       <div id="copyright">
-        <p>© Copyright 2016 Ethnopedia</p>
+        <p>© Copyright 2017 Ethnopedia</p>
       </div>
       <!-- End Copyright --> 
       
