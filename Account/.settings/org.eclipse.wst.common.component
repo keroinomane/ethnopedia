@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/target"/>
         <property name="context-root" value="account"/>
-        <property name="java-output-path" value="/registration-login-spring-xml-maven-jsp-mysql-master/target/classes"/>
+        <property name="java-output-path" value="/Account/target/classes"/>
     </wb-module>
 </project-modules>

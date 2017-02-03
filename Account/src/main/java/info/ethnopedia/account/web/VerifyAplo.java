@@ -21,7 +21,7 @@ public class VerifyAplo {
 					(aplo.equals("i") && StringUtils.contains(rawdata, "\"L846\",\"Y\",\"TT\"") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("j") && StringUtils.contains(rawdata, "\"CTS687\",\"Y\",\"AA\"") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("r") && StringUtils.contains(rawdata, "\"M207\",\"Y\",\"GG\"") && StringUtils.contains(rawdata, clade)) ||
-					(aplo.equals("t") && StringUtils.contains(rawdata, "\"M184\",\"Y\",\"AA\"") && StringUtils.contains(rawdata, clade)) 
+					(aplo.equals("t") && StringUtils.contains(rawdata, "\"M70\",\"Y\",\"CC\"") && StringUtils.contains(rawdata, clade)) 
 			);
 		} else {
 			// 23andMe
