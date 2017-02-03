@@ -12,7 +12,7 @@ public class VerifyAplo {
 					(aplo.equals("i") && StringUtils.contains(rawdata, "M170,Y,C,C") && StringUtils.contains(rawdata, clade)) || //OK
 					(aplo.equals("j") && (StringUtils.contains(rawdata, "CTS687,Y,A,A") || StringUtils.contains(rawdata, "M267,Y,G,G")) && StringUtils.contains(rawdata, clade)) || //OK
 					(aplo.equals("r") && StringUtils.contains(rawdata, "M207,Y,G,G") && StringUtils.contains(rawdata, clade)) || //OK
-					(aplo.equals("t") && StringUtils.contains(rawdata, "M184,Y,A,A") && StringUtils.contains(rawdata, clade))
+					(aplo.equals("t") && StringUtils.contains(rawdata, "M70,Y,C,C") && StringUtils.contains(rawdata, clade))
 			);
 		} else if (test.equals("genoNext")) {
 			return (				
