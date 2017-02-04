@@ -2,6 +2,9 @@ package info.ethnopedia.account.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -14,6 +17,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.WordUtils;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,15 +44,20 @@ import info.ethnopedia.account.service.BozzaService;
 import info.ethnopedia.account.service.EutestService;
 import info.ethnopedia.account.service.MtdnaService;
 import info.ethnopedia.account.service.SecurityService;
+import info.ethnopedia.account.service.StatisticheService;
 import info.ethnopedia.account.service.UserDatiService;
 import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
 import info.ethnopedia.account.validator.UserValidator;
+import info.ethnopedia.account.model.TableYdna;
 
 @Controller
 public class UserController {
 	@Autowired
     private UserService userService;
+	
+	@Autowired
+    private StatisticheService statService;
 	
 	@Autowired
 	private InfoAploRepository infoAploRepository;
@@ -77,6 +86,48 @@ public class UserController {
     @RequestMapping(value = "/inserisciEutest", method = RequestMethod.GET)
     public String inserisciEutest(Model model) {
         return "inserisciEutest";
+    }
+    
+    @RequestMapping(value = "/statistiche", method = RequestMethod.GET)
+    public String statistiche(Model model) {
+    	List<TableYdna> ydnaReg = statService.findAll();
+		model.addAttribute("ydnaReg",ydnaReg);
+		return "statistiche";
+    }
+    
+    @RequestMapping(value = " /calcMediaAploRegioni", method=RequestMethod.GET)
+    public String calcMediaAploRegioni(Model model) {
+		statService.deleteAllTableYdna();
+		List<String> aplog = Arrays.asList("E1b1b", "G2a", "I1", "I2", "J1", "J2", "R1a", "R1b", "T");
+		List<String> regioni = statService.getRegioni();
+		Collections.sort(regioni);
+		double[] campi = new double[9];
+		Iterator<String> iterReg = regioni.iterator();
+		while (iterReg.hasNext()) {
+			String reg = iterReg.next();
+			int campioni = statService.countRegio(reg);
+			Iterator<String> iterAplo = aplog.iterator();
+			int ciclo = 0;
+	    	while (iterAplo.hasNext()) {
+	    		int ap;
+	    		String apl = iterAplo.next();
+	    		if (apl.equals("G2a"))
+	    			ap = statService.countAploG(reg);
+	    		else
+	    			ap = statService.countAploRegio(apl,reg);
+	        	double tot = campioni;
+	        	tot = ap/tot*10000;
+	        	tot = (int)tot;
+	        	tot /= 100;
+	        	campi[ciclo] = tot;
+	        	ciclo++;
+	    	}
+	    	TableYdna all = new TableYdna(reg, campioni, campi);
+	    	statService.save(all);
+		}	
+		List<TableYdna> ydnaReg = statService.findAll();
+		model.addAttribute("ydnaReg",ydnaReg);
+		return "statistiche";
     }
     
     @RequestMapping(value = " /insertYdna/{id}", method=RequestMethod.GET)

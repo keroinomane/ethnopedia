@@ -138,7 +138,7 @@ html, body {
 }
 
 #footer-wrapper, .push {
-	height: 145px; /* .push must be the same height as .footer */
+	/* .push must be the same height as .footer */
 }
 
 p {
@@ -555,8 +555,6 @@ table.price td h2 sup {
 	right: 0;
 }
 #footer-wrapper {
-	height: 45px;
-	padding-top:15%;
 }
 
 #footer {
@@ -727,18 +725,12 @@ table.price td h2 sup {
 
 /* CYCLE */
 
-#cycle-wrapper-chisia {
-	position: relative;
-	width:960px;
-	height: 180px;
-	margin: 0 auto 90px;
-}
 
 #cycle-wrapper {
+	min-height:85%;
 	position: relative;
 	width:60%;
-	height: 380px;
-	margin: 0 auto 90px;
+	margin: 0 auto 0;
 }
 
 #sliderholder-cycle {

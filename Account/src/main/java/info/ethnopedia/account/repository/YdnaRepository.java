@@ -1,5 +1,7 @@
 package info.ethnopedia.account.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -22,4 +24,23 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     		nativeQuery=true
     )
 	public Ydna exists(String cognome, String aplogruppo, String provincia);
+    
+    @Query(value = "select count(*) from ydna y where (y.aplogruppo = 'G' or y.aplogruppo = 'G2a')and y.regione = ?1", 
+    		nativeQuery=true
+    )
+	public int countAploG(String regione);
+    
+    @Query(value = "select count(*) from ydna y where y.aplogruppo = ?1 and y.regione = ?2", 
+    		nativeQuery=true
+    )
+	public int countAploRegio(String aplo, String regione);
+    
+    @Query(value = "select count(*) from ydna y where y.regione = ?1", 
+    		nativeQuery=true
+    )
+	public int countRegio(String regione);
+    
+    @Query(value = "SELECT distinct(regione) FROM ydna", nativeQuery=true)
+	public List<String> getRegioni();
+    
 }

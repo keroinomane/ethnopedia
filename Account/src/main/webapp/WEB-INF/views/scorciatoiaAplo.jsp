@@ -376,7 +376,7 @@
 		</div>
 		
 		<!-- Begin Footer -->
-		<div id="footer-wrapper" style="padding-top: 335px;">
+		<div id="footer-wrapper">
 		  <div id="footer">
 		    <div id="footer-content"> 
 		      

@@ -55,6 +55,12 @@
 			    });
 			};
 		</script>
+		<style>
+			#scrivania {
+			    vertical-align:middle;
+			    height: 150;
+			}
+		</style>
 	</head>
 	
 	<body>
@@ -150,8 +156,8 @@
 							</table>
 		        		</td>
 		        	</tr>
-		        	<tr style="border:none;">
-		        		<td style="border:none;" align="center">
+		        	<tr style="border:none;" >
+		        		<td id="scrivania" style="border:none;" align="center">
 		        			<h4>
 		        			<a style="text-decoration: none" href="<c:url value='/scorciatoiaAplo' />" >
 		        			<button type="button" class="btn btn-success">
@@ -160,6 +166,16 @@
 							</a>&nbsp
 							Inserisci nuovi aplogruppi manualmente
 							</h4>
+		        		</td>
+		        		<td id="scrivania" style="border:none;" align="center">
+		        			<h4>
+		        			<a style="text-decoration: none" href="<c:url value='/statistiche' />" >
+		        			<button type="button" class="btn btn-success">
+								<span class="glyphicon glyphicon-stats"></span>
+							</button>
+							</a>&nbsp
+		        			Aggiorna statistiche
+		        			</h4>
 		        		</td>
 		        	</tr>
 		        </table>

@@ -17,7 +17,7 @@
     <meta name="author" content="">
 
      <title>Come scaricare i raw data del cromosoma Y</title>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/styleHowTo.css" media="all" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
 <link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
