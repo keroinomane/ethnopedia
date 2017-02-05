@@ -21,13 +21,19 @@
 		<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
 		<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 		<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+		<link href="${contextPath}/resources/css/jquery.dataTables.min.css" rel="stylesheet">
 		<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
 		<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 		<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script> 
+		<script type="text/javascript" src="${contextPath}/resources/js/jquery.dataTables.min.js"></script> 
 		<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 		
 		<script type="text/javascript">
+			$(document).ready(function(){
+			    $('#aploregioni').DataTable( {
+			    } );
+			});
 			function deleteYdna(id) {
 				var contextPath = "${contextPath}";
 				$.ajax({
@@ -55,12 +61,6 @@
 			    });
 			};
 		</script>
-		<style>
-			#scrivania {
-			    vertical-align:middle;
-			    height: 150;
-			}
-		</style>
 	</head>
 	
 	<body>
@@ -82,59 +82,53 @@
 			</div>
 		    <!-- End Intro --> 
 		<div class="container">
-		
-			<table>
-				<tr>
-					<td id="scrivania" style="border:none;" align="center">
-		        		<h4>
-		        		<a style="text-decoration: none" href="<c:url value='/calcMediaAploRegioni' />" >
-		       			<button type="button" class="btn btn-success">
-							<span class="glyphicon glyphicon-stats"></span>
-						</button>
-						</a>&nbsp
-		        		Calcola media aplogruppi per regione
-		        		</h4>
-		        	</td>
-		        	<td>
-		        	</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td><b>Regione</b></td>
-								<td><b>Campioni</b></td>
-								<td><b>E1b1b</b></td>
-								<td><b>G2a</b></td>
-								<td><b>I1</b></td>
-								<td><b>I2</b></td>
-								<td><b>J1</b></td>
-								<td><b>J2</b></td>
-								<td><b>R1a</b></td>
-								<td><b>R1b</b></td>
-								<td><b>T</b></td>
-							</tr>
-							<c:forEach items="${ydnaReg}" var="yr">
-								<tr>
-									<td>${yr.regione}</td>
-									<td>${yr.campioni}</td>
-									<td>${yr.e1b1b}</td>
-									<td>${yr.g2a}</td>
-									<td>${yr.i1}</td>
-									<td>${yr.i2}</td>
-									<td>${yr.j1}</td>
-									<td>${yr.j2}</td>
-									<td>${yr.r1a}</td>
-									<td>${yr.r1b}</td>
-									<td>${yr.t}</td>
-								</tr>
-							</c:forEach>
-						</table>
-		        	</td>
-		        	<td>
-		        	</td>
-				</tr>
+			<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
+				<div>
+			   		<h4>
+			   		<a style="text-decoration: none" href="<c:url value='/calcMediaAploRegioni' />" >
+					<button type="button" class="btn btn-success">
+						<span class="glyphicon glyphicon-stats"></span>
+					</button>
+					</a>
+			   		Aggiorna
+			   		</h4>
+			    </div>
+		    </c:if>
+			<table id="aploregioni">
+				<thead>
+					<tr>
+						<th>Regione</th>
+						<th>Campioni</th>
+						<th>E1b1b</th>
+						<th>G2a</th>
+						<th>I1</th>
+						<th>I2</th>
+						<th>J1</th>
+						<th>J2</th>
+						<th>R1a</th>
+						<th>R1b</th>
+						<th>T</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${ydnaReg}" var="yr">
+						<tr>
+							<td>${yr.regione}</td>
+							<td>${yr.campioni}</td>
+							<td>${yr.e1b1b}</td>
+							<td>${yr.g2a}</td>
+							<td>${yr.i1}</td>
+							<td>${yr.i2}</td>
+							<td>${yr.j1}</td>
+							<td>${yr.j2}</td>
+							<td>${yr.r1a}</td>
+							<td>${yr.r1b}</td>
+							<td>${yr.t}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+		      	
 		</div>
 		    
 		<!-- End About --> 
