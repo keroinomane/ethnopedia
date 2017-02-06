@@ -90,8 +90,6 @@ public class UserController {
     
     @RequestMapping(value = "/statistiche", method = RequestMethod.GET)
     public String statistiche(Model model) {
-    	List<TableYdna> ydnaReg = statService.findAll();
-		model.addAttribute("ydnaReg",ydnaReg);
 		return "statistiche";
     }
     
@@ -127,7 +125,7 @@ public class UserController {
 		}	
 		List<TableYdna> ydnaReg = statService.findAll();
 		model.addAttribute("ydnaReg",ydnaReg);
-		return "statistiche";
+		return "aploRegioni";
     }
     
     @RequestMapping(value = " /insertYdna/{id}", method=RequestMethod.GET)
@@ -523,6 +521,13 @@ public class UserController {
     public String howToRawGenoNext(Model model) {
 
         return "howToRawGenoNext";
+    }
+    
+    @RequestMapping(value = "/aploRegioni", method = RequestMethod.GET)
+    public String aploRegioni(Model model) {
+    	List<TableYdna> ydnaReg = statService.findAll();
+		model.addAttribute("ydnaReg",ydnaReg);
+        return "aploRegioni";
     }
     
     @RequestMapping(value = "/aggiorna", method = RequestMethod.POST)
