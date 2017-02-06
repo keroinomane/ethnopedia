@@ -112,19 +112,21 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${ydnaReg}" var="yr">
-						<tr>
-							<td>${yr.regione}</td>
-							<td>${yr.campioni}</td>
-							<td>${yr.e1b1b}</td>
-							<td>${yr.g2a}</td>
-							<td>${yr.i1}</td>
-							<td>${yr.i2}</td>
-							<td>${yr.j1}</td>
-							<td>${yr.j2}</td>
-							<td>${yr.r1a}</td>
-							<td>${yr.r1b}</td>
-							<td>${yr.t}</td>
-						</tr>
+						<c:if test="${yr.campioni > 15}">
+							<tr>
+								<td>${yr.regione}</td>
+								<td>${yr.campioni}</td>
+								<td>${yr.e1b1b}</td>
+								<td>${yr.g2a}</td>
+								<td>${yr.i1}</td>
+								<td>${yr.i2}</td>
+								<td>${yr.j1}</td>
+								<td>${yr.j2}</td>
+								<td>${yr.r1a}</td>
+								<td>${yr.r1b}</td>
+								<td>${yr.t}</td>
+							</tr>
+						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
