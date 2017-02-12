@@ -43,4 +43,20 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     @Query(value = "SELECT distinct(regione) FROM ydna", nativeQuery=true)
 	public List<String> getRegioni();
     
+    @Query(value = "SELECT distinct(clade) FROM ydna WHERE aplogruppo = ?1 AND clade IS NOT NULL", nativeQuery=true)
+	public List<String> getCladiByAplo(String aplo);
+    
+    @Query(value = "SELECT distinct(subclade) FROM ydna WHERE clade = ?1 AND subclade IS NOT NULL", nativeQuery=true)
+	public List<String> getSubcladiByClade(String clade);
+    
+    @Query(value = "select count(*) from ydna y where y.clade = ?1 and y.regione = ?2", 
+    		nativeQuery=true
+    )
+	public int countCladeRegio(String clade, String regione);
+    
+    @Query(value = "select count(*) from ydna y where y.subclade = ?1 and y.regione = ?2", 
+    		nativeQuery=true
+    )
+	public int countSubcladeRegio(String subclade, String regione);
+    
 }

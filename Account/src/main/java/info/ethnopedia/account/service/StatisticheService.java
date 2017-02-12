@@ -12,5 +12,7 @@ public interface StatisticheService {
 	int countRegio(String regio);
 	void save(TableYdna tableYdna);
 	List<TableYdna> findAll();
+	int countCladeRegio(String clade, String regio);
+	int countSubcladeRegio(String subclade, String regio);
 	
 }

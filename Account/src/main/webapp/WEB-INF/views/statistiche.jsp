@@ -97,7 +97,7 @@
 								</a>
 							</td>
 							<td align="center">
-								<a href="${contextPath}/aploRegioni">
+								<a href="${contextPath}/diffusioneCladi">
 								<button type="button" class="btn btn-warning">
 									Diffusione di un clade
 								</button>

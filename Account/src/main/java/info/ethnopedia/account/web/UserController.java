@@ -2,6 +2,7 @@ package info.ethnopedia.account.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,7 +18,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.WordUtils;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,13 +27,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.Eutest;
+import info.ethnopedia.account.model.Frequenza;
 import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.MtdnaBozza;
 import info.ethnopedia.account.model.MtdnaId;
-import info.ethnopedia.account.model.Partecipante;
+import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.UserDati;
 import info.ethnopedia.account.model.Ydna;
@@ -49,7 +53,6 @@ import info.ethnopedia.account.service.UserDatiService;
 import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
 import info.ethnopedia.account.validator.UserValidator;
-import info.ethnopedia.account.model.TableYdna;
 
 @Controller
 public class UserController {
@@ -91,6 +94,57 @@ public class UserController {
     @RequestMapping(value = "/statistiche", method = RequestMethod.GET)
     public String statistiche(Model model) {
 		return "statistiche";
+    }
+    
+    @RequestMapping(value = "/diffusioneCladi", method = RequestMethod.GET)
+    public String diffusioneCladi(Model model) {
+		return "diffusioneCladi";
+    }
+    
+    @RequestMapping(value = "/calcolaFrequenzaClade", method = RequestMethod.GET)
+    public String CalcolaFrequenzaClade(@RequestParam(value = "checkSubclade", required = false) String checkSubclade,
+    		String aplogruppi, String cladi, String subcladi, Model model) {
+    		
+    		CladeFreqRegionali cfr = null;
+    		
+    		List<Frequenza> frequenze = new ArrayList<Frequenza>();
+    		List<String> regioni = statService.getRegioni();
+    		Iterator<String> it = regioni.iterator();
+    		while (it.hasNext()) {
+    			String regione = it.next();
+    			int campioni = statService.countRegio(regione);
+    			double tot = 0;
+    			String nome;
+    			if (checkSubclade != null) {
+    				tot = statService.countSubcladeRegio(subcladi, regione);
+    				nome = subcladi;
+    			} else {
+    				tot = statService.countCladeRegio(cladi, regione);
+    				nome = cladi;
+    			}
+    			tot /= campioni;
+    			tot *= 10000;
+    			tot = (int) tot;
+    			tot /= 100;
+    			frequenze.add(new Frequenza (regione, tot, campioni));
+    			cfr = new CladeFreqRegionali(aplogruppi+"-"+nome,frequenze);
+    		}
+    		
+    		model.addAttribute("cfr",cfr);
+    		
+		return "diffusioneCladi";
+    }
+    
+    @RequestMapping(value = "/getCladiByAplo", method=RequestMethod.GET, produces="application/json")
+    @ResponseBody
+    public List<String> getCladiByAplo(@RequestParam("aplo") String aplo) {
+        return ydnaService.getCladiByAplo(aplo);
+    }
+    
+    @RequestMapping(value = "/getSubcladiByClade", method=RequestMethod.GET, produces="application/json")
+    @ResponseBody
+    public List<String> getSubcladiByClade(@RequestParam("clade") String clade) {
+        return ydnaService.getSubcladiByClade(clade);
     }
     
     @RequestMapping(value = " /calcMediaAploRegioni", method=RequestMethod.GET)
@@ -362,9 +416,6 @@ public class UserController {
 		
 		EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);
 		
-		
-		
-		
 	} catch (Exception e) {
 		resultMessage = "Exception in uploading file.";
 	} 
@@ -389,21 +440,11 @@ public class UserController {
         ModelAndView modelAndView=new ModelAndView("result"); 
 		
 		resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br>Ti manderemo una mail quando l\'elaborazione è finita.";
-		
-		/*
-		String content = "Cognome: " + cognome + "\nnome: " + nome + "\nmtDNA: " + aplogruppoM + "\nprovincia materna: " + provinciaM;
-		
-		try {
-			EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		*/
+	
 		MtdnaBozza mb = new MtdnaBozza(username, cognome, nome, aplogruppoM, provinciaM);
 		bozzaService.save(mb);
 		modelAndView.addObject("message", resultMessage);
      
-    
 	return modelAndView;
 }
     	

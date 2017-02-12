@@ -42,6 +42,14 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public int countRegio(String regio) {
 		return yrep.countRegio(regio);
 	}
+	@Override
+	public int countCladeRegio(String clade, String regio) {
+		return yrep.countCladeRegio(clade, regio);
+	}
+	@Override
+	public int countSubcladeRegio(String subclade, String regio) {
+		return yrep.countSubcladeRegio(subclade, regio);
+	}
 
 	@Override
 	public void save(TableYdna tableYdna) {
