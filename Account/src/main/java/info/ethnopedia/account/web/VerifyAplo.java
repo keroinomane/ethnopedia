@@ -16,7 +16,7 @@ public class VerifyAplo {
 			);
 		} else if (test.equals("genoNext")) {
 			return (				
-					(aplo.equals("e") && StringUtils.contains(rawdata, "\"M96\",\"Y\",\"GG\"") && StringUtils.contains(rawdata, clade)) ||
+					(aplo.equals("e") && StringUtils.contains(rawdata, "\"P29\",\"Y\",\"CC\"") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("g") && StringUtils.contains(rawdata, "\"M201\",\"Y\",\"TT\"") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("i") && StringUtils.contains(rawdata, "\"L846\",\"Y\",\"TT\"") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("j") && StringUtils.contains(rawdata, "\"CTS687\",\"Y\",\"AA\"") && StringUtils.contains(rawdata, clade)) ||
