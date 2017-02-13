@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import info.ethnopedia.account.model.Frequenza;
 import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.MtdnaBozza;
 import info.ethnopedia.account.model.MtdnaId;
+import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.UserDati;
@@ -106,7 +108,7 @@ public class UserController {
     		String aplogruppi, String cladi, String subcladi, Model model) {
     		
     		CladeFreqRegionali cfr = null;
-    		
+    		String nome="";
     		List<Frequenza> frequenze = new ArrayList<Frequenza>();
     		List<String> regioni = statService.getRegioni();
     		Iterator<String> it = regioni.iterator();
@@ -114,7 +116,7 @@ public class UserController {
     			String regione = it.next();
     			int campioni = statService.countRegio(regione);
     			double tot = 0;
-    			String nome;
+    			
     			if (checkSubclade != null) {
     				tot = statService.countSubcladeRegio(subcladi, regione);
     				nome = subcladi;
@@ -127,9 +129,9 @@ public class UserController {
     			tot = (int) tot;
     			tot /= 100;
     			frequenze.add(new Frequenza (regione, tot, campioni));
-    			cfr = new CladeFreqRegionali(aplogruppi+"-"+nome,frequenze);
-    		}
-    		
+    			
+    		}  
+    		cfr = new CladeFreqRegionali(aplogruppi+"-"+nome,frequenze);
     		model.addAttribute("cfr",cfr);
     		
 		return "diffusioneCladi";
@@ -569,6 +571,13 @@ public class UserController {
     	List<TableYdna> ydnaReg = statService.findAll();
 		model.addAttribute("ydnaReg",ydnaReg);
         return "aploRegioni";
+    }
+    
+    @RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
+    public String aploMtdnaMacroregioni(Model model) {
+    	List<TableMtdna> mtdnaMacroreg = statService.findAllMtdnaMacroreg();
+		model.addAttribute("mtdnaMacroreg",mtdnaMacroreg);
+        return "aploMtdnaMacroregioni";
     }
     
     @RequestMapping(value = "/aggiorna", method = RequestMethod.POST)

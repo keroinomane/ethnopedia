@@ -52,7 +52,7 @@
 		  <div id="wrapper"> 
 		    <!-- Begin Intro -->
 		    <div class="intro">
-		      <h1>Aplogruppi per regione</h1>
+		      <h1>Aplogruppi Y-DNA per regione</h1>
 			</div>
 		    <!-- End Intro --> 
 		<div class="container">
@@ -101,15 +101,15 @@
 								<tr>
 									<td>${yr.regione}</td>
 									<td>${yr.campioni}</td>
-									<td>${yr.e1b1b}</td>
-									<td>${yr.g2a}</td>
-									<td>${yr.i1}</td>
-									<td>${yr.i2}</td>
-									<td>${yr.j1}</td>
-									<td>${yr.j2}</td>
-									<td>${yr.r1a}</td>
-									<td>${yr.r1b}</td>
-									<td>${yr.t}</td>
+									<td>${yr.e1b1b}%</td>
+									<td>${yr.g2a}%</td>
+									<td>${yr.i1}%</td>
+									<td>${yr.i2}%</td>
+									<td>${yr.j1}%</td>
+									<td>${yr.j2}%</td>
+									<td>${yr.r1a}%</td>
+									<td>${yr.r1b}%</td>
+									<td>${yr.t}%</td>
 								</tr>
 							</c:if>
 						</c:forEach>

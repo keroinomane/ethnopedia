@@ -80,10 +80,11 @@
 								</button>
 								</a>
 							</td>
+							<!--  
 							<td align="center">
-								<a href="${contextPath}/aploRegioni">
+								<a href="${contextPath}/aploMtdnaMacroregioni">
 								<button type="button" class="btn btn-warning">
-									Aplogruppi mtDNA<br>per ogni regione
+									Aplogruppi mtDNA<br>per macroregione
 								</button>
 								</a>
 							</td>
@@ -96,6 +97,7 @@
 								</button>
 								</a>
 							</td>
+							-->
 							<td align="center">
 								<a href="${contextPath}/diffusioneCladi">
 								<button type="button" class="btn btn-warning">

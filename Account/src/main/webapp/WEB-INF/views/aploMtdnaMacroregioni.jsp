@@ -28,71 +28,13 @@
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script> 
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery.dataTables.min.js"></script> 
 		<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-		<style type="text/css">
-			#seleziona {
-				width: 75%;
-			}
-			.bordi {
-				border:none;
-			}
-		</style>
+		
 		<script type="text/javascript">
 			$(document).ready(function(){
-			    $('#cladeRegioni').DataTable( {
-			    	"sDom": 'rt',
-			    	paging: false
+			    $('#aplomacroregioni').DataTable( {
 			    } );
-			    viewCladi();
 			});
-			
-			function viewCladi() {
-				reset();
-	            $.ajax({
-	            	type: 'get', 
-	            	dataType: 'json',
-	            	url: "${contextPath}/getCladiByAplo",
-	            	data:'aplo='+ $('#aplogruppi').val(),
-	            	success: function (data) {
-	            		$('#cladi').find('option').remove().end();
-				        $.each(data, function (i, item) {
-				           	$('#cladi').append($('<option>', { 
-				           		value: item,
-				           	    text : item
-				           	}));
-				        });
-			        }
-	           	});
-			}
-			
-			function viewSubcladi() {
-				
-				if ($('#checkSubclade').is(':checked')) {
-		            $.ajax({
-		            	type: 'get', 
-		            	dataType: 'json',
-		            	url: "${contextPath}/getSubcladiByClade",
-		            	data:'clade='+ $('#cladi').val(),
-		            	success: function (data) {
-		            		$('#subcladi').find('option').remove().end();
-					       	$.each(data, function (i, item) {
-					           	$('#subcladi').append($('<option>', { 
-					           		value: item,
-					           	    text : item
-					           	}));
-					       	});
-					       	$('#fClade').html("Frequenza "+$("#subcladi option:first").val());
-				        }
-		           	});
-				} else {
-					reset();
-				}
-			};
-			
-			function reset() {
-				$('#checkSubclade').prop('checked', false);
-				$('#subcladi').find('option').remove().end();
-			}
-    </script>
+		</script>
 	</head>
 	
 	<body>
@@ -110,7 +52,7 @@
 		  <div id="wrapper"> 
 		    <!-- Begin Intro -->
 		    <div class="intro">
-		      <h1>Diffusione di un clade</h1>
+		      <h1>Aplogruppi mtDNA per macroregione</h1>
 			</div>
 		    <!-- End Intro --> 
 		<div class="container">
@@ -125,71 +67,89 @@
 			    </c:if>
 			    <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
 				<br>
-				<div>
-					<h4>
-					Seleziona il clade desiderato:
-				   	</h4>
-				   	<form action="${contextPath}/calcolaFrequenzaClade" method="get">
-					   	<table id="seleziona" class="bordi">
-					   		<tr class="bordi">
-					   			<td class="bordi">
-								   	<label>Aplogruppo:</label>
-								   	<select name="aplogruppi" id ="aplogruppi" onchange="viewCladi()">
-										<option value="E1b1b">E1b1b</option>
-										<option value="G2a">G2a</option>
-										<option value="I1">I1</option>
-										<option value="I2">I2</option>
-										<option value="J1">J1</option>
-										<option value="J2">J2</option>
-										<option value="R1a">R1a</option>
-										<option value="R1b">R1b</option>
-										<option value="T">T</option>
-								   	</select>
-								</td>
-								<td class="bordi">
-								   	<label>Clade:</label>
-								   	<select name="cladi" id ="cladi" onchange="viewSubcladi()">
-								   	</select>
-								</td>
-								<td class="bordi">
-								   	<input type="checkbox" id="checkSubclade" name ="checkSubclade" onchange="viewSubcladi()"></input>
-								   	<label>Subclade:</label>
-								   	<select name="subcladi" id ="subcladi">
-								   	</select>
-								   	<i>(In fase sperimentale)</i>
-								</td>
-								<td class="bordi">
-									<button id="invia" type="submit">
-			    						Cerca
-			    					</button>
-								</td>
-							</tr>
-					   	</table>
-				   	</form>
-				</div>
-			    
-			    <br>
-			    
-			    <c:if test="${cfr != null}">
-				    <table id="cladeRegioni" style="width:50%">
-						<thead>
-							<tr>
-								<th width="50%">Regione</th>
-								<th>${cfr.nome}</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${cfr.frequenzePerOgniRegione}" var="fr">
-								<c:if test="${fr.campioni > 15}">
-									<tr>
-										<td>${fr.regione}</td>
-										<td>${fr.frequenza}%</td>
-									</tr>
-								</c:if>
-							</c:forEach>
-						</tbody>
-					</table>
-				</c:if>
+				<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
+					<div>
+				   		<h4>
+				   		<a style="text-decoration: none" href="<c:url value='/calcMediaAploRegioni' />" >
+						<button type="button" class="btn btn-success">
+							<span class="glyphicon glyphicon-stats"></span>
+						</button>
+						</a>
+				   		Aggiorna
+				   		</h4>
+				    </div>
+			    </c:if>
+				<table id="aplomacroregioni">
+					<thead>
+						<tr>
+							<th>Regione</th>
+							<th>Campioni</th>
+							<th>H</th> 
+							  <th>H1</th> 
+							  <th>H2</th> 
+							  <th>H3</th> 
+							  <th>H4</th> 
+							  <th>H5</th> 
+							  <th>HV</th> 
+							  <th>I</th> 
+							  <th>J</th> 
+							  <th>K</th> 
+							  <th>L</th> 
+							  <th>M</th> 
+							  <th>N</th> 
+							  <th>R</th> 
+							  <th>T</th> 
+							  <th>T1</th> 
+							  <th>T2</th> 
+							  <th>U2</th> 
+							  <th>U3</th> 
+							  <th>U4</th> 
+							  <th>U5</th> 
+							  <th>U6</th> 
+							  <th>U8</th> 
+							  <th>V</th> 
+							  <th>W</th> 
+							  <th>X</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${mtdnaMacroreg}" var="mm">
+							<c:if test="${mm.campioni < 4}">
+								<tr>
+									<td>${mm.macroregione}</td>
+									<td>${mm.campioni}</td>
+									<td>${mm.h}</td>
+									<td>${mm.h1}</td>
+									<td>${mm.h2}</td>
+									<td>${mm.h3}</td>
+									<td>${mm.h4}</td>
+									<td>${mm.h5}</td>
+									<td>${mm.hv}</td>
+									<td>${mm.i}</td>
+									<td>${mm.j}</td>
+									<td>${mm.k}</td>
+									<td>${mm.l}</td>
+									<td>${mm.m}</td>
+									<td>${mm.n}</td>
+									<td>${mm.r}</td>
+									<td>${mm.j}</td>
+									<td>${mm.t}</td>
+									<td>${mm.t1}</td>
+									<td>${mm.t2}</td>
+									<td>${mm.u2}</td>
+									<td>${mm.u3}</td>
+									<td>${mm.u4}</td>
+									<td>${mm.u5}</td>
+									<td>${mm.u6}</td>
+									<td>${mm.u8}</td>
+									<td>${mm.v}</td>
+									<td>${mm.w}</td>
+									<td>${mm.x}</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
 		    </c:if>  	
 		</div>
 		    

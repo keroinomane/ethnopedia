@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
+import info.ethnopedia.account.repository.TableMtdnaRepository;
 import info.ethnopedia.account.repository.TableYdnaRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
 
@@ -14,6 +16,9 @@ public class StatisticheServiceImpl implements StatisticheService {
 	
 	@Autowired
 	private TableYdnaRepository tyrep;
+	
+	@Autowired
+	private TableMtdnaRepository tmrep;
 	
 	@Autowired
 	private YdnaRepository yrep;
@@ -59,6 +64,11 @@ public class StatisticheServiceImpl implements StatisticheService {
 	@Override
 	public List<TableYdna> findAll() {
 		return tyrep.findAll();
+	}
+
+	@Override
+	public List<TableMtdna> findAllMtdnaMacroreg() {
+		return tmrep.findAll();
 	}
 
 }

@@ -27,6 +27,11 @@
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-3.0.0.min.js"></script> 
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+	<style>
+		.eutest {
+			text-align:center;
+		}
+	</style>
 </head>
 
 <body>
@@ -62,57 +67,70 @@
         <c:if test="${userDati != null}">
         	<br>
 			<table style="border: none;">
-			<tr style="border: none;">
-				<td style="border: none;" width=25%>
-				<table>
-					<tr><td width=50%>Cognome</td><td><c:out value="${userDati.cognome}" /></td></tr>
-					<tr><td>Nome</td><td><c:out value="${userDati.nome}" /></td></tr>
-				</table>
-				</td>
-				<td style="border: none;" width=40%>
-					<table>
-						<tr><td colspan=2 style="text-align:center"><b>Y-DNA</b></td></tr>
-						<tr><td>Aplogruppo</td><td><a data-balloon="${infoaplo}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.ydnaId.aplogruppo}"/></u></b></a></td></tr>
-						<tr><td>Clade</td>
-							<td>
-								<c:if test="${infoclade != null}">
-									<a data-balloon="${infoclade}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.clade}" /></u></b></a>
-								</c:if>
-								<c:if test="${infoclade == null}">
-									<c:out value="${ydna.clade}" />
-								</c:if>
-							</td>
-						</tr>
-						<tr><td>Subclade</td><td><c:out value="${ydna.subclade}" /></td></tr>
-						<tr><td>Deepest known clade</td><td><c:out value="${ydna.downstream}" /></td></tr>
-						<tr><td>Provincia</td><td><c:out value="${ydna.ydnaId.provincia}" /></td></tr>
-					</table>
-				</td>
-				<td style="border: none;" width=35%>
-					<c:if test="${mtdna == null}">
+				<tr style="border: none;">
+					<td style="border: none;" width=25% rowspan="2">
 						<table>
-							<tr><td style="text-align:center"><b>mtDNA</b></td></tr>
-							<tr><td>
-								<div align=center>
-								Non hai inserito i tuoi dati genetici materni.<br>
-								<a href="/account/inserisciMtdna">Inseriscili!</a><br><br>
-								Se li hai già inseriti, li stiamo elaborando.<br>
-								Ti manderemo una mail quando l'elaborazione è finita.
-								</div>
+							<tr><td width=50%>Cognome</td><td><c:out value="${userDati.cognome}" /></td></tr>
+							<tr><td>Nome</td><td><c:out value="${userDati.nome}" /></td></tr>
+						</table>
+					</td>
+					<td style="border: none;" width=40% rowspan="2">
+						<table>
+							<tr><td colspan=2 style="text-align:center"><b>Y-DNA</b></td></tr>
+							<tr><td>Aplogruppo</td><td><a data-balloon="${infoaplo}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.ydnaId.aplogruppo}"/></u></b></a></td></tr>
+							<tr><td>Clade</td>
+								<td>
+									<c:if test="${infoclade != null}">
+										<a data-balloon="${infoclade}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.clade}" /></u></b></a>
+									</c:if>
+									<c:if test="${infoclade == null}">
+										<c:out value="${ydna.clade}" />
+									</c:if>
+								</td>
+							</tr>
+							<tr><td>Subclade</td><td><c:out value="${ydna.subclade}" /></td></tr>
+							<tr><td>Deepest known clade</td><td><c:out value="${ydna.downstream}" /></td></tr>
+							<tr><td>Provincia</td><td><c:out value="${ydna.ydnaId.provincia}" /></td></tr>
+						</table>
+					</td>
+					<td style="border: none;" width=35%>
+						<c:if test="${mtdna == null}">
+							<table>
+								<tr><td style="text-align:center"><b>mtDNA</b></td></tr>
+								<tr><td>
+									<div align=center>
+									Non hai inserito i tuoi dati genetici materni.<br>
+									<a href="/account/inserisciMtdna">Inseriscili!</a><br><br>
+									Se li hai già inseriti, li stiamo elaborando.<br>
+									Ti manderemo una mail quando l'elaborazione è finita.
+									</div>
+								</td></tr>
+							</table>
+						</c:if>
+						<c:if test="${mtdna != null}">
+							<table>
+							<tr><td colspan=2 style="text-align:center"><b>mtDNA</b></td></tr>
+							<tr><td>Aplogruppo</td><td>
+							<c:out value="${mtdna.mtdnaId.aplogruppo}" />
 							</td></tr>
-						</table>
-					</c:if>
-					<c:if test="${mtdna != null}">
-						<table>
-						<tr><td colspan=2 style="text-align:center"><b>mtDNA</b></td></tr>
-						<tr><td>Aplogruppo</td><td>
-						<c:out value="${mtdna.mtdnaId.aplogruppo}" />
-						</td></tr>
-						<tr><td>Aplogruppo completo</td><td><c:out value="${mtdna.clade}" /></td></tr>
-						<tr><td>Provincia</td><td><c:out value="${mtdna.mtdnaId.provincia}" /></td></tr>
-						</table>
-					</c:if>
-				</td></tr>
+							<tr><td>Aplogruppo completo</td><td><c:out value="${mtdna.clade}" /></td></tr>
+							<tr><td>Provincia</td><td><c:out value="${mtdna.mtdnaId.provincia}" /></td></tr>
+							</table>
+						</c:if>
+					</td>
+				</tr>
+				<tr style="border: none;">
+					<td style="border: none; text-align:right;">
+						<h4>
+					        <a style="text-decoration: none" href="<c:url value='/statistiche' />" >
+						        <button type="button" class="btn btn-success">
+									<span class="glyphicon glyphicon-stats"></span>
+								</button>
+							</a>&nbsp
+					        Statistiche
+					    </h4>
+					</td>
+				</tr>
 			</table>
 			<c:if test="${userDati.autosomal == null}">
 				<form action="${contextPath}/aggiorna" method="post">
@@ -140,36 +158,28 @@
 			<c:if test="${userDati.autosomal == true}">
 				<c:if test="${eutest != null}">
 					<br>
-					<table>
+					<table id="fissato">
 				    	<tr>
-				    		<td align=center><b>South Baltic</b></td>
-					    		<td align=center><b>East Euro</b></td>
-					    		<td align=center><b>North Central Euro</b></td>
-					    		<td align=center><b>Atlantic</b></td>
-					    		<td align=center><b>West Med</b></td>
-								<td align=center><b>East Med</b></td>
-								<td align=center><b>West Asian</b></td>
-								<td align=center><b>Middle Eastern</b></td>
-								<td align=center><b>South Asian</b></td>
-								<td align=center><b>East African</b></td>
-								<td align=center><b>East Asian</b></td>
-								<td align=center><b>Siberian</b></td>
-								<td align=center><b>West African</b></td>
+				    			<th align=center class="eutest"><b>Baltic</b></th>
+					    		<th align=center class="eutest"><b>Nordic</b></th>
+					    		<th align=center class="eutest"><b>Atlantic</b></th>
+					    		<th align=center class="eutest"><b>West Med</b></th>
+								<th align=center class="eutest"><b>East Med</b></th>
+								<th align=center class="eutest"><b>West Asian</b></th>
+								<th align=center class="eutest"><b>MENA</b></th>
+								<th align=center class="eutest"><b>Asian</b></th>
+								<th align=center class="eutest"><b>African</b></th>
 				    	</tr>
 				    	<tr>
-				    		<td align=center>${eutest.baltic}%</td>
-							<td align=center>${eutest.easteuro}%</td>
+				    		<td align=center><c:out value="${eutest.baltic + eutest.easteuro}%" /></td>
 							<td align=center>${eutest.northcentraleuro}%</td>
 							<td align=center>${eutest.atlantic}%</td>
 							<td align=center>${eutest.westmed}%</td>
 							<td align=center>${eutest.eastmed}%</td>
 							<td align=center>${eutest.westasian}%</td>
 							<td align=center>${eutest.middleastern}%</td>
-							<td align=center>${eutest.southasian}%</td>
-							<td align=center>${eutest.eastafrican}%</td>
-							<td align=center>${eutest.eastasian}%</td>
-							<td align=center>${eutest.siberian}%</td>
-							<td align=center>${eutest.westafrican}%</td>
+							<td align=center>${eutest.southasian + eastasian + siberian}%</td>
+							<td align=center>${eutest.westafrican + eastafrican}%</td>
 				    	</tr>
 		    		</table>
     			</c:if>
@@ -183,7 +193,9 @@
 						<a href="/account/inserisciEutest">Inseriscili!</a>
 					</div>
     			</c:if>
+    			
     		</c:if>
+    		
 		</c:if>
 		<c:if test="${userDati == null}">
 			<br><br><br>
