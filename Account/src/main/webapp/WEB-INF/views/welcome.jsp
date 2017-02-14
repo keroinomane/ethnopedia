@@ -1,5 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -171,7 +173,8 @@
 								<th align=center class="eutest"><b>African</b></th>
 				    	</tr>
 				    	<tr>
-				    		<td align=center><c:out value="${eutest.baltic + eutest.easteuro}%" /></td>
+				    		<c:set var="baltico"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.baltic + eutest.easteuro}" /></c:set>
+				    		<td align=center>${fn:replace(baltico, ",", ".")}%</td>
 							<td align=center>${eutest.northcentraleuro}%</td>
 							<td align=center>${eutest.atlantic}%</td>
 							<td align=center>${eutest.westmed}%</td>
