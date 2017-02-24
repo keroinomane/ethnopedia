@@ -29,12 +29,6 @@
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery.dataTables.min.js"></script> 
 		<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 		
-		<script type="text/javascript">
-			$(document).ready(function(){
-			    $('#aplomacroregioni').DataTable( {
-			    } );
-			});
-		</script>
 	</head>
 	
 	<body>
@@ -70,7 +64,7 @@
 				<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
 					<div>
 				   		<h4>
-				   		<a style="text-decoration: none" href="<c:url value='/calcMediaAploRegioni' />" >
+				   		<a style="text-decoration: none" href="<c:url value='aggiornaAploMtdnaMacroregioni' />" >
 						<button type="button" class="btn btn-success">
 							<span class="glyphicon glyphicon-stats"></span>
 						</button>
@@ -79,77 +73,11 @@
 				   		</h4>
 				    </div>
 			    </c:if>
-				<table id="aplomacroregioni">
-					<thead>
-						<tr>
-							<th>Regione</th>
-							<th>Campioni</th>
-							<th>H</th> 
-							  <th>H1</th> 
-							  <th>H2</th> 
-							  <th>H3</th> 
-							  <th>H4</th> 
-							  <th>H5</th> 
-							  <th>HV</th> 
-							  <th>I</th> 
-							  <th>J</th> 
-							  <th>K</th> 
-							  <th>L</th> 
-							  <th>M</th> 
-							  <th>N</th> 
-							  <th>R</th> 
-							  <th>T</th> 
-							  <th>T1</th> 
-							  <th>T2</th> 
-							  <th>U2</th> 
-							  <th>U3</th> 
-							  <th>U4</th> 
-							  <th>U5</th> 
-							  <th>U6</th> 
-							  <th>U8</th> 
-							  <th>V</th> 
-							  <th>W</th> 
-							  <th>X</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${mtdnaMacroreg}" var="mm">
-							<c:if test="${mm.campioni < 4}">
-								<tr>
-									<td>${mm.macroregione}</td>
-									<td>${mm.campioni}</td>
-									<td>${mm.h}</td>
-									<td>${mm.h1}</td>
-									<td>${mm.h2}</td>
-									<td>${mm.h3}</td>
-									<td>${mm.h4}</td>
-									<td>${mm.h5}</td>
-									<td>${mm.hv}</td>
-									<td>${mm.i}</td>
-									<td>${mm.j}</td>
-									<td>${mm.k}</td>
-									<td>${mm.l}</td>
-									<td>${mm.m}</td>
-									<td>${mm.n}</td>
-									<td>${mm.r}</td>
-									<td>${mm.j}</td>
-									<td>${mm.t}</td>
-									<td>${mm.t1}</td>
-									<td>${mm.t2}</td>
-									<td>${mm.u2}</td>
-									<td>${mm.u3}</td>
-									<td>${mm.u4}</td>
-									<td>${mm.u5}</td>
-									<td>${mm.u6}</td>
-									<td>${mm.u8}</td>
-									<td>${mm.v}</td>
-									<td>${mm.w}</td>
-									<td>${mm.x}</td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</tbody>
-				</table>
+				<img src="${contextPath}/resources/img/graficiMtdna/nord.png" width="100%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/centro.png" width="100%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/sud.png" width="100%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/sicilia.png" width="100%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/sardegna.png" width="100%"/>
 		    </c:if>  	
 		</div>
 		    

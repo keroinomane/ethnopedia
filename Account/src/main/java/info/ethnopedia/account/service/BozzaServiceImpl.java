@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import info.ethnopedia.account.model.MtdnaBozza;
-import info.ethnopedia.account.model.Partecipante;
 import info.ethnopedia.account.model.YdnaBozza;
 import info.ethnopedia.account.repository.MtdnaBozzaRepository;
-import info.ethnopedia.account.repository.PartecipanteRepository;
 import info.ethnopedia.account.repository.YdnaBozzaRepository;
 
 @Service
@@ -19,8 +17,6 @@ public class BozzaServiceImpl implements BozzaService {
 	private YdnaBozzaRepository yrep;
 	@Autowired
 	private MtdnaBozzaRepository mrep;
-	@Autowired
-	private PartecipanteRepository prep;
 	
 	@Override
 	public void save(YdnaBozza ydnaBozza) {
@@ -60,27 +56,6 @@ public class BozzaServiceImpl implements BozzaService {
 	@Override
 	public MtdnaBozza findMtdnaBozzaById(Long id) {
 		return mrep.findOne(id);
-	}
-
-	@Override
-	public void save(Partecipante partecipante) {
-		prep.save(partecipante);
-		
-	}
-
-	@Override
-	public List<Partecipante> findAllPartecipanti() {
-		return prep.findAll();
-	}
-
-	@Override
-	public Partecipante findPartecipanteById(Long id) {
-		return prep.findOne(id);
-	}
-
-	@Override
-	public Partecipante findPartecipanteInCorso() {
-		return prep.findPartecipanteInCorso();
 	}
 
 }

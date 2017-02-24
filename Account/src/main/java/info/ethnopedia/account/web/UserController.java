@@ -2,10 +2,10 @@ package info.ethnopedia.account.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,9 +35,11 @@ import org.springframework.web.servlet.ModelAndView;
 import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.Frequenza;
+import info.ethnopedia.account.model.FrequenzeMtdna;
 import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.MtdnaBozza;
 import info.ethnopedia.account.model.MtdnaId;
+import info.ethnopedia.account.model.PieChartData;
 import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.model.User;
@@ -575,8 +577,60 @@ public class UserController {
     
     @RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
     public String aploMtdnaMacroregioni(Model model) {
+        return "aploMtdnaMacroregioni";
+    }
+    
+    @RequestMapping(value = "/aggiornaAploMtdnaMacroregioni", method = RequestMethod.GET)
+    public String aggiornaAploMtdnaMacroregioni(Model model) throws IOException, IllegalArgumentException, IllegalAccessException {
+    	
+    	statService.deleteAllTableMtdna();
+		List<String> aplog = mtdnaService.getAplogruppi();
+		List<String> macroregioni = mtdnaService.getMacroregioni();
+		Collections.sort(macroregioni);
+		double[] campi = new double[aplog.size()];
+		Iterator<String> iterReg = macroregioni.iterator();
+		while (iterReg.hasNext()) {
+			String macroreg = iterReg.next();
+			Iterator<String> iterAplo = aplog.iterator();
+			int ciclo = 0;
+			int campioni = 0;
+	    	while (iterAplo.hasNext()) {
+	    		int ap;
+	    		String apl = iterAplo.next();
+	    		
+	    		ap = statService.countAploMtdnaMacroRegio(apl, macroreg);
+	        	double tot = statService.countMacroRegio(macroreg);
+	        	campioni = (int) tot;
+	        	tot = ap/tot*10000;
+	        	tot = (int)tot;
+	        	tot /= 100;
+	        	campi[ciclo] = tot;
+	        	ciclo++;
+	    	}
+	    	TableMtdna all = new TableMtdna(macroreg, campioni, campi);
+	    	statService.save(all);
+		}		
+		
     	List<TableMtdna> mtdnaMacroreg = statService.findAllMtdnaMacroreg();
-		model.addAttribute("mtdnaMacroreg",mtdnaMacroreg);
+    	
+    	Iterator<TableMtdna> it = mtdnaMacroreg.iterator();
+    	
+    	List<PieChartData> listPcd = new ArrayList<PieChartData>();
+    	while (it.hasNext()) {
+    		TableMtdna tm = it.next();
+    		if (tm.getCampioni() > 5) {
+	    		List<FrequenzeMtdna> listFm = new ArrayList<FrequenzeMtdna>();
+	    		for(Field f : tm.getClass().getDeclaredFields()) {
+	    			if (!f.getName().equals("macroregione") && !f.getName().equals("campioni"))
+	    				listFm.add(new FrequenzeMtdna(f.getName(),(double) f.get(tm)));
+	    		}
+	    		listPcd.add(new PieChartData(tm.getMacroregione(), listFm));
+    		}
+    	}
+    	Iterator<PieChartData> itPie = listPcd.iterator();
+    	while (itPie.hasNext()) {
+    		Grafico.create(itPie.next());
+    	}
         return "aploMtdnaMacroregioni";
     }
     

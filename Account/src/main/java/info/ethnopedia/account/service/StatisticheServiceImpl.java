@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
+import info.ethnopedia.account.repository.MtdnaRepository;
 import info.ethnopedia.account.repository.TableMtdnaRepository;
 import info.ethnopedia.account.repository.TableYdnaRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
@@ -22,10 +23,18 @@ public class StatisticheServiceImpl implements StatisticheService {
 	
 	@Autowired
 	private YdnaRepository yrep;
+	
+	@Autowired
+	private MtdnaRepository mrep;
 
 	@Override
 	public void deleteAllTableYdna() {
 		tyrep.deleteAll();
+	}
+	
+	@Override
+	public void deleteAllTableMtdna() {
+		tmrep.deleteAll();
 	}
 
 	@Override
@@ -47,6 +56,17 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public int countRegio(String regio) {
 		return yrep.countRegio(regio);
 	}
+	
+	@Override
+	public int countAploMtdnaMacroRegio(String aplo, String macroregio) {
+		return mrep.countAploMtdnaMacroRegio(aplo, macroregio);
+	}
+
+	@Override
+	public int countMacroRegio(String macroregio) {
+		return mrep.countMacroRegio(macroregio);
+	}
+	
 	@Override
 	public int countCladeRegio(String clade, String regio) {
 		return yrep.countCladeRegio(clade, regio);
@@ -55,10 +75,15 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public int countSubcladeRegio(String subclade, String regio) {
 		return yrep.countSubcladeRegio(subclade, regio);
 	}
-
+	
 	@Override
 	public void save(TableYdna tableYdna) {
 		tyrep.save(tableYdna);
+	}
+	
+	@Override
+	public void save(TableMtdna tableMtdna) {
+		tmrep.save(tableMtdna);
 	}
 
 	@Override

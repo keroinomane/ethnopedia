@@ -179,6 +179,13 @@
 		   <artifactId>jackson-mapper-asl</artifactId>
 		   <version>1.9.10</version>
 		  </dependency>
+		  
+		 <!-- Per grafici a torta -->
+		 <dependency>
+	        <groupId>org.knowm.xchart</groupId>
+	        <artifactId>xchart</artifactId>
+	        <version>3.2.2</version>
+	    </dependency>
 
 		
 	

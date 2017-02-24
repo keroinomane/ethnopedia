@@ -9,35 +9,35 @@ import javax.persistence.Table;
 @Table(name = "`macroregionimtdna`")
 public class TableMtdna implements java.io.Serializable {
 
-	private static final long serialVersionUID = 9085746423380269150L;
-	private String macroregione;
-	private int campioni;
-	private double h;
-	private double h1;
-	private double h2;
-	private double h3;
-	private double h4;
-	private double h5;
-	private double t;
-	private double t1;
-	private double t2;
-	private double u2;
-	private double u3;
-	private double u4;
-	private double u5;
-	private double u6;
-	private double u8;
-	private double j;
-	private double hv;
-	private double k;
-	private double n;
-	private double r;
-	private double i;
-	private double m;
-	private double w;
-	private double x;
-	private double l;
-	private double v;
+	public String macroregione;
+	public int campioni;
+	public double h;
+	public double h1;
+	public double h2;
+	public double h3;
+	public double h4;
+	public double h5;
+	public double t;
+	public double t1;
+	public double t2;
+	public double u1;
+	public double u2;
+	public double u3;
+	public double u4;
+	public double u5;
+	public double u6;
+	public double u8;
+	public double j;
+	public double hv;
+	public double k;
+	public double n;
+	public double r;
+	public double i;
+	public double m;
+	public double w;
+	public double x;
+	public double l;
+	public double v;
 	
 	public TableMtdna() {
 		
@@ -64,15 +64,16 @@ public class TableMtdna implements java.io.Serializable {
 		this.t = campi[14];
 		this.t1 = campi[15];
 		this.t2 = campi[16];
-		this.u2 = campi[17];
-		this.u3 = campi[18];
-		this.u4 = campi[19];
-		this.u5 = campi[20];
-		this.u6 = campi[21];
-		this.u8 = campi[22];
-		this.v = campi[23];
-		this.w = campi[24];
-		this.x = campi[25];
+		this.u1 = campi[17];
+		this.u2 = campi[18];
+		this.u3 = campi[19];
+		this.u4 = campi[20];
+		this.u5 = campi[21];
+		this.u6 = campi[22];
+		this.u8 = campi[23];
+		this.v = campi[24];
+		this.w = campi[25];
+		this.x = campi[26];
 	}
 
 
@@ -165,6 +166,14 @@ public class TableMtdna implements java.io.Serializable {
 
 	public void setT2(double t2) {
 		this.t2 = t2;
+	}
+	
+	public double getU1() {
+		return u1;
+	}
+
+	public void setU1(double u1) {
+		this.u1 = u1;
 	}
 
 	public double getU2() {

@@ -1,5 +1,7 @@
 package info.ethnopedia.account.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,15 @@ public class MtdnaServiceImpl implements MtdnaService {
 	@Override
 	public void save(Mtdna mtdna) {
 		mtdnaRepository.save(mtdna);
+	}
+
+	@Override
+	public List<String> getAplogruppi() {
+		return mtdnaRepository.getAplogruppi();
+	}
+	
+	@Override
+	public List<String> getMacroregioni() {
+		return mtdnaRepository.getMacroregioni();
 	}
 }

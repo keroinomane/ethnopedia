@@ -80,7 +80,6 @@
 								</button>
 								</a>
 							</td>
-							<!--  
 							<td align="center">
 								<a href="${contextPath}/aploMtdnaMacroregioni">
 								<button type="button" class="btn btn-warning">
@@ -90,6 +89,7 @@
 							</td>
 						</tr>
 						<tr>
+							<!-- 
 							<td align="center">
 								<a href="${contextPath}/aploRegioni">
 								<button type="button" class="btn btn-warning">
