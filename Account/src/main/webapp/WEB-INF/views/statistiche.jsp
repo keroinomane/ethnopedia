@@ -83,7 +83,8 @@
 							<td align="center">
 								<a href="${contextPath}/aploMtdnaMacroregioni">
 								<button type="button" class="btn btn-warning">
-									Aplogruppi mtDNA<br>per macroregione
+									Aplogruppi mtDNA<br>per macroregione<br>
+									<i>(in fase sperimentale)</i>
 								</button>
 								</a>
 							</td>

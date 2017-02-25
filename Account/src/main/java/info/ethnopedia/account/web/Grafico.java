@@ -49,7 +49,14 @@ public class Grafico {
 	    Iterator<FrequenzeMtdna> it = pcd.getFrequenzeMtdna().iterator();
 	    while (it.hasNext()) {
 	    	FrequenzeMtdna fm = it.next();
-	    	chart.addSeries(fm.getAplogruppo(), fm.getPercentuale());
+	    	String aplogruppo = null;
+	    	if (fm.getAplogruppo().equals("h"))
+	    		aplogruppo = "H*";
+	    	else if (fm.getAplogruppo().equals("t"))
+	    		aplogruppo = "T*";
+	    	else
+	    		aplogruppo = fm.getAplogruppo().toUpperCase();
+	    	chart.addSeries(aplogruppo, fm.getPercentuale());
 	    }
 
 	    // or save it in high-res
