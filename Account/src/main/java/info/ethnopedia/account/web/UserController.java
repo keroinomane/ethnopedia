@@ -624,7 +624,7 @@ public class UserController {
 	    			if (!f.getName().equals("macroregione") && !f.getName().equals("campioni"))
 	    				listFm.add(new FrequenzeMtdna(f.getName(),(double) f.get(tm)));
 	    		}
-	    		listPcd.add(new PieChartData(tm.getMacroregione(), listFm));
+	    		listPcd.add(new PieChartData(tm.getMacroregione(), tm.getCampioni(), listFm));
     		}
     	}
     	Iterator<PieChartData> itPie = listPcd.iterator();

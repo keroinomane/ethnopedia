@@ -72,18 +72,18 @@
 				   		Aggiorna
 				   		</h4>
 				    </div>
+				    <br>
 			    </c:if>
-			    <br>
 			    <b>N.B.</b><br>
 			    Con H* si intendono tutti gli aplogruppi discendenti da H ma negativi a H1, H2, H3, H4 e H5.
 			    <br>
 			    Con T* si intendono tutti gli aplogruppi discendenti da T ma negativi a T1 e T2.
 			    <br><br>
-				<img src="${contextPath}/resources/img/graficiMtdna/nord.png" width="100%"/>
-				<img src="${contextPath}/resources/img/graficiMtdna/centro.png" width="100%"/>
-				<img src="${contextPath}/resources/img/graficiMtdna/sud.png" width="100%"/>
-				<img src="${contextPath}/resources/img/graficiMtdna/sicilia.png" width="100%"/>
-				<img src="${contextPath}/resources/img/graficiMtdna/sardegna.png" width="100%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/nord.png" width="80%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/centro.png" width="80%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/sud.png" width="80%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/sicilia.png" width="80%"/>
+				<img src="${contextPath}/resources/img/graficiMtdna/sardegna.png" width="80%"/>
 		    </c:if>  	
 		</div>
 		    

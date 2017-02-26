@@ -36,7 +36,7 @@ public class Grafico {
 				break;
 		}
 	    // Create Chart
-	    PieChart chart = new PieChartBuilder().width(800).height(600).title(macroregione).theme(ChartTheme.GGPlot2).build();
+	    PieChart chart = new PieChartBuilder().width(550).height(450).title(macroregione + ", campioni " + pcd.getCampioni()).theme(ChartTheme.GGPlot2).build();
 
 	    // Customize Chart
 	    chart.getStyler().setLegendVisible(false);
