@@ -415,7 +415,8 @@ public class UserController {
 			bozzaService.save(mb);
 		} else {
 			content += "\n\nRaw data errati.";
-			resultMessage = "Hai inserito dati errati oppure il file da te inserito non è corretto.<br><a href=\"javascript:history.back()\"><b>Riprova!</b></a>";
+			resultMessage = "Hai inserito dati errati oppure il file da te inserito non è corretto.<br><a href=\"javascript:history.back()\"><b>Riprova!</b></a>"
+					+ "<br><br>You have entered wrong data or the uploaded file is not correct.<br><a href=\"javascript:history.back()\"><b>Try again!</b></a>";
 		}
 		
 		EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);

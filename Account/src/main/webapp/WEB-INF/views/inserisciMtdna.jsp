@@ -8,14 +8,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Inserisci aplogruppo mtDNA</title>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
-<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
-<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Inserisci aplogruppo mtDNA</title>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
+	<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
+	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
+	<style>
+		tr {
+			vertical-align: middle;
+		}
+	</style>
 </head>
 <body>
 <div id="container"> 
@@ -39,10 +44,10 @@
     <div id="about" align=center>
 	<form action="${contextPath}/insertMtDNA" method="post">
 		<br><br><br>
-		<table style="width:40%">
-		<tr><td>Aplogruppo mtDNA: </td><td align=center><input type="text" name="aplogruppoM" style="width: 155px;" /></td></tr>
+		<table style="width:50%">
+		<tr><td style="width:50%">Aplogruppo materno: </td><td align=center><input type="text" placeholder="Maternal haplogroup" name="aplogruppoM" style="width: 180px;" /></td></tr>
 		<tr><td>Provincia di origine della nonna materna: </td>
-		<td align=center><input type="text" name="provinciaM" style="width: 155px;"/><br><i>(o meglio ancora<br> della bisnonna)</i></td></tr>
+		<td align=center><input type="text" placeholder="Mother's mother's city of birth" name="provinciaM" style="width: 180px;"/><br><i>(o meglio ancora<br> della bisnonna)</i></td></tr>
 		</table>
 		<table style="width:40%;border:0">
 		<tr style="border:0"><td align=right style="border:0"><input type="submit" value="Invia"/></td></tr>

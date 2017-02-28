@@ -102,9 +102,16 @@
 								<tr><td>
 									<div align=center>
 									Non hai inserito i tuoi dati genetici materni.<br>
-									<a href="/account/inserisciMtdna">Inseriscili!</a><br><br>
+									<a href="/account/inserisciMtdna">Inseriscili!</a><br>
 									Se li hai già inseriti, li stiamo elaborando.<br>
-									Ti manderemo una mail quando l'elaborazione è finita.
+									Torna più tardi!
+									<br><br>
+									<small>
+										You haven't inserted your maternal haplogroup yet.<br>
+										<a href="/account/inserisciMtdna">Insert it!</a><br>
+										If you already inserted it, we're elaborating it.<br>
+										Come back later!
+									</small>
 									</div>
 								</td></tr>
 							</table>
@@ -123,6 +130,7 @@
 				</tr>
 				<tr style="border: none;">
 					<td style="border: none; text-align:right;">
+						<br>
 						<h4>
 					        <a style="text-decoration: none" href="<c:url value='/statistiche' />" >
 						        <button type="button" class="btn btn-success">
@@ -206,9 +214,19 @@
 					Non hai inserito i tuoi dati genetici.<br>
 					<a href="/account/inserisci">Inseriscili!</a>
 					<br>
-					<br>
 					Se li hai già inseriti, li stiamo elaborando.<br>
-					Ti manderemo una mail quando l'elaborazione è finita.
+					Torna più tardi!
+					
+					<br>
+					<br>
+					
+					<small>
+						You haven't inserted your genetic data yet.<br>
+						<a href="/account/inserisci">Insert them!</a>
+						<br>
+						If you already inserted them, we're elaborating them.<br>
+						Come back later!
+					</small>
 			</div>
 		</c:if>
 		

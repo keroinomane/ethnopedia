@@ -52,7 +52,9 @@
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
         <h2 class="form-signin-heading" align=center>Crea il tuo account</h2>
         <br>
-        <div align=center>Possono iscriversi solo gli utenti<br>che hanno fatto il test genetico.</div>
+        <div align=center>Possono iscriversi solo gli utenti<br>che hanno fatto il test genetico.<br>
+        <small>Only people who purchased DNA test can register.</small>
+        </div>
         <br>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -64,14 +66,14 @@
         
         <spring:bind path="nome">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="nome" class="form-control" placeholder="Nome"></form:input>
+                <form:input type="text" path="nome" class="form-control" placeholder="Nome / First name"></form:input>
                 <form:errors path="nome"></form:errors>
             </div>
         </spring:bind>
         
         <spring:bind path="cognome">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="cognome" class="form-control" placeholder="Cognome"></form:input>
+                <form:input type="text" path="cognome" class="form-control" placeholder="Cognome / Last name"></form:input>
                 <form:errors path="cognome"></form:errors>
             </div>
         </spring:bind>
@@ -101,7 +103,8 @@
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>
-    <div align=center>Il nome e il cognome devono essere veri.<br> Non verranno visualizzati pubblicamente.</div>
+    <div align=center>Il nome e il cognome devono essere veri.<br> Non verranno visualizzati pubblicamente.<br>
+    <small>For American people: please insert your original italian last name, if it has been changed in Ellis Island.</small></div>
 
 </div>
 <!-- /container -->
