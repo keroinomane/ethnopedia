@@ -1,5 +1,7 @@
 package info.ethnopedia.account.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,5 @@ public class EutestServiceImpl implements EutestService {
 	public void save(Eutest eutest) {
 		eutestRepository.save(eutest);
 	}
+	
 }

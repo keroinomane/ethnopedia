@@ -78,6 +78,7 @@
 				   		Aggiorna
 				   		</h4>
 				    </div>
+				    <br>
 			    </c:if>
 				<table id="aploregioni">
 					<thead>

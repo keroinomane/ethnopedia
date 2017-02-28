@@ -2,11 +2,16 @@ package info.ethnopedia.account.service;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
+import info.ethnopedia.account.repository.AutosomalRepository;
+import info.ethnopedia.account.repository.EutestRepository;
 import info.ethnopedia.account.repository.MtdnaRepository;
 import info.ethnopedia.account.repository.TableMtdnaRepository;
 import info.ethnopedia.account.repository.TableYdnaRepository;
@@ -22,11 +27,17 @@ public class StatisticheServiceImpl implements StatisticheService {
 	private TableMtdnaRepository tmrep;
 	
 	@Autowired
+	private AutosomalRepository arep;
+	
+	@Autowired
 	private YdnaRepository yrep;
 	
 	@Autowired
 	private MtdnaRepository mrep;
-
+	
+	@Autowired
+	private EutestRepository erep;
+    
 	@Override
 	public void deleteAllTableYdna() {
 		tyrep.deleteAll();
@@ -36,10 +47,20 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public void deleteAllTableMtdna() {
 		tmrep.deleteAll();
 	}
+	
+	@Override
+	public void deleteAllAutosomal() {
+		arep.deleteAll();
+	}
 
 	@Override
 	public List<String> getRegioni() {
 		return yrep.getRegioni();
+	}
+	
+	@Override
+	public List<String> getMacroregioniAutosomal() {
+		return erep.getMacroregioni();
 	}
 
 	@Override
@@ -85,6 +106,11 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public void save(TableMtdna tableMtdna) {
 		tmrep.save(tableMtdna);
 	}
+	
+	@Override
+	public void save(Autosomal autosomal) {
+		arep.save(autosomal);
+	}
 
 	@Override
 	public List<TableYdna> findAll() {
@@ -94,6 +120,56 @@ public class StatisticheServiceImpl implements StatisticheService {
 	@Override
 	public List<TableMtdna> findAllMtdnaMacroreg() {
 		return tmrep.findAll();
+	}
+
+	@Override
+	public List<Autosomal> findAllAutosomal() {
+		return arep.findAll();
+	}
+
+	
+    
+	@Override
+	public double countSumAdmixMacroregio(String admix, String mac) {
+		
+		double tot = 0;
+		
+		switch(admix) {
+			case "baltic":
+				tot = erep.mediaBaltic(mac);
+				break;
+			case "nordic":
+				tot = erep.mediaNordic(mac);
+				break;
+			case "mena":
+				tot = erep.mediaMena(mac);
+				break;
+			case "asian":
+				tot = erep.mediaAsian(mac);
+				break;
+			case "ssa":
+				tot = erep.mediaSsa(mac);
+				break;
+			case "atlantic":
+				tot = erep.mediaAtlantic(mac);
+				break;
+			case "westmed":
+				tot = erep.mediaWestmed(mac);
+				break;
+			case "eastmed":
+				tot = erep.mediaEastmed(mac);
+				break;
+			case "westasian":
+				tot = erep.mediaWestasian(mac);
+				break;
+		}
+		
+		return tot;
+	}
+
+	@Override
+	public int countAutoMacroregio(String macro) {
+		return erep.countAutoMacroregio(macro);
 	}
 
 }

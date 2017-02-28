@@ -1,5 +1,7 @@
 package info.ethnopedia.account.service;
 
+import java.util.List;
+
 import info.ethnopedia.account.model.Eutest;
 
 public interface EutestService {

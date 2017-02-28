@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.Frequenza;
@@ -576,9 +577,40 @@ public class UserController {
         return "aploRegioni";
     }
     
+    @RequestMapping(value = "/autosomal", method = RequestMethod.GET)
+    public String autosomal(Model model) {
+    	List<Autosomal> auto = statService.findAllAutosomal();
+		model.addAttribute("auto",auto);
+        return "autosomal";
+    }
+    
     @RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
     public String aploMtdnaMacroregioni(Model model) {
         return "aploMtdnaMacroregioni";
+    }
+    
+    @RequestMapping(value = "/aggiornaAutosomal", method = RequestMethod.GET)
+    public String aggiornaAutosomal(Model model) throws IOException, IllegalArgumentException, IllegalAccessException {
+    	
+    	statService.deleteAllAutosomal();
+    	String[] admix = new String[] {"baltic","nordic","atlantic","westmed","eastmed","westasian","mena","asian","ssa"};
+		List<String> macro = statService.getMacroregioniAutosomal();
+		Collections.sort(macro);
+		
+		Double[] valori = new Double[9];
+		Iterator<String> it = macro.iterator();
+		while (it.hasNext()) {
+			String mac = it.next();
+			int campioni = statService.countAutoMacroregio(mac);
+			for (int i=0; i<admix.length; i++) {
+				valori[i] = statService.countSumAdmixMacroregio(admix[i], mac);
+			}
+			Autosomal daje = new Autosomal(mac,campioni,valori[0],valori[1],valori[2],valori[3],valori[4],valori[5],valori[6],valori[7],valori[8]);
+	    	statService.save(daje);
+		}		
+		List<Autosomal> auto = statService.findAllAutosomal();
+		model.addAttribute("auto",auto);
+        return "autosomal";
     }
     
     @RequestMapping(value = "/aggiornaAploMtdnaMacroregioni", method = RequestMethod.GET)
