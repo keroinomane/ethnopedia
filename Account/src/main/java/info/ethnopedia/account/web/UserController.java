@@ -364,7 +364,6 @@ public class UserController {
 		fileFactory.setRepository(filesDir);
 		ServletFileUpload uploader = new ServletFileUpload(fileFactory);
 		// reads SMTP server setting from web.xml file
-        ServletContext context = request.getServletContext();
         String content="";
         String resultMessage="";
         ModelAndView modelAndView=new ModelAndView("result");       
@@ -405,7 +404,8 @@ public class UserController {
 			b = true;
 		}
 		if (b) {				
-			resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br>Ti manderemo una mail quando l\'elaborazione è finita.";
+			resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
+					+ "We're elaborating your data. <b>Don't insert them again.</b>";
 			String usern = SecurityContextHolder.getContext().getAuthentication().getName();
 			if (sesso.equals("maschio")) {
 				content += "\n\nRaw data corretti.";
@@ -445,8 +445,9 @@ public class UserController {
         
         ModelAndView modelAndView=new ModelAndView("result"); 
 		
-		resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br>Ti manderemo una mail quando l\'elaborazione è finita.";
-	
+        resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
+				+ "We're elaborating your data. <b>Don't insert them again.</b>";
+        
 		MtdnaBozza mb = new MtdnaBozza(username, cognome, nome, aplogruppoM, provinciaM);
 		bozzaService.save(mb);
 		modelAndView.addObject("message", resultMessage);

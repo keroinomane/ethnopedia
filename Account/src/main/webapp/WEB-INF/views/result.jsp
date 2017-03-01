@@ -81,29 +81,17 @@
       
       <!-- Begin Copyright -->
       <div id="copyright">
-        <p>© Copyright 2017 Ethnopedia</p>
+        <p>© Copyright 2017 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
+		<img src="${contextPath}/resources/style/images/icon-facebook.png" alt="" /></a>
+		</p>
       </div>
-      <!-- End Copyright --> 
-      
-      <!-- Begin Social Icons -->
-      <div id="socials">
-        <ul>
-          <li><a href="#"><img src="http://www.tipologieeuropidi.altervista.org/template/files/template/style/images/icon-rss.png" alt="" /></a></li>
-          <li><a href="#"><img src="http://www.tipologieeuropidi.altervista.org/template/files/template/style/images/icon-twitter.png" alt="" /></a></li>
-          <li><a href="#"><img src="http://www.tipologieeuropidi.altervista.org/template/files/template/style/images/icon-dribble.png" alt="" /></a></li>
-          <li><a href="#"><img src="http://www.tipologieeuropidi.altervista.org/template/files/template/style/images/icon-tumblr.png" alt="" /></a></li>
-          <li><a href="#"><img src="http://www.tipologieeuropidi.altervista.org/template/files/template/style/images/icon-flickr.png" alt="" /></a></li>
-          <li><a href="#"><img src="http://www.tipologieeuropidi.altervista.org/template/files/template/style/images/icon-facebook.png" alt="" /></a></li>
-        </ul>
-      </div>
-      <!-- End Social Icons --> 
+      <!-- End Copyright -->  
       
     </div>
   </div>
 </div>
 <!-- End Footer -->
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
 </body>
 </html>

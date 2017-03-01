@@ -209,7 +209,7 @@
     		
 		</c:if>
 		<c:if test="${userDati == null}">
-			<br><br><br>
+			<br><br>
 			<div align=center>
 					Non hai inserito i tuoi dati genetici.<br>
 					<a href="/account/inserisci">Inseriscili!</a>
