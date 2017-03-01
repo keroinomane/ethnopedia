@@ -106,12 +106,12 @@
 									Se li hai già inseriti, li stiamo elaborando.<br>
 									Torna più tardi!
 									<br><br>
-									<small>
+									<em>
 										You haven't inserted your maternal haplogroup yet.<br>
 										<a href="/account/inserisciMtdna">Insert it!</a><br>
 										If you already inserted it, we're elaborating it.<br>
 										Come back later!
-									</small>
+									</em>
 									</div>
 								</td></tr>
 							</table>
@@ -151,10 +151,13 @@
 							<img src="${contextPath}/resources/img/macroregioni.png" width="80%"/>
 						</td>
 						<td style="border: none; vertical-align:middle;">
-							I tuoi nonni erano TUTTI e 4 provenienti da regioni dello stesso colore in questa mappa?
-							<br><br><br>
+							I tuoi nonni erano TUTTI e 4 provenienti da regioni dello stesso colore in questa mappa?<br>
+							<em>Are all your grandparents from regions with the same color in this map?</em>
+							<br><br>
 							<input type="radio" name="autosomal" value="true"> Sì, ho tutti e 4 nonni originari di regioni dello stesso colore<br>
-							<input type="radio" name="autosomal" value="false"> No, ho 4 nonni provenienti da regioni di colore diverso
+							<em>Yes, my grandparents are from regions with the same color</em><br><br>
+							<input type="radio" name="autosomal" value="false"> No, ho 4 nonni provenienti da regioni di colore diverso<br>
+							<em>No, my grandparents are from regions with different colors</em>
 							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<input type="submit" value="Invia"/>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
@@ -195,13 +198,18 @@
 		    		</table>
     			</c:if>
     			<c:if test="${eutest == null}">
-    				<br><br>
     				<div align="center">
     					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
     						<a href="https://www.gedmatch.com">GedMatch.</a><br>
     					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
-    					<br>
 						<a href="/account/inserisciEutest">Inseriscili!</a>
+						<br><br>
+						
+						<small>
+						We're gathering also autosomal DNA data, like the <a href="https://www.gedmatch.com">GedMatch</a>'s calculators results.<br>
+    					You can insert your Eurogenes EUtest's results right now.<br>
+						<a href="/account/inserisciEutest">Insert them!</a>
+						</small>
 					</div>
     			</c:if>
     			

@@ -69,30 +69,36 @@
 					<tr style="border:none;">
 					<td width="20%" align=center style="vertical-align:middle;">
 						<fieldset>
-						  <legend>Macroregione di origine dei nonni:</legend><br>
+						  <legend>Macroregione di origine dei nonni:<br>
+						  <i>My grandparents are from:</i>
+						  </legend><br>
 							  <select name="macroregione" id ="macro">
-							   <option value="nordovest" selected="selected">Italia nordoccidentale</option>
-							   <option value="nordest">Italia nordorientale</option>
-							   <option value="centro">Italia centrale</option>
-							   <option value="sud">Italia meridionale</option>
-							   <option value="sicilia">Sicilia</option>
-							   <option value="sardegna">Sardegna</option>
+							   <option value="nordovest" selected="selected">Italia nordoccidentale (green)</option>
+							   <option value="nordest">Italia nordorientale (red)</option>
+							   <option value="centro">Italia centrale (light blue)</option>
+							   <option value="sud">Italia meridionale (orange)</option>
+							   <option value="sicilia">Sicilia (purple)</option>
+							   <option value="sardegna">Sardegna (brown)</option>
 							  </select>
 						 </fieldset>
 						 <br><br>
 					</td>
 					<td width="20%" align=center style="padding:0px 0px;">
-							<img src="${contextPath}/resources/img/macroregioni.png" width="90%"/>
+						<img src="${contextPath}/resources/img/macroregioni.png" width="90%"/>
 					</td>
-					<td style="border:none; vertical-align:middle;" align=right width="17%">
+					<td style="border:none; vertical-align:top;" align=right width="17%">
 					
 						Regione del nonno paterno:<br>
+						<em>My father's father is from:</em><br><br>
 						Regione della nonna paterna:<br>
+						<em>My father's mother is from:</em><br><br>
 						Regione del nonno materno:<br>
+						<em>My mother's father is from:</em><br><br>
 						Regione della nonna materna:<br>
+						<em>My mother's mother is from:</em>
 					
 					</td>
-					<td style="border:none; vertical-align:middle;" width="18%">
+					<td style="border:none; vertical-align:top;" width="18%">
 						<select name="nonnoP" id="nonnop">
 							  <option value=null selected="selected">regioni miste</option>
 							   <option value="Abruzzo" class="centro">Abruzzo</option>
@@ -117,7 +123,7 @@
 							   <option value="Veneto" class="nordest">Veneto</option>
 						</select>
 
-						 <br>
+						 <br><br><br>
 						<select name="nonnaP" id="nonnap" >
 							<option value=null selected="selected">regioni miste</option>
 							   <option value="Abruzzo" class="centro">Abruzzo</option>
@@ -141,7 +147,7 @@
 							   <option value="Valle d'Aosta" class="nordovest">Valle d'Aosta</option>
 							   <option value="Veneto" class="nordest">Veneto</option>
 							  </select>
-							  <br>
+							  <br><br><br>
 						<select name="nonnoM" id="nonnom" >
 								<option value=null selected="selected">regioni miste</option>
 							   <option value="Abruzzo" class="centro">Abruzzo</option>
@@ -165,7 +171,7 @@
 							   <option value="Valle d'Aosta" class="nordovest">Valle d'Aosta</option>
 							   <option value="Veneto" class="nordest">Veneto</option>
 							  </select>
-							  <br>
+							  <br><br><br>
 							  <select name="nonnaM" id="nonnam">
 							  	<option value=null selected="selected">regioni miste</option>
 							   <option value="Abruzzo" class="centro">Abruzzo</option>
@@ -193,6 +199,7 @@
 						</td>
 					</tr>
 				</table>
+				<br>
 						<table align=center style="font-size:11px;table-layout: fixed;">
 					    	<tr>
 					    		<td align=center><b>South Baltic</b></td>
@@ -228,11 +235,13 @@
 			    		<div align=left>
 			    			<em>Scrivi le percentuali in questo formato: 23.42 (no virgola). &nbsp&nbsp Inserire</em> <i>0</i> <em>in caso di valore nullo.</em>
 			    		</div>
-			    		<table align=center style="width:80%; border:none;">
+			    		<table align=center style="width:100%; border:none;">
 				    		<tr style="border:none;">
-					    		<td align=right style="border:none;">
-					    			Inserisci il tuo codice di GedMatch:
-					    			<input type="text" id="gedmatch" name="gedmatch" style="width: 60px;" width=10 />
+					    		<td align=right style="border:none; width:90%">
+					    			Inserisci il tuo codice di GEDmatch:<br>
+					    			<em>Insert your GEDmatch kit number</em><br>
+					    		</td>
+					    		<td style="border:none; vertical-align:middle;"><input type="text" id="gedmatch" name="gedmatch" style="width: 60px;" width=10 />
 					    		</td>
 				    		</tr>
 				    		<tr style="border:none;">

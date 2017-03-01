@@ -18,9 +18,10 @@
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 	<script type="text/javascript" src="${contextPath}/resources/js/insertAplo.js"></script>   
 	<style>
-		tr {
+		td:not(.template) {
 			vertical-align: middle;
 		}
+		
 	</style>
 </head>
 <body>
@@ -45,20 +46,26 @@
     <div id="about" align=center>
 	<form action="UploadDownloadFile" method="post" enctype="multipart/form-data">
 	  <table style="border: none;">
-		  <tr valign=top style="border: none;">
-			  <td style="border: none;width:30%;">
+		  <tr style="border: none;">
+			  <td style="border: none; width:35%;">
 					<table>
-						<tr><td style="width:30%;">Nome: </td><td><input type="text" name="nome" placeholder="First name" style="width: 130px;"/></td></tr>
+						<tr><td style="width:25%;">Nome: </td><td><input type="text" name="nome" placeholder="First name" style="width: 130px;"/></td></tr>
 						<tr><td>Cognome: </td><td><input type="text" name="cognome" placeholder="Last name" style="width: 130px;"/></td></tr> 
 						<tr><td>Sesso:<br>
-						Sex:</td><td><input type="radio" name="sesso" value="maschio" onChange="displayForm(this)" checked> Maschio / Male<br>
-						<input type="radio" name="sesso" value="femmina" onChange="displayForm(this)"> Femmina / Female</td></tr>
-						<tr><td>Test genetico effettuato:</td><td><input type="radio" name="test" value="23andMe" onChange="displayAplo(this)" checked> 23andMe
-						<br><input type="radio" name="test" value="geno" onChange="displayAplo(this)"> Geno 2.0
-						<br><input type="radio" name="test" value="genoNext" onChange="displayAplo(this)"> Geno 2.0 Next <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Generation</td></tr>
+						<i>Sex:</i></td><td><input type="radio" name="sesso" value="maschio" onChange="display()" checked> Maschio / <i>Male</i><br>
+						<input type="radio" name="sesso" value="femmina" onChange="display()"> Femmina / <i>Female</i></td></tr>
+						<tr>
+							<td>Test genetico effettuato:</td>
+							<td>
+								<input type="radio" name="test" value="23andMe" onChange="display()" checked> 23andMe
+								<br><input type="radio" name="test" value="geno" onChange="display()"> Geno 2.0
+								<br><input type="radio" name="test" value="genoNext" onChange="display()"> Geno 2.0 Next Generation
+								<br><input type="radio" name="test" value="ancestry" onChange="display()"> AncestryDNA
+							</td>
+						</tr>
 					</table>
 				</td>
-				<td style="border: none; width:35%">	
+				<td style="border: none;" class="template">	
 					<div id="ydna" style="display:none;">
 						<table>
 						
@@ -77,8 +84,8 @@
 								</td>
 							</tr>
 							<tr class="23" style="display:none;">
-								<td>Inserisci l'aplogruppo completo: </td>
-								<td align=center><input type="text" name="clade23" placeholder="Whole paternal haplogroup" style="width: 170px;"/><i>(es. R1b1b2a1a2d)</i></td>
+								<td>Inserisci aplogruppo completo: </td>
+								<td align=center><input type="text" name="clade23" placeholder="Whole paternal haplogroup" style="width: 165px;"/><i>(es. R1b1b2a1a2d)</i></td>
 							</tr>
 							
 							<tr class="gen" style="display:none;"><td>Aplogruppo<br>paterno: </td><td>
@@ -93,20 +100,50 @@
 							</tr>
 							<tr class="gen" style="display:none;">
 								<td>Inserisci il clade: </td>
-								<td align=center><input type="text" placeholder="Terminal SNP" name="cladegen" style="width: 170px;"/><br><i>(es. Z36)</i></td>
+								<td align=center><input type="text" placeholder="Terminal SNP" name="cladegen" style="width: 165px;"/><br><i>(es. Z36)</i></td>
 							</tr>
 						
 							
 							<tr>
 								<td>Provincia di origine del nonno paterno: </td>
-								<td align=center><input type="text" name="provinciaP" placeholder="Father's father's city of birth" style="width: 170px;"/><br><i>(o meglio ancora<br> del bisnonno)</i></td>
+								<td align=center><input type="text" name="provinciaP" placeholder="Father's father's city of birth" style="width: 165px;"/><br><i>(o meglio ancora<br> del bisnonno)</i></td>
 							</tr>
 							
 						</table>
 					</div>
+					
+					<div id="ancestry" style="display:none;">
+					
+						<b>Attention:</b><br>
+						You must have 4 italian grandparents and have uploaded your raw data in GEDmatch.
+						<br><br>
+						
+						<table>
+							<tr>
+								<td>GEDmatch kit number: </td>
+								<td align=center><input type="text" name="gedmatch" style="width: 170px;"/></td>
+							</tr>
+							<tr>
+								<td>Paternal grandfather: </td>
+								<td align=center><input type="text" name="nonnop" placeholder="Place of birth" style="width: 170px;"/></td>
+							</tr>
+							<tr>
+								<td>Paternal grandmother: </td>
+								<td align=center><input type="text" name="nonnap" placeholder="Place of birth" style="width: 170px;"/></td>
+							</tr>
+							<tr>
+								<td>Maternal grandfather: </td>
+								<td align=center><input type="text" name="nonnom" placeholder="Place of birth" style="width: 170px;"/></td>
+							</tr>
+							<tr>
+								<td>Maternal grandmother: </td>
+								<td align=center><input type="text" name="nonnam" placeholder="Place of birth" style="width: 170px;"/></td>
+							</tr>
+						</table>
+					</div>
 				</td>
 				
-				<td style="border: none;">
+				<td style="border: none; width:33%" class="template" id="mtdna">
 					<table>
 						<tr><td>Aplogruppo materno: </td><td align=center><input type="text" name="aplogruppoM" placeholder="Maternal haplogroup" style="width: 180px;" /></td></tr>
 						<tr>
@@ -120,7 +157,7 @@
 			<tr style="border: none; display:none;" class="raw">
 				<td colspan=3 align=right style="border: none;">	
 					<strong>Carica i raw data relativi al cromosoma Y</strong><br>
-					<small>Upload your Y Chromosome raw data</small>
+					<em>Upload your Y Chromosome raw data</em>
 					<br><br>
 					<input type="file" name="rawdataY">
 				</td>
@@ -128,19 +165,19 @@
 			<tr style="border: none; display:none;" class="exp23">
 				<td colspan=3 align=right style="border: none;">
 				Non sai dove prenderli? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
-				<i>You don't know where to find them? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Click here.</b></a></i>
+				<em>You don't know where to find them? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
 				</td>
 			</tr>
 			<tr style="border: none; display:none;" class="expGen">
 				<td colspan=3 align=right style="border: none;">
 				Non sai dove prenderli? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
-				<i>You don't know where to find them? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Click here.</b></a></i>
+				<em>You don't know where to find them? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
 				</td>
 			</tr>
 			<tr style="border: none; display:none;" class="expGenNext">
 				<td colspan=3 align=right style="border: none;">
 				Non sai dove prenderli? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
-				<i>You don't know where to find them? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Click here.</b></a></i>
+				<em>You don't know where to find them? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
 				</td>
 			</tr>
 	</table>

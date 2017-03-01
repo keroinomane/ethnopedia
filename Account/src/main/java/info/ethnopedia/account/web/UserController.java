@@ -380,13 +380,25 @@ public class UserController {
 		String aplo = "";
         String clade = "";
         String provinciaP = fileItemsList.get(8).getString();
-        String mtDNA = fileItemsList.get(9).getString();
-        String provinciaM = fileItemsList.get(10).getString();
-		FileItem rawdataFile = fileItemsList.get(11);
+        String gedmatch = fileItemsList.get(9).getString();
+        String nonnop = fileItemsList.get(10).getString();
+        String nonnap = fileItemsList.get(11).getString();
+        String nonnom = fileItemsList.get(12).getString();
+        String nonnam = fileItemsList.get(13).getString();
+        
+        String mtDNA = fileItemsList.get(14).getString();
+        String provinciaM = fileItemsList.get(15).getString();
+		FileItem rawdataFile = fileItemsList.get(16);
 		String rawdata=IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
 		boolean b = false;
 		
-		if (sesso.equals("maschio")) {
+		if (test.equals("ancestry")) {
+			content = "Cognome: " + cognome + "\nnome: " + nome + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
+			b = true;
+		} else if (sesso.equals("femmina"))  {
+			content = "Cognome: " + cognome + "\nnome: " + nome + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+			b = true;
+		} else {
 			if (test.equals("23andMe")) {
 				aplo = fileItemsList.get(4).getString();
 				clade = fileItemsList.get(5).getString();
@@ -398,16 +410,12 @@ public class UserController {
 				content = "Cognome: " + cognome + "\nnome: " + nome + "\naplogruppo Geno: " + aplo + "\nclade Geno: " + clade + "\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 			}
 			b = VerifyAplo.isOk(test, rawdata, aplo, clade);
-		} else {
-			// sesso femminile
-			content = "Cognome: " + cognome + "\nnome: " + nome + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
-			b = true;
 		}
 		if (b) {				
 			resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
 					+ "We're elaborating your data. <b>Don't insert them again.</b>";
 			String usern = SecurityContextHolder.getContext().getAuthentication().getName();
-			if (sesso.equals("maschio")) {
+			if (sesso.equals("maschio") && !test.equals("ancestry")) {
 				content += "\n\nRaw data corretti.";
 				YdnaBozza yb = new YdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(aplo), clade, WordUtils.capitalizeFully(provinciaP));
 				bozzaService.save(yb);
