@@ -65,7 +65,7 @@
 		        <form id="logoutForm" method="POST" action="${contextPath}/logout">
 		            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		        </form>
-		        <h4>Ciao ${nick} | <a href="${contextPath}/welcome">Profilo</a> |
+		        <h4>Ciao ${nick} | <a href="${contextPath}/welcome">Profilo</a> | <a href="${contextPath}/statistiche">Statistiche</a> |
 			   	<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
 			    	<a href="${contextPath}/admin">Pannello di amministrazione</a> | 
 			    </c:if>
