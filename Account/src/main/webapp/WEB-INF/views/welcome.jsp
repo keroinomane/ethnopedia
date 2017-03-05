@@ -170,40 +170,43 @@
 				</form>
 				
 			</c:if>
-			<c:if test="${userDati.autosomal == true}">
-				<c:if test="${eutest != null}">
-					<br>
-					<table id="fissato">
-				    	<tr>
-				    			<th align=center class="eutest"><b>Baltic</b></th>
-					    		<th align=center class="eutest"><b>Nordic</b></th>
-					    		<th align=center class="eutest"><b>Atlantic</b></th>
-					    		<th align=center class="eutest"><b>West Med</b></th>
-								<th align=center class="eutest"><b>East Med</b></th>
-								<th align=center class="eutest"><b>West Asian</b></th>
-								<th align=center class="eutest"><b>MENA</b></th>
-								<th align=center class="eutest"><b>Asian</b></th>
-								<th align=center class="eutest"><b>SSA</b></th>
-				    	</tr>
-				    	<tr>
-				    		<c:set var="baltico"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.baltic + eutest.easteuro}" /></c:set>
-				    		<td align=center>${fn:replace(baltico, ",", ".")}%</td>
-							<td align=center>${eutest.northcentraleuro}%</td>
-							<td align=center>${eutest.atlantic}%</td>
-							<td align=center>${eutest.westmed}%</td>
-							<td align=center>${eutest.eastmed}%</td>
-							<td align=center>${eutest.westasian}%</td>
-							<td align=center>${eutest.middleastern}%</td>
-							<td align=center>${eutest.southasian + eastasian + siberian}%</td>
-							<td align=center>${eutest.westafrican + eastafrican}%</td>
-				    	</tr>
-		    		</table>
-		    		<br>
-		    		<div align="right">La popolazione a te più vicina geneticamente sono <b>${closestPop}.</b></div>
-		    		
-    			</c:if>
-    			<c:if test="${eutest == null}">
-    				<div align="center">
+			<!-- Se ha già inserito l'autosomal -->
+			<c:if test="${eutest != null}">
+				<br>
+				<table id="fissato">
+				    <tr>
+				    	<th align=center class="eutest"><b>Baltic</b></th>
+					 	<th align=center class="eutest"><b>Nordic</b></th>
+					 	<th align=center class="eutest"><b>Atlantic</b></th>
+					 	<th align=center class="eutest"><b>West Med</b></th>
+						<th align=center class="eutest"><b>East Med</b></th>
+						<th align=center class="eutest"><b>West Asian</b></th>
+						<th align=center class="eutest"><b>MENA</b></th>
+						<th align=center class="eutest"><b>Asian</b></th>
+						<th align=center class="eutest"><b>SSA</b></th>
+				    </tr>
+				    <tr>
+				    	<c:set var="baltico"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.baltic + eutest.easteuro}" /></c:set>
+				    	<td align=center>${fn:replace(baltico, ",", ".")}%</td>
+						<td align=center>${eutest.northcentraleuro}%</td>
+						<td align=center>${eutest.atlantic}%</td>
+						<td align=center>${eutest.westmed}%</td>
+						<td align=center>${eutest.eastmed}%</td>
+						<td align=center>${eutest.westasian}%</td>
+						<td align=center>${eutest.middleastern}%</td>
+						<td align=center>${eutest.southasian + eastasian + siberian}%</td>
+						<td align=center>${eutest.westafrican + eastafrican}%</td>
+				    </tr>
+		    	</table>
+		    	<br>
+		    	<div align="right">La popolazione a te più vicina geneticamente sono <b>${closestPop}.</b></div>	
+    		</c:if>
+    		
+    		<!-- Se non ha inserito l'autosomal -->
+    		<c:if test="${eutest == null}">
+    			<!--  Se utente con 4 nonni della stessa macroregione -->
+    			<c:if test="${userDati.autosomal == true}">
+					<div align="center">
     					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
     						<a href="https://www.gedmatch.com">GedMatch.</a><br>
     					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
@@ -217,9 +220,23 @@
 						</small>
 					</div>
     			</c:if>
-    			
+    			<!--  Se utente con 4 nonni misti -->
+    			<c:if test="${userDati.autosomal == false}">
+    				<div align="center">
+    					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
+    						<a href="https://www.gedmatch.com">GedMatch.</a><br>
+    					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
+						<a href="/account/inserisciEutestPlebe">Inseriscili!</a>
+						<br><br>
+						
+						<small>
+						We're gathering also autosomal DNA data, like the <a href="https://www.gedmatch.com">GedMatch</a>'s calculators results.<br>
+    					You can insert your Eurogenes EUtest's results right now.<br>
+						<a href="/account/inserisciEutestPlebe">Insert them!</a>
+						</small>
+					</div>
+    			</c:if>
     		</c:if>
-    		
 		</c:if>
 		<c:if test="${userDati == null}">
 			<br><br>

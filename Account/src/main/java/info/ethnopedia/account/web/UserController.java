@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.Eutest;
+import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.Frequenza;
 import info.ethnopedia.account.model.FrequenzeMtdna;
 import info.ethnopedia.account.model.Mtdna;
@@ -94,6 +95,11 @@ public class UserController {
     @RequestMapping(value = "/inserisciEutest", method = RequestMethod.GET)
     public String inserisciEutest(Model model) {
         return "inserisciEutest";
+    }
+    
+    @RequestMapping(value = "/inserisciEutestPlebe", method = RequestMethod.GET)
+    public String inserisciEutestPlebe(Model model) {
+        return "inserisciEutestPlebe";
     }
     
     @RequestMapping(value = "/statistiche", method = RequestMethod.GET)
@@ -492,6 +498,12 @@ public class UserController {
     	
     	eutestService.save(eutest);
     	
+    	EutestPlebe eutestPlebe = new EutestPlebe(user.getId(), user.getCognome(), user.getNome(), gedmatch, Double.parseDouble(baltic),Double.parseDouble(easteuro), Double.parseDouble(northcentraleuro), 
+    			Double.parseDouble(atlantic), Double.parseDouble(westmed), Double.parseDouble(eastmed), Double.parseDouble(westasian), Double.parseDouble(middleastern), 
+    	    	Double.parseDouble(southasian), Double.parseDouble(eastafrican), Double.parseDouble(eastasian), Double.parseDouble(siberian), Double.parseDouble(westafrican));
+    	
+    	eutestService.save(eutestPlebe);
+    	
     	UserDati userDati = userDatiService.findById(user.getId());
 		Ydna ydna = userService.findById(user.getId());
     	Mtdna mtdna = mtdnaService.findById(user.getId());
@@ -500,6 +512,32 @@ public class UserController {
 		model.addAttribute("mtdna", mtdna);
 		model.addAttribute("userDati", userDati);
 		model.addAttribute("eutest", eutest);
+    	
+        return "welcome";
+    }
+    
+    @RequestMapping(value = "/eutestPlebe", method = RequestMethod.POST)
+    public String eutestPlebe(Model model, String baltic, String easteuro, String northcentraleuro, String atlantic, String westmed, 
+    		String eastmed, String westasian, String middleastern, String southasian, String eastafrican, String eastasian, 
+    		String siberian, String westafrican, String gedmatch) {
+    	
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	
+    	EutestPlebe eutestPlebe = new EutestPlebe(user.getId(), user.getCognome(), user.getNome(), gedmatch, Double.parseDouble(baltic),Double.parseDouble(easteuro), Double.parseDouble(northcentraleuro), 
+    			Double.parseDouble(atlantic), Double.parseDouble(westmed), Double.parseDouble(eastmed), Double.parseDouble(westasian), Double.parseDouble(middleastern), 
+    	    	Double.parseDouble(southasian), Double.parseDouble(eastafrican), Double.parseDouble(eastasian), Double.parseDouble(siberian), Double.parseDouble(westafrican));
+    	
+    	eutestService.save(eutestPlebe);
+    	
+    	UserDati userDati = userDatiService.findById(user.getId());
+		Ydna ydna = userService.findById(user.getId());
+    	Mtdna mtdna = mtdnaService.findById(user.getId());
+    	
+		model.addAttribute("ydna", ydna);
+		model.addAttribute("mtdna", mtdna);
+		model.addAttribute("userDati", userDati);
+		model.addAttribute("eutest", eutestPlebe);
     	
         return "welcome";
     }
@@ -737,7 +775,7 @@ public class UserController {
     	User user = userService.findByUsername(nome);
     	Ydna ydna = new Ydna();
     	Mtdna mtdna = new Mtdna();
-    	Eutest eutest = new Eutest();
+    	EutestPlebe eutest = new EutestPlebe();
     	UserDati userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	String infoaplo = null;
     	String infoclade = null;
@@ -787,7 +825,7 @@ public class UserController {
         return "welcome";
     }
 
-	private String calcolaClosestPop(Eutest e) {
+	private String calcolaClosestPop(EutestPlebe e) {
 		int nordovest,nordest,centro,sud,sicilia,sardegna;
 		nordovest=nordest=centro=sud=sicilia=sardegna=0;
 		

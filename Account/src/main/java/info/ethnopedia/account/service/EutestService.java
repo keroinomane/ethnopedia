@@ -1,12 +1,13 @@
 package info.ethnopedia.account.service;
 
-import java.util.List;
-
 import info.ethnopedia.account.model.Eutest;
+import info.ethnopedia.account.model.EutestPlebe;
 
 public interface EutestService {
 
-	Eutest findById(long id);
+	EutestPlebe findById(long id);
 	
 	void save(Eutest eutest);
+	
+	void save(EutestPlebe eutestPlebe);
 }
