@@ -34,6 +34,8 @@
 			text-align:center;
 		}
 	</style>
+	
+	
 </head>
 
 <body>
@@ -181,7 +183,7 @@
 								<th align=center class="eutest"><b>West Asian</b></th>
 								<th align=center class="eutest"><b>MENA</b></th>
 								<th align=center class="eutest"><b>Asian</b></th>
-								<th align=center class="eutest"><b>African</b></th>
+								<th align=center class="eutest"><b>SSA</b></th>
 				    	</tr>
 				    	<tr>
 				    		<c:set var="baltico"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.baltic + eutest.easteuro}" /></c:set>
@@ -196,6 +198,9 @@
 							<td align=center>${eutest.westafrican + eastafrican}%</td>
 				    	</tr>
 		    		</table>
+		    		<br>
+		    		<div align="right">La popolazione a te più vicina geneticamente sono <b>${closestPop}.</b></div>
+		    		
     			</c:if>
     			<c:if test="${eutest == null}">
     				<div align="center">

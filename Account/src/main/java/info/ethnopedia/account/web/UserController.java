@@ -741,7 +741,9 @@ public class UserController {
     	UserDati userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	String infoaplo = null;
     	String infoclade = null;
+    	String closestPop = "";
     	if (userDati != null) {
+    		// se non ha inserito Y-DNA o mtDNA o autosomal
     		if (user.getId() == null) {
     			if (userDati.getNome() == null) {
     	    		userDati.setNome(user.getNome());
@@ -755,6 +757,7 @@ public class UserController {
 		    		ydna.setNome(user.getNome());
 		    		ydnaService.save(ydna);
 	    		}
+	    	// se ha inserito Y-DNA o mtDNA o autosomal
     		} else {
     	    	ydna = userService.findById(user.getId());
     	    	mtdna = mtdnaService.findById(user.getId());
@@ -765,14 +768,128 @@ public class UserController {
     	    			infoclade = infoAploRepository.getContent(ydna.getClade());
     	    		infoaplo = infoAploRepository.getContent(ydna.getYdnaId().getAplogruppo());
     	    	}
+    	    	if (eutest != null)
+    	    		closestPop = calcolaClosestPop(eutest);
         	}
     	}
+    	if (!closestPop.equals("")) {
+    		
+    	}
+    	
     	model.addAttribute("ydna", ydna);
     	model.addAttribute("mtdna", mtdna);
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
     	model.addAttribute("userDati", userDati);
     	model.addAttribute("eutest", eutest);
+    	model.addAttribute("closestPop", closestPop);
+    	model.addAttribute("img", closestPop);
         return "welcome";
     }
+
+	private String calcolaClosestPop(Eutest e) {
+		int nordovest,nordest,centro,sud,sicilia,sardegna;
+		nordovest=nordest=centro=sud=sicilia=sardegna=0;
+		
+		List<Autosomal> atList = statService.findAllAutosomal();
+    	double[] percent = new double [] {e.getBaltic()+e.getEasteuro(),e.getNorthcentraleuro(),e.getAtlantic(),e.getWestmed(),e.getEastmed(),e.getWestasian(),e.getMiddleastern(),e.getSouthasian()+e.getEastasian()+e.getSiberian(),e.getWestafrican()+e.getEastafrican()};
+    	for (int i=0; i<9; i++) {
+    		String res = closest(percent[i], i, atList);
+    		switch(res) {
+	    		case "centro":
+	    			centro++;
+	    			break;
+	    		case "nordest":
+	    			nordest++;
+	    			break;
+	    		case "nordovest":
+	    			nordovest++;
+	    			break;
+	    		case "sardegna":
+	    			sardegna++;
+	    			break;
+	    		case "sicilia":
+	    			sicilia++;
+	    			break;
+	    		case "sud":
+	    			sud++;
+	    			break;
+    		}  
+    		
+    	}
+		
+		return calcola(nordovest,nordest,centro,sud,sicilia,sardegna);
+	}
+	
+	public String closest(double of, int admixture, List<Autosomal> in) {
+	    double min = Double.MAX_VALUE;
+	    String result = "";
+	    Iterator<Autosomal> it = in.iterator();
+	    while (it.hasNext()) {
+	    	Autosomal at = it.next();
+	    	if (!at.getMacroregione().equals("Svizzera")) {
+		    	double diff = 0;
+		    	switch(admixture) {
+		    		case 0:
+			    		diff = Math.abs(at.getBaltic() - of);
+			    		break;
+		    		case 1:
+		    			diff = Math.abs(at.getNordic() - of);
+			    		break;
+		    		case 2:
+		    			diff = Math.abs(at.getAtlantic() - of);
+			    		break;
+		    		case 3:
+		    			diff = Math.abs(at.getWestmed() - of);
+			    		break;
+		    		case 4:
+		    			diff = Math.abs(at.getEastmed() - of);
+			    		break;
+		    		case 5:
+		    			diff = Math.abs(at.getWestasian() - of);
+			    		break;
+		    		case 6:
+		    			diff = Math.abs(at.getMena() - of);
+			    		break;
+		    		case 7:
+		    			diff = Math.abs(at.getAsian() - of);
+			    		break;
+		    		case 8:
+		    			diff = Math.abs(at.getSsa() - of);
+			    		break;		    	
+		    	}
+		    	if (diff < min) {
+				    min = diff;
+				    result = at.getMacroregione();
+		    	}
+	    	}
+	    }
+	    return result;
+	}
+
+	private String calcola(int nordovest, int nordest, int centro, int sud, int sicilia, int sardegna) {
+		int max = max(new int[]{nordovest,nordest,centro,sud,sicilia,sardegna});
+		String risp = "";
+		if (nordovest==max)
+			risp += "gli italiani nordoccidentali, ";
+		if (nordest==max)
+			risp += "gli italiani nordorientali, ";
+		if (centro==max)
+			risp += "gli italiani centrali, ";
+		if (sud==max)
+			risp += "gli italiani meridionali, ";
+		if (sicilia==max)
+			risp += "i siciliani, ";
+		if (sardegna==max)
+			risp += "i sardi, ";
+		return risp.substring(0, risp.length()-2);
+	}
+
+	private int max(int[]val) {
+		for (int i=1; i<6; i++) 
+			if(val[0] < val[i])
+				val[0] = val[i];
+		return val[0];
+	}
+
 }
