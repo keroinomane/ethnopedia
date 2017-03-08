@@ -507,11 +507,13 @@ public class UserController {
     	UserDati userDati = userDatiService.findById(user.getId());
 		Ydna ydna = userService.findById(user.getId());
     	Mtdna mtdna = mtdnaService.findById(user.getId());
+    	String closestPop = calcolaClosestPop(eutestPlebe);
     	
 		model.addAttribute("ydna", ydna);
 		model.addAttribute("mtdna", mtdna);
 		model.addAttribute("userDati", userDati);
 		model.addAttribute("eutest", eutest);
+		model.addAttribute("closestPop", closestPop);
     	
         return "welcome";
     }
@@ -533,11 +535,13 @@ public class UserController {
     	UserDati userDati = userDatiService.findById(user.getId());
 		Ydna ydna = userService.findById(user.getId());
     	Mtdna mtdna = mtdnaService.findById(user.getId());
+    	String closestPop = calcolaClosestPop(eutestPlebe);
     	
 		model.addAttribute("ydna", ydna);
 		model.addAttribute("mtdna", mtdna);
 		model.addAttribute("userDati", userDati);
 		model.addAttribute("eutest", eutestPlebe);
+		model.addAttribute("closestPop", closestPop);
     	
         return "welcome";
     }
@@ -810,9 +814,6 @@ public class UserController {
     	    		closestPop = calcolaClosestPop(eutest);
         	}
     	}
-    	if (!closestPop.equals("")) {
-    		
-    	}
     	
     	model.addAttribute("ydna", ydna);
     	model.addAttribute("mtdna", mtdna);
@@ -821,7 +822,6 @@ public class UserController {
     	model.addAttribute("userDati", userDati);
     	model.addAttribute("eutest", eutest);
     	model.addAttribute("closestPop", closestPop);
-    	model.addAttribute("img", closestPop);
         return "welcome";
     }
 
@@ -832,36 +832,39 @@ public class UserController {
 		List<Autosomal> atList = statService.findAllAutosomal();
     	double[] percent = new double [] {e.getBaltic()+e.getEasteuro(),e.getNorthcentraleuro(),e.getAtlantic(),e.getWestmed(),e.getEastmed(),e.getWestasian(),e.getMiddleastern(),e.getSouthasian()+e.getEastasian()+e.getSiberian(),e.getWestafrican()+e.getEastafrican()};
     	for (int i=0; i<9; i++) {
-    		String res = closest(percent[i], i, atList);
-    		switch(res) {
-	    		case "centro":
-	    			centro++;
-	    			break;
-	    		case "nordest":
-	    			nordest++;
-	    			break;
-	    		case "nordovest":
-	    			nordovest++;
-	    			break;
-	    		case "sardegna":
-	    			sardegna++;
-	    			break;
-	    		case "sicilia":
-	    			sicilia++;
-	    			break;
-	    		case "sud":
-	    			sud++;
-	    			break;
-    		}  
-    		
+    		List<String> res = closest(percent[i], i, atList);
+    		Iterator<String> it = res.iterator();
+    		while(it.hasNext()) {
+	    		switch(it.next()) {
+		    		case "centro":
+		    			centro++;
+		    			break;
+		    		case "nordest":
+		    			nordest++;
+		    			break;
+		    		case "nordovest":
+		    			nordovest++;
+		    			break;
+		    		case "sardegna":
+		    			sardegna++;
+		    			break;
+		    		case "sicilia":
+		    			sicilia++;
+		    			break;
+		    		case "sud":
+		    			sud++;
+		    			break;
+	    		}  
+    		}
     	}
 		
 		return calcola(nordovest,nordest,centro,sud,sicilia,sardegna);
 	}
 	
-	public String closest(double of, int admixture, List<Autosomal> in) {
+	public List<String> closest(double of, int admixture, List<Autosomal> in) {
 	    double min = Double.MAX_VALUE;
-	    String result = "";
+	    List<String> result = new ArrayList<String>();
+	    String riserva="";
 	    Iterator<Autosomal> it = in.iterator();
 	    while (it.hasNext()) {
 	    	Autosomal at = it.next();
@@ -897,10 +900,14 @@ public class UserController {
 			    		break;		    	
 		    	}
 		    	if (diff < min) {
-				    min = diff;
-				    result = at.getMacroregione();
+				    min = diff;		
+				    riserva = at.getMacroregione();
 		    	}
+		    	if (diff < 2)
+		    		result.add(at.getMacroregione());
 	    	}
+	    	if (result.isEmpty())
+	    		result.add(riserva);
 	    }
 	    return result;
 	}

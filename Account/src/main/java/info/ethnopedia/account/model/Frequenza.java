@@ -12,6 +12,12 @@ public class Frequenza {
 		this.frequenza = frequenza;
 		this.setCampioni(campioni);
 	}
+	
+	public Frequenza(String regione, double frequenza) {
+		super();
+		this.regione = regione;
+		this.frequenza = frequenza;
+	}
 
 	public String getRegione() {
 		return regione;
