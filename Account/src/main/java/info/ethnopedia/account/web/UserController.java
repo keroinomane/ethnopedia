@@ -903,7 +903,7 @@ public class UserController {
 				    min = diff;		
 				    riserva = at.getMacroregione();
 		    	}
-		    	if (diff < 2)
+		    	if (admixture != 7 && admixture != 8 && diff < 1)
 		    		result.add(at.getMacroregione());
 	    	}
 	    	if (result.isEmpty())

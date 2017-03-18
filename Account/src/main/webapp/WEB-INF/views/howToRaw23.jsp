@@ -52,25 +52,32 @@
     	<tr style="border:none;">
     		<td style="border:none; text-align:justify; vertical-align:middle;">
 				Accedi su <a href="https://www.23andme.com/cas/signin/" onclick="window.open(this.href);return false">23andMe.</a><br><br>
-				Una volta effettuato l'accesso, clicca sul tuo nome e cognome in alto a destra.<br> 
-				Dovrebbe apparirti questo menu a tendina, clicca su "<strong>browse your data</strong>".
+				Una volta effettuato l'accesso, clicca su <strong>TOOLS</strong> in alto.<br><br>
+				Dovrebbe apparirti questo menu a tendina, clicca su <strong>Browse Raw Data</strong>.<br><br>
+				Uscirà una nuova schermata in cui dovrai cliccare su <strong>I understand</strong>.
 			</td>
 			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/23/1.png" width=20%/>
+				<img src="${contextPath}/resources/img/howto/23/1.png" width=75%/>
+			</td>
+		</tr>	
+		<tr style="border:none;">
+			<td style="border:none;">
+				<img src="${contextPath}/resources/img/howto/23/2.PNG" width=75%/>
+			</td>
+    		<td style="border:none; text-align:justify; vertical-align:middle;">
+				Tornando in alto, clicca su <strong>download</strong>.
 			</td>
 		</tr>	
 		<tr style="border:none;">
 			<td style="border:none; text-align:justify; vertical-align:middle;">
-				Tornando in alto a destra, clicca su "<strong>download</strong>".<br><br>
-				Apparirà una schermata in cui dovrai:<br>
-					1) inserire la tua password<br>
-					2) inserire la risposta alla tua domanda segreta<br>
-					3) selezionare il profilo interessato (se ne hai più di uno)<br>
-					4) selezionare "<strong>Y Chromosome</strong>"<br>
-				e infine cliccare su "<strong>download data</strong>".<br>
+				Apparirà una nuova pagina, vai in basso e:<br>
+					1) seleziona <strong>Y Chromosome</strong> dal menu a tendina<br>
+					2) digita la tua password<br>
+				infine clicca su <strong>Download Raw Data</strong>.<br><br>
+				Una volta che hai scaricato il file, <strong>devi decomprimerlo</strong> (unzipparlo) e caricarlo nel form del nostro sito che hai visto prima.
 			</td>
 			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/23/2.png" width=95%/>
+				<img src="${contextPath}/resources/img/howto/23/3.png" width=75%/>
 			</td>
 		</tr>
 	</table>
