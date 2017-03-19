@@ -62,7 +62,7 @@
 		</tr>	
 		<tr style="border:none;">
 			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/23/2.PNG" width=75%/>
+				<img src="${contextPath}/resources/img/howto/23/2.png" width=75%/>
 			</td>
     		<td style="border:none; text-align:justify; vertical-align:middle;">
 				Tornando in alto, clicca su <strong>download</strong>.
