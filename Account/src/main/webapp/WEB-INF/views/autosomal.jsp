@@ -120,6 +120,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<img src="../genitaly/eutest.png" width="50%" style="display: block; margin: 0 auto;" />
 		    </c:if>  	
 		</div>
 		    

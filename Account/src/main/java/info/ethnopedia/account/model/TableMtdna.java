@@ -25,6 +25,7 @@ public class TableMtdna implements java.io.Serializable {
 	public double u4;
 	public double u5;
 	public double u6;
+	public double u7;
 	public double u8;
 	public double j;
 	public double hv;
@@ -68,10 +69,11 @@ public class TableMtdna implements java.io.Serializable {
 		this.u4 = campi[19];
 		this.u5 = campi[20];
 		this.u6 = campi[21];
-		this.u8 = campi[22];
-		this.v = campi[23];
-		this.w = campi[24];
-		this.x = campi[25];
+		this.u7 = campi[22];
+		this.u8 = campi[23];
+		this.v = campi[24];
+		this.w = campi[25];
+		this.x = campi[26];
 	}
 
 
@@ -204,6 +206,14 @@ public class TableMtdna implements java.io.Serializable {
 
 	public void setU6(double u6) {
 		this.u6 = u6;
+	}
+	
+	public double getU7() {
+		return u7;
+	}
+
+	public void setU7(double u7) {
+		this.u7 = u7;
 	}
 
 	public double getU8() {
