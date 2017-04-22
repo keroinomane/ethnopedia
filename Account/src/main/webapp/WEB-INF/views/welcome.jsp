@@ -194,8 +194,8 @@
 						<td align=center>${eutest.eastmed}%</td>
 						<td align=center>${eutest.westasian}%</td>
 						<td align=center>${eutest.middleastern}%</td>
-						<td align=center>${eutest.southasian + eastasian + siberian}%</td>
-						<td align=center>${eutest.westafrican + eastafrican}%</td>
+						<td align=center>${eutest.southasian + eutest.eastasian + eutest.siberian}%</td>
+						<td align=center>${eutest.westafrican + eutest.eastafrican}%</td>
 				    </tr>
 		    	</table>
 		    	<br>

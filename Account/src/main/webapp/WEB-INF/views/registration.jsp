@@ -43,68 +43,113 @@
                 }
             }
 	</script>   
+	<style>
+		table, tr, td {
+			border:0;
+		}
+		.form-signin {
+	    	margin: 0;
+	    	max-width: 400px;
+		}
+		h1 {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+	</style>
 </head>
 
 <body>
 
 <div class="container">
-
-    <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading" align=center>Crea il tuo account</h2>
-        <br>
-        <div align=center>Possono iscriversi solo gli utenti<br>che hanno fatto il test genetico.<br>
-        <small>Only people who purchased DNA test can register.</small>
-        </div>
-        <br>
-        <spring:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true"></form:input>
-                <form:errors path="username"></form:errors>
-            </div>
-        </spring:bind>
-        
-        <spring:bind path="nome">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="nome" class="form-control" placeholder="Nome / First name"></form:input>
-                <form:errors path="nome"></form:errors>
-            </div>
-        </spring:bind>
-        
-        <spring:bind path="cognome">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="cognome" class="form-control" placeholder="Cognome / Last name"></form:input>
-                <form:errors path="cognome"></form:errors>
-            </div>
-        </spring:bind>
-        
-        <spring:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="email" class="form-control" placeholder="Email"></form:input>
-                <form:errors path="email"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control" placeholder="Password" id="pass1"></form:input>
-                <form:errors path="password"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="passwordConfirm">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="passwordConfirm" class="form-control"
-                            placeholder="Conferma password" id="pass2" onkeyup="checkPass(); return false;"></form:input>
-                <form:errors path="passwordConfirm"></form:errors>
-                <span id="confirmMessage" class="confirmMessage"></span>
-            </div>
-        </spring:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </form:form>
-    <div align=center>Il nome e il cognome devono essere veri.<br> Non verranno visualizzati pubblicamente.<br>
-    <small>For American people: please insert your original italian last name, if it has been changed in Ellis Island.</small></div>
+	<table style="border-left:0;
+		border-top:0;border-right:0;width:100%;">
+		<tr style="border-left:0;
+			border-top:0;">
+			<td style="border-right:0;vertical-align:middle;" align="right">
+				<form:form method="POST" modelAttribute="userForm" class="form-signin">
+			        <h2 class="form-signin-heading" align=center>Crea il tuo account</h2>
+			        <br>
+			        <spring:bind path="username">
+			            <div class="form-group ${status.error ? 'has-error' : ''}">
+			                <form:input type="text" path="username" class="form-control" placeholder="Username"
+			                            autofocus="true"></form:input>
+			                <form:errors path="username"></form:errors>
+			            </div>
+			        </spring:bind>
+			        
+			        <spring:bind path="nome">
+			            <div class="form-group ${status.error ? 'has-error' : ''}">
+			                <form:input type="text" path="nome" class="form-control" placeholder="Nome / First name"></form:input>
+			                <form:errors path="nome"></form:errors>
+			            </div>
+			        </spring:bind>
+			        
+			        <spring:bind path="cognome">
+			            <div class="form-group ${status.error ? 'has-error' : ''}">
+			                <form:input type="text" path="cognome" class="form-control" placeholder="Cognome / Last name"></form:input>
+			                <form:errors path="cognome"></form:errors>
+			            </div>
+			        </spring:bind>
+			        
+			        <spring:bind path="email">
+			            <div class="form-group ${status.error ? 'has-error' : ''}">
+			                <form:input type="text" path="email" class="form-control" placeholder="Email"></form:input>
+			                <form:errors path="email"></form:errors>
+			            </div>
+			        </spring:bind>
+			
+			        <spring:bind path="password">
+			            <div class="form-group ${status.error ? 'has-error' : ''}">
+			                <form:input type="password" path="password" class="form-control" placeholder="Password" id="pass1"></form:input>
+			                <form:errors path="password"></form:errors>
+			            </div>
+			        </spring:bind>
+			
+			        <spring:bind path="passwordConfirm">
+			            <div class="form-group ${status.error ? 'has-error' : ''}">
+			                <form:input type="password" path="passwordConfirm" class="form-control"
+			                            placeholder="Conferma password" id="pass2" onkeyup="checkPass(); return false;"></form:input>
+			                <form:errors path="passwordConfirm"></form:errors>
+			                <span id="confirmMessage" class="confirmMessage"></span>
+			            </div>
+			        </spring:bind>
+			
+			        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+			        <br>
+			        <div align=center>
+				        Il nome e il cognome devono essere veri.<br> Non verranno visualizzati pubblicamente.<br>
+				        <small>For American people:</small>
+				    </div>
+				    <div align=left>
+				    	<small>
+					    	<ul>
+					    	<li>please insert your maiden name</li>
+					    	<li>please insert your original italian last name, if it has been changed in Ellis Island</li>
+					    	</ul>
+				    	</small>
+			    	</div>
+			
+			    </form:form>
+			</td>   
+			<td width=60% style="border-right:0;" align=center>
+				<div align=center>
+					<br>
+					<a href="http://www.dpbolvw.net/click-8289828-12899160" target="_top">
+						<img src="http://www.awltovhc.com/image-8289828-12899160" width="25%" alt="" border="0"/>
+					</a>
+					<br><br>
+					<h1>
+					Possono iscriversi solo gli utenti<br>che hanno fatto il test genetico<br>
+			        <small>Only people who purchased DNA test can register</small>
+			        </h1>
+			        <br><br>
+			        <a href="http://www.anrdoezrs.net/click-8289828-12899164" target="_top">
+								<img src="http://www.lduhtrp.net/image-8289828-12899164" height="90" alt="" border="0"/>
+							</a>
+			        </div>
+			</td>
+		</tr>	
+	</table>
+    
 
 </div>
 <!-- /container -->
