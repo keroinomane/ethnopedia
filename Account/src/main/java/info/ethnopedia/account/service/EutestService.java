@@ -7,6 +7,8 @@ public interface EutestService {
 
 	EutestPlebe findById(long id);
 	
+	Eutest findPuroById(long id);
+	
 	void save(Eutest eutest);
 	
 	void save(EutestPlebe eutestPlebe);

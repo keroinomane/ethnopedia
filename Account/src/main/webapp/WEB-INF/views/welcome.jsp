@@ -72,13 +72,13 @@
         	<br>
 			<table style="border: none;">
 				<tr style="border: none;">
-					<td style="border: none;" width=25% rowspan="2">
+					<td style="border: none;" width=25%>
 						<table>
 							<tr><td width=50%>Cognome</td><td><c:out value="${userDati.cognome}" /></td></tr>
 							<tr><td>Nome</td><td><c:out value="${userDati.nome}" /></td></tr>
 						</table>
 					</td>
-					<td style="border: none;" width=40% rowspan="2">
+					<td style="border: none;" width=40% rowspan="3">
 						<table>
 							<tr><td colspan=2 style="text-align:center"><b>Y-DNA</b></td></tr>
 							<tr><td>Aplogruppo</td><td><a data-balloon="${infoaplo}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.ydnaId.aplogruppo}"/></u></b></a></td></tr>
@@ -97,7 +97,7 @@
 							<tr><td>Provincia</td><td><c:out value="${ydna.ydnaId.provincia}" /></td></tr>
 						</table>
 					</td>
-					<td style="border: none;" width=35%>
+					<td style="border: none;" width=35% rowspan="2">
 						<c:if test="${mtdna == null}">
 							<table>
 								<tr><td style="text-align:center"><b>mtDNA</b></td></tr>
@@ -130,9 +130,42 @@
 						</c:if>
 					</td>
 				</tr>
+				
 				<tr style="border: none;">
-					<td style="border: none; text-align:right;">
-						<br>
+					<td rowspan="2" style="border: none;">
+						<c:if test="${nonniStessaRegione == true}">
+							<c:if test="${altezza == null}">
+								<form id="altezzaForm" method="POST" action="${contextPath}/insertAltezza">
+						            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						            <table style="border:0;">
+									<tr style="border:0;">
+										<td colspan="2">
+											Inserisci la tua altezza<br>
+											
+										</td>
+									</tr>
+									<tr>
+										<td style="border:0;">
+											<input type="text" name="centimetri" style="width: 30px;" /> cm
+										</td>
+										<td align="right" style="border:0;">
+											
+											<input type="submit" />
+										</td>
+									</tr>
+								</table>
+						        </form>
+							</c:if>
+							<c:if test="${altezza != null}">
+								<table>
+									<tr><td width=50%>Altezza</td><td><c:out value="${altezza.centimetri}" /> cm</td></tr>
+								</table>
+							</c:if>
+						</c:if>
+					</td>
+				</tr>
+				<tr style="border: none;">
+					<td style="border: none;" align="center">
 						<h4>
 					        <a style="text-decoration: none" href="<c:url value='/statistiche' />" >
 						        <button type="button" class="btn btn-success">
@@ -187,6 +220,8 @@
 				    </tr>
 				    <tr>
 				    	<c:set var="baltico"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.baltic + eutest.easteuro}" /></c:set>
+				    	<c:set var="asian"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.southasian + eutest.eastasian + eutest.siberian}" /></c:set>
+				    	<c:set var="ssa"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.westafrican + eutest.eastafrican}" /></c:set>
 				    	<td align=center>${fn:replace(baltico, ",", ".")}%</td>
 						<td align=center>${eutest.northcentraleuro}%</td>
 						<td align=center>${eutest.atlantic}%</td>
@@ -194,8 +229,8 @@
 						<td align=center>${eutest.eastmed}%</td>
 						<td align=center>${eutest.westasian}%</td>
 						<td align=center>${eutest.middleastern}%</td>
-						<td align=center>${eutest.southasian + eutest.eastasian + eutest.siberian}%</td>
-						<td align=center>${eutest.westafrican + eutest.eastafrican}%</td>
+						<td align=center>${fn:replace(asian, ",", ".")}%</td>
+						<td align=center>${fn:replace(ssa, ",", ".")}%</td>
 				    </tr>
 		    	</table>
 		    	<br>

@@ -31,5 +31,10 @@ public class EutestServiceImpl implements EutestService {
 	public void save(EutestPlebe eutestPlebe) {
 		eutestPlebeRepository.save(eutestPlebe);
 	}
+
+	@Override
+	public Eutest findPuroById(long id) {
+		return eutestRepository.findById(id);
+	}
 	
 }

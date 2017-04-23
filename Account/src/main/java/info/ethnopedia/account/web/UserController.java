@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
@@ -32,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import info.ethnopedia.account.model.Altezza;
 import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.Eutest;
@@ -50,6 +50,7 @@ import info.ethnopedia.account.model.Ydna;
 import info.ethnopedia.account.model.YdnaBozza;
 import info.ethnopedia.account.model.YdnaId;
 import info.ethnopedia.account.repository.InfoAploRepository;
+import info.ethnopedia.account.service.AltezzaService;
 import info.ethnopedia.account.service.BozzaService;
 import info.ethnopedia.account.service.EutestService;
 import info.ethnopedia.account.service.MtdnaService;
@@ -88,6 +89,9 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
+    
+    @Autowired
+    private AltezzaService altezzaService;
 
     @Autowired
     private UserValidator userValidator;    
@@ -221,6 +225,16 @@ public class UserController {
 		model.addAttribute("mtdna",mtdna);
 		model.addAttribute("idOld",mb.getId());
 		return "cruscotto";
+    }
+    
+    @RequestMapping(value = " /insertAltezza", method=RequestMethod.POST)
+    public String insertAltezza(String centimetri, Model model) {
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	Eutest eutest = eutestService.findPuroById(user.getId());
+		Altezza altezza= new Altezza(user.getId(),Integer.parseInt(centimetri),eutest.getNonnop());
+		altezzaService.save(altezza);
+		return welcome(model);
     }
     
     @RequestMapping(value="/saveYdna", method=RequestMethod.POST)
@@ -759,7 +773,7 @@ public class UserController {
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/welcome";
+        return welcome(model);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -780,10 +794,13 @@ public class UserController {
     	Ydna ydna = new Ydna();
     	Mtdna mtdna = new Mtdna();
     	EutestPlebe eutest = new EutestPlebe();
+    	Altezza altezza = new Altezza();
     	UserDati userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	String infoaplo = null;
     	String infoclade = null;
     	String closestPop = "";
+    	boolean nonniStessaRegione = false;
+    	
     	if (userDati != null) {
     		// se non ha inserito Y-DNA o mtDNA o autosomal
     		if (user.getId() == null) {
@@ -813,6 +830,16 @@ public class UserController {
     	    	if (eutest != null)
     	    		closestPop = calcolaClosestPop(eutest);
         	}
+    		Eutest tizio = eutestService.findPuroById(user.getId());
+    		if (tizio != null && ydna != null) {
+    			if (tizio.getNonnop().equals(tizio.getNonnom()) && tizio.getNonnom().equals(tizio.getNonnap()) 
+    					&& tizio.getNonnap().equals(tizio.getNonnam()) && tizio.getNonnam().equals(tizio.getNonnop())) {
+    				
+    				nonniStessaRegione = true;
+    				altezza = altezzaService.findById(user.getId());
+    			}
+    		}
+    		
     	}
     	
     	model.addAttribute("ydna", ydna);
@@ -820,6 +847,8 @@ public class UserController {
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
     	model.addAttribute("userDati", userDati);
+    	model.addAttribute("nonniStessaRegione", nonniStessaRegione);
+    	model.addAttribute("altezza", altezza);
     	model.addAttribute("eutest", eutest);
     	model.addAttribute("closestPop", closestPop);
         return "welcome";
@@ -906,9 +935,9 @@ public class UserController {
 		    	if (admixture != 7 && admixture != 8 && diff < 1)
 		    		result.add(at.getMacroregione());
 	    	}
-	    	if (result.isEmpty())
-	    		result.add(riserva);
 	    }
+	    if (result.isEmpty() && admixture != 7)
+    		result.add(riserva);
 	    return result;
 	}
 

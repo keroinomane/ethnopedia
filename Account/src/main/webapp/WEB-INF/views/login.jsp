@@ -65,7 +65,7 @@
 			
 			    </form>
 		    </td>
-			<td width=29% style="border-right:0;">
+			<td width=31% style="border-right:0;">
 				<a href="http://www.dpbolvw.net/click-8289828-12899160" target="_top">
 					<img src="http://www.awltovhc.com/image-8289828-12899160" width="100%" alt="" border="0"/>
 				</a>
