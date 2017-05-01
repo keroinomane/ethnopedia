@@ -3,9 +3,14 @@ package info.ethnopedia.account.web;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -237,6 +242,23 @@ public class UserController {
 		return welcome(model);
     }
     
+    @RequestMapping(value = " /insertNascita", method=RequestMethod.POST)
+    public String insertNascita(String nascita, Model model) {
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	UserDati userDati = userDatiService.findById(user.getId());
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date nascitaDate = new Date();
+		try {
+			nascitaDate = sdf.parse(nascita);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		userDati.setNascita(nascitaDate);
+		userDatiService.save(userDati);
+		return welcome(model);
+    }
+    
     @RequestMapping(value="/saveYdna", method=RequestMethod.POST)
     public String saveYdna(@ModelAttribute Ydna ydna, Long idBozza, Model model) {
     	if (ydna.getClade().equals("null"))
@@ -252,11 +274,11 @@ public class UserController {
     	else
     		ydna.setDownstream(ydna.getDownstream().toUpperCase());
     	
-    	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome());
+    	YdnaBozza yb = bozzaService.findById(idBozza);
+    	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), "maschio", yb.getNascita());
     	userDatiService.save(ud);
     	ydna.setId(ud.getId());
     	ydnaService.save(ydna);
-    	YdnaBozza yb = bozzaService.findById(idBozza);
     	bozzaService.deleteYdna(idBozza);
     	List<YdnaBozza> lyb = bozzaService.findAllYdna();
     	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
@@ -293,7 +315,7 @@ public class UserController {
     	
     	if(!ydnaService.exists(ydnaId)) {
     		ydna.setYdnaId(ydnaId);
-        	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome());
+        	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), "maschio");
         	userDatiService.save(ud);
         	ydna.setId(ud.getId());
         	ydnaService.save(ydna);    	
@@ -316,14 +338,15 @@ public class UserController {
     	else
     		mtdna.setClade(WordUtils.capitalize(mtdna.getClade()));
     	
+    	MtdnaBozza mb = bozzaService.findMtdnaBozzaById(idBozza);
     	UserDati ud = userDatiService.findByCognomeAndNome(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome());
     	if (ud == null) {
-    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome());
+    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome(), mb.getSesso(), mb.getNascita());
     		userDatiService.save(ud);
     	}
     	mtdna.setId(ud.getId());
     	mtdnaService.save(mtdna);
-    	MtdnaBozza mb = bozzaService.findMtdnaBozzaById(idBozza);
+    	
     	bozzaService.deleteMtdna(idBozza);
     	List<YdnaBozza> lyb = bozzaService.findAllYdna();
     	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
@@ -338,7 +361,7 @@ public class UserController {
     }
     
     @RequestMapping(value="/saveMtdnaManual", method=RequestMethod.POST)
-    public String saveMtdnaManual(@ModelAttribute Mtdna mtdna, Model model) {
+    public String saveMtdnaManual(@ModelAttribute Mtdna mtdna, String sesso, Model model) {
     	if (mtdna.getClade().equals("null"))
     		mtdna.setClade(null);
     	else
@@ -348,7 +371,7 @@ public class UserController {
     	mtdna.setMtdnaId(mtdnaId);
     	UserDati ud = userDatiService.findByCognomeAndNome(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome());
     	if (ud == null) {
-    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome());
+    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome(), sesso);
     		userDatiService.save(ud);
     	}
     	mtdna.setId(ud.getId());
@@ -396,38 +419,41 @@ public class UserController {
 		String nome = fileItemsList.get(0).getString();
 		String cognome = fileItemsList.get(1).getString();
 		String sesso = fileItemsList.get(2).getString();
-		String test = fileItemsList.get(3).getString();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String nascita = fileItemsList.get(3).getString();
+		Date nascitaDate= sdf.parse(nascita);
+		String test = fileItemsList.get(4).getString();
 		String aplo = "";
         String clade = "";
-        String provinciaP = fileItemsList.get(8).getString();
-        String gedmatch = fileItemsList.get(9).getString();
-        String nonnop = fileItemsList.get(10).getString();
-        String nonnap = fileItemsList.get(11).getString();
-        String nonnom = fileItemsList.get(12).getString();
-        String nonnam = fileItemsList.get(13).getString();
+        String provinciaP = fileItemsList.get(9).getString();
+        String gedmatch = fileItemsList.get(10).getString();
+        String nonnop = fileItemsList.get(11).getString();
+        String nonnap = fileItemsList.get(12).getString();
+        String nonnom = fileItemsList.get(13).getString();
+        String nonnam = fileItemsList.get(14).getString();
         
-        String mtDNA = fileItemsList.get(14).getString();
-        String provinciaM = fileItemsList.get(15).getString();
-		FileItem rawdataFile = fileItemsList.get(16);
+        String mtDNA = fileItemsList.get(15).getString();
+        String provinciaM = fileItemsList.get(16).getString();
+		FileItem rawdataFile = fileItemsList.get(17);
 		String rawdata=IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
 		boolean b = false;
 		
 		if (test.equals("ancestry")) {
-			content = "Cognome: " + cognome + "\nnome: " + nome + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
+			content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
 			b = true;
 		} else if (sesso.equals("femmina"))  {
-			content = "Cognome: " + cognome + "\nnome: " + nome + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+			content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 			b = true;
 		} else {
 			if (test.equals("23andMe")) {
-				aplo = fileItemsList.get(4).getString();
-				clade = fileItemsList.get(5).getString();
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\naplogruppo 23andMe: " + aplo + "\nclade 23andMe: " + clade + 
+				aplo = fileItemsList.get(5).getString();
+				clade = fileItemsList.get(6).getString();
+				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo 23andMe: " + aplo + "\nclade 23andMe: " + clade + 
 	            		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM;
 			} else {
-				aplo = fileItemsList.get(6).getString();
-				clade = fileItemsList.get(7).getString();
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\naplogruppo Geno: " + aplo + "\nclade Geno: " + clade + "\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+				aplo = fileItemsList.get(7).getString();
+				clade = fileItemsList.get(8).getString();
+				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo Geno: " + aplo + "\nclade Geno: " + clade + "\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 			}
 			b = VerifyAplo.isOk(test, rawdata, aplo, clade);
 		}
@@ -437,10 +463,10 @@ public class UserController {
 			String usern = SecurityContextHolder.getContext().getAuthentication().getName();
 			if (sesso.equals("maschio") && !test.equals("ancestry")) {
 				content += "\n\nRaw data corretti.";
-				YdnaBozza yb = new YdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(aplo), clade, WordUtils.capitalizeFully(provinciaP));
+				YdnaBozza yb = new YdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(aplo), clade, WordUtils.capitalizeFully(provinciaP), nascitaDate);
 				bozzaService.save(yb);
 			}
-			MtdnaBozza mb = new MtdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(mtDNA), WordUtils.capitalizeFully(provinciaM));
+			MtdnaBozza mb = new MtdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(mtDNA), WordUtils.capitalizeFully(provinciaM), sesso, nascitaDate);
 			bozzaService.save(mb);
 		} else {
 			content += "\n\nRaw data errati.";
@@ -460,7 +486,7 @@ public class UserController {
 }
     
     @RequestMapping(value = "/insertMtDNA", method = RequestMethod.POST)
-    public ModelAndView insertMtDNA (String aplogruppoM, String provinciaM) {
+    public ModelAndView insertMtDNA (String aplogruppoM, String provinciaM, String sesso) {
     	
     	
         String resultMessage="";
@@ -476,7 +502,7 @@ public class UserController {
         resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
 				+ "We're elaborating your data. <b>Don't insert them again.</b>";
         
-		MtdnaBozza mb = new MtdnaBozza(username, cognome, nome, aplogruppoM, provinciaM);
+		MtdnaBozza mb = new MtdnaBozza(username, cognome, nome, aplogruppoM, provinciaM, sesso);
 		bozzaService.save(mb);
 		modelAndView.addObject("message", resultMessage);
      
@@ -800,6 +826,7 @@ public class UserController {
     	String infoclade = null;
     	String closestPop = "";
     	boolean nonniStessaRegione = false;
+    	boolean fasciaEtaOK = false;
     	
     	if (userDati != null) {
     		// se non ha inserito Y-DNA o mtDNA o autosomal
@@ -831,13 +858,26 @@ public class UserController {
     	    		closestPop = calcolaClosestPop(eutest);
         	}
     		Eutest tizio = eutestService.findPuroById(user.getId());
-    		if (tizio != null && ydna != null) {
-    			if (tizio.getNonnop().equals(tizio.getNonnom()) && tizio.getNonnom().equals(tizio.getNonnap()) 
-    					&& tizio.getNonnap().equals(tizio.getNonnam()) && tizio.getNonnam().equals(tizio.getNonnop())) {
+    		
+    		
+    		// restituisce altezza se è già inserita, altrimenti null
+    		if (userDati.getNascita() != null) {
+    			Calendar c1 = Calendar.getInstance();
+    			Calendar c2 = Calendar.getInstance();
+    			c1.setTime(new Date());
+    			c2.setTime(userDati.getNascita());
+    			int yearDiff = c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
+    			if (yearDiff > 20 && yearDiff < 55)
+    				fasciaEtaOK = true;
+    		}
+    		
+    		// restituisce altezza se è già inserita, altrimenti null
+    		if (tizio != null && userDati.getSesso().equals("maschio") && tizio.getNonnop().equals(tizio.getNonnom()) 
+    			&& tizio.getNonnom().equals(tizio.getNonnap()) && tizio.getNonnap().equals(tizio.getNonnam()) 
+    			&& tizio.getNonnam().equals(tizio.getNonnop())) {
     				
-    				nonniStessaRegione = true;
-    				altezza = altezzaService.findById(user.getId());
-    			}
+    			nonniStessaRegione = true;
+    			altezza = altezzaService.findById(user.getId());
     		}
     		
     	}
@@ -847,6 +887,7 @@ public class UserController {
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
     	model.addAttribute("userDati", userDati);
+    	model.addAttribute("fasciaEtaOK", fasciaEtaOK);
     	model.addAttribute("nonniStessaRegione", nonniStessaRegione);
     	model.addAttribute("altezza", altezza);
     	model.addAttribute("eutest", eutest);

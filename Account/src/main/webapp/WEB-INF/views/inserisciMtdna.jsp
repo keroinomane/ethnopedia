@@ -45,12 +45,19 @@
 	<form action="${contextPath}/insertMtDNA" method="post">
 		<br><br><br>
 		<table style="width:50%">
-		<tr><td style="width:50%">Aplogruppo materno: </td><td align=center><input type="text" placeholder="Maternal haplogroup" name="aplogruppoM" style="width: 180px;" /></td></tr>
-		<tr><td>Provincia di origine della nonna materna: </td>
-		<td align=center><input type="text" placeholder="Mother's mother's city of birth" name="provinciaM" style="width: 180px;"/><br><i>(o meglio ancora<br> della bisnonna)</i></td></tr>
+			<tr>
+				<td>Sesso:<br>
+					<i>Sex:</i></td><td><input type="radio" name="sesso" value="maschio" checked> Maschio / <i>Male</i><br>
+					<input type="radio" name="sesso" value="femmina"> Femmina / <i>Female</i>
+				</td>
+			</tr>
+						
+			<tr><td style="width:50%">Aplogruppo materno: </td><td align=center><input type="text" placeholder="Maternal haplogroup" name="aplogruppoM" style="width: 180px;" /></td></tr>
+			<tr><td>Provincia di origine della nonna materna: </td>
+			<td align=center><input type="text" placeholder="Mother's mother's city of birth" name="provinciaM" style="width: 180px;"/><br><i>(o meglio ancora<br> della bisnonna)</i></td></tr>
 		</table>
 		<table style="width:40%;border:0">
-		<tr style="border:0"><td align=right style="border:0"><input type="submit" value="Invia"/></td></tr>
+			<tr style="border:0"><td align=right style="border:0"><input type="submit" value="Invia"/></td></tr>
 		</table>
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	</form>	 

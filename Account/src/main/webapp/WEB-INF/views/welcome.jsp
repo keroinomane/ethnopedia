@@ -24,18 +24,32 @@
 	<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
 	<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+	<link rel="stylesheet" media="all" href="${contextPath}/resources/css/jquery-ui.css" />
 	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
-	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-3.0.0.min.js"></script> 
+	<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script> 
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui.js"></script>
 	<style>
 		.eutest {
 			text-align:center;
 		}
 	</style>
-	
-	
+	<script type="text/javascript">
+	$( function() {
+	    $( "#datepicker" ).datepicker({
+	      changeMonth: true,
+	      changeYear: true,
+	      yearRange: '1900:2002',
+	      dateFormat: 'dd/mm/yy',
+	      dayNamesMin: ['Do','Lu','Ma','Me','Gi','Ve','Sa'],
+	      monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
+	    	    'Lug','Ago','Set','Ott','Nov','Dic'],
+	    	    defaultDate: new Date('1 January 1980')
+	    });
+	  } );
+	</script>	
 </head>
 
 <body>
@@ -76,6 +90,7 @@
 						<table>
 							<tr><td width=50%>Cognome</td><td><c:out value="${userDati.cognome}" /></td></tr>
 							<tr><td>Nome</td><td><c:out value="${userDati.nome}" /></td></tr>
+							
 						</table>
 					</td>
 					<td style="border: none;" width=40% rowspan="3">
@@ -130,10 +145,45 @@
 						</c:if>
 					</td>
 				</tr>
-				
 				<tr style="border: none;">
-					<td rowspan="2" style="border: none;">
-						<c:if test="${nonniStessaRegione == true}">
+					<td style="border: none;">
+						<c:if test="${userDati.nascita == null}">
+							<form id="nascitaForm" method="POST" action="${contextPath}/insertNascita">
+						    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<table style="border:0;">
+									<tr style="border:0;">
+										<td colspan="2">
+											Inserisci la tua data di nascita:<br>
+											<i>Insert your birth date:</i>
+										</td>
+									</tr>
+									<tr>
+										<td style="border:0;">
+											<input type="text" name="nascita" id="datepicker" style="width: 80px;">
+										</td>
+										<td align="right" style="border:0;">
+											<input type="submit" />
+										</td>
+									</tr>
+								</table>
+							</form>
+						</c:if>
+						<c:if test="${userDati.nascita != null}">
+							<table>
+								<tr>
+									<td width=50%>Data di nascita</td>
+									<td>
+										<fmt:formatDate value="${userDati.nascita}" pattern="dd/MM/yyyy" />
+									</td>
+								</tr>
+							</table>
+						</c:if>
+					</td>
+				</tr>
+								
+				<tr style="border: none;">
+					<td style="border: none;">
+						<c:if test="${fasciaEtaOK == true && nonniStessaRegione == true && userDati.sesso eq 'maschio'}">
 							<c:if test="${altezza == null}">
 								<form id="altezzaForm" method="POST" action="${contextPath}/insertAltezza">
 						            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -141,7 +191,7 @@
 									<tr style="border:0;">
 										<td colspan="2">
 											Inserisci la tua altezza<br>
-											
+											<i>Insert your height</i>
 										</td>
 									</tr>
 									<tr>
@@ -163,8 +213,6 @@
 							</c:if>
 						</c:if>
 					</td>
-				</tr>
-				<tr style="border: none;">
 					<td style="border: none;" align="center">
 						<h4>
 					        <a style="text-decoration: none" href="<c:url value='/statistiche' />" >

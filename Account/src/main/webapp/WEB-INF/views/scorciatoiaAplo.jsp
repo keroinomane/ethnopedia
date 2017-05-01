@@ -199,8 +199,9 @@
 									<td align="right">Cognome: </td><td align=center><form:input path="ydnaId.cognome" value="${ydna.ydnaId.cognome}" id="cognome" onKeyUp="control()" /></td>
 									<td align="center"><br><i>Clicca sull'immagine per ingrandirla.</i></td>
 								</tr>
-								<tr><td align="right">Nome: </td><td><form:input id="nome" path="nome" value="${ydna.nome}" style="width:40%" />
-								<input type="checkbox" id='dunnoname' onChange="dunnon()" /> non si sa</td>
+								<tr>
+									<td align="right">Nome: </td><td><form:input id="nome" path="nome" value="${ydna.nome}" style="width:40%" />
+									<input type="checkbox" id='dunnoname' onChange="dunnon()" /> non si sa</td>
 									<td rowspan=8 align="center">
 										<img id="image" src="${contextPath}/resources/img/cladi/${ydna.ydnaId.aplogruppo}.png" height="310px" onclick="enlarge()"/>
 									</td>
@@ -283,6 +284,13 @@
 									<td align="right">Cognome: </td><td align=center><form:input path="mtdnaId.cognome" value="${mtdna.mtdnaId.cognome}" id="cognomem" onKeyUp="control()" /></td>
 								</tr>
 								<tr><td align="right">Nome: </td><td align=center><form:input path="mtdnaId.nome" value="${mtdna.mtdnaId.nome}" id="nomem" onKeyUp="control()" /></td>
+								</tr>
+								<tr>
+									<td align="right">Sesso:</td>
+									<td>
+										<input type="radio" name="sesso" value="maschio" checked> Maschio<br>
+										<input type="radio" name="sesso" value="femmina"> Femmina
+									</td>
 								</tr>
 								<tr><td align="right">Aplogruppo: </td><td>
 									<form:select path="mtdnaId.aplogruppo" value="${mtdna.mtdnaId.aplogruppo}" id="aplogruppo">

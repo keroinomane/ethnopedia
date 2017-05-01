@@ -12,17 +12,29 @@
 	<title>Inserisci aplogruppo</title>
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
 	<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
+	<link rel="stylesheet" media="all" href="${contextPath}/resources/css/jquery-ui.css" />
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui.js"></script>
+	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
-	<script type="text/javascript" src="${contextPath}/resources/js/insertAplo.js"></script>   
-	<style>
-		td:not(.template) {
-			vertical-align: middle;
-		}
-		
-	</style>
+	<script type="text/javascript" src="${contextPath}/resources/js/insertAplo.js"></script>
+  	
+	<script type="text/javascript">
+	$( function() {
+	    $( "#datepicker" ).datepicker({
+	      changeMonth: true,
+	      changeYear: true,
+	      yearRange: '1900:2002',
+	      dateFormat: 'dd/mm/yy',
+	      dayNamesMin: ['Do','Lu','Ma','Me','Gi','Ve','Sa'],
+	      monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
+	    	    'Lug','Ago','Set','Ott','Nov','Dic'],
+	    	    defaultDate: new Date('1 January 1980')
+	    });
+	  } );
+	</script>
 </head>
 <body>
 <div id="container"> 
@@ -47,13 +59,24 @@
 	<form action="UploadDownloadFile" method="post" enctype="multipart/form-data">
 	  <table style="border: none;">
 		  <tr style="border: none;">
-			  <td style="border: none; width:35%;">
+			  <td style="border: none; width:35%;" rowspan=2>
 					<table>
 						<tr><td style="width:25%;">Nome: </td><td><input type="text" name="nome" placeholder="First name" style="width: 130px;"/></td></tr>
 						<tr><td>Cognome: </td><td><input type="text" name="cognome" placeholder="Last name" style="width: 130px;"/></td></tr> 
 						<tr><td>Sesso:<br>
 						<i>Sex:</i></td><td><input type="radio" name="sesso" value="maschio" onChange="display()" checked> Maschio / <i>Male</i><br>
 						<input type="radio" name="sesso" value="femmina" onChange="display()"> Femmina / <i>Female</i></td></tr>
+						 
+						<tr>
+							<td>
+								Data di nascita:<br>
+								<i>Birth date:</i>
+							</td>
+							<td>
+								<input type="text" name="nascita" id="datepicker" style="width: 130px;">
+							</td>
+						</tr>
+						
 						<tr>
 							<td>Test genetico effettuato:</td>
 							<td>
@@ -65,7 +88,7 @@
 						</tr>
 					</table>
 				</td>
-				<td style="border: none;" class="template">	
+				<td style="border: none;" class="template" rowspan=2>	
 					<div id="ydna" style="display:none;">
 						<table>
 						
@@ -155,34 +178,32 @@
 			</tr>	
 		
 			<tr style="border: none; display:none;" class="raw">
-				<td colspan=3 align=right style="border: none;">	
+				<td align=right style="border: none;">	
 					<strong>Carica i raw data relativi al cromosoma Y</strong><br>
 					<em>Upload your Y Chromosome raw data</em>
 					<br><br>
 					<input type="file" name="rawdataY">
+					<br><br>
+					
+					<div style="display:none;" class="exp23">
+						Non sai dove prenderli? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
+						<em>You don't know where to find them? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
+					</div>
+					<div style="display:none;" class="expGen">
+						Non sai dove prenderli? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
+						<em>You don't know where to find them? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
+					</div>
+					<div style="display:none;" class="expGenNext">
+						Non sai dove prenderli? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
+						<em>You don't know where to find them? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
+					</div>
+					
 				</td>
 			</tr>
-			<tr style="border: none; display:none;" class="exp23">
-				<td colspan=3 align=right style="border: none;">
-				Non sai dove prenderli? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
-				<em>You don't know where to find them? <a href="${contextPath}/howToRaw23" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
-				</td>
-			</tr>
-			<tr style="border: none; display:none;" class="expGen">
-				<td colspan=3 align=right style="border: none;">
-				Non sai dove prenderli? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
-				<em>You don't know where to find them? <a href="${contextPath}/howToRawGeno" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
-				</td>
-			</tr>
-			<tr style="border: none; display:none;" class="expGenNext">
-				<td colspan=3 align=right style="border: none;">
-				Non sai dove prenderli? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
-				<em>You don't know where to find them? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
-				</td>
-			</tr>
+			
+			
 	</table>
 	
-	<br>	
 	
 	<div align=right><input type="submit" value="Invia" width=100/></div>
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
@@ -217,7 +238,6 @@
 </div>
 <!-- End Footer -->
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
 </body>
 </html>

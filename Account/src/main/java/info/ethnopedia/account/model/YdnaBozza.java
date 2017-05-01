@@ -1,5 +1,7 @@
 package info.ethnopedia.account.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,11 +22,12 @@ public class YdnaBozza implements java.io.Serializable {
 	private String aplogruppo;
 	private String clade;
 	private String provincia;
+	private Date nascita;
 	
 	public YdnaBozza() {
 	}
 	
-	public YdnaBozza(String username, String cognome, String nome, String aplogruppo, String clade, String provincia) {
+	public YdnaBozza(String username, String cognome, String nome, String aplogruppo, String clade, String provincia, Date nascita) {
 		super();
 		this.username = username;
 		this.cognome = cognome;
@@ -32,6 +35,7 @@ public class YdnaBozza implements java.io.Serializable {
 		this.aplogruppo = aplogruppo;
 		this.clade = clade;
 		this.provincia = provincia;
+		this.nascita = nascita;
 	}
 
 	public Long getId() {
@@ -90,4 +94,13 @@ public class YdnaBozza implements java.io.Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public Date getNascita() {
+		return nascita;
+	}
+
+	public void setNascita(Date nascita) {
+		this.nascita = nascita;
+	}
+	
 }

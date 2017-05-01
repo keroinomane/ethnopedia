@@ -1,5 +1,7 @@
 package info.ethnopedia.account.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,17 +21,31 @@ public class MtdnaBozza implements java.io.Serializable {
 	private String nome;
 	private String aplogruppo;
 	private String provincia;
+	private String sesso;
+	private Date nascita;
 	
 	public MtdnaBozza() {
 	}
 	
-	public MtdnaBozza(String username, String cognome, String nome, String aplogruppo, String provincia) {
+	public MtdnaBozza(String username, String cognome, String nome, String aplogruppo, String provincia, String sesso) {
 		super();
 		this.username = username;
 		this.cognome = cognome;
 		this.nome = nome;
 		this.aplogruppo = aplogruppo;
 		this.provincia = provincia;
+		this.sesso = sesso;
+	}
+	
+	public MtdnaBozza(String username, String cognome, String nome, String aplogruppo, String provincia, String sesso, Date nascita) {
+		super();
+		this.username = username;
+		this.cognome = cognome;
+		this.nome = nome;
+		this.aplogruppo = aplogruppo;
+		this.provincia = provincia;
+		this.sesso = sesso;
+		this.nascita = nascita;
 	}
 
 	public Long getId() {
@@ -79,6 +95,22 @@ public class MtdnaBozza implements java.io.Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getSesso() {
+		return sesso;
+	}
+
+	public void setSesso(String sesso) {
+		this.sesso = sesso;
+	}
+	
+	public Date getNascita() {
+		return nascita;
+	}
+
+	public void setNascita(Date nascita) {
+		this.nascita = nascita;
 	}
 
 }
