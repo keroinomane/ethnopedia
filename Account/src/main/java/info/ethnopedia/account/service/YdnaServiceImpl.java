@@ -5,23 +5,44 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import info.ethnopedia.account.model.AncientYdna;
+import info.ethnopedia.account.model.CladiAplo;
 import info.ethnopedia.account.model.Ydna;
 import info.ethnopedia.account.model.YdnaId;
+import info.ethnopedia.account.repository.AncientYdnaRepository;
+import info.ethnopedia.account.repository.CladiAploRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
 
 @Service
 public class YdnaServiceImpl implements YdnaService {
+	
 	@Autowired
     private YdnaRepository ydnaRepository;
+	
+	@Autowired
+    private AncientYdnaRepository ancientYdnaRepository;
+	
+	@Autowired
+    private CladiAploRepository cladiAploRepository;
 	
 	@Override
     public void save(Ydna ydna) {
         ydnaRepository.save(ydna);
     }
+	
+	@Override
+    public void save(AncientYdna ancientYdna) {
+        ancientYdnaRepository.save(ancientYdna);
+    }
 
 	@Override
 	public boolean exists(YdnaId ydnaId) {
 		return ydnaRepository.exists(ydnaId.getCognome(),ydnaId.getAplogruppo(),ydnaId.getProvincia()) != null;
+	}
+	
+	@Override
+	public boolean exists(AncientYdna ancientYdna) {
+		return ancientYdnaRepository.exists(ancientYdna.getId()) != null;
 	}
 
 	@Override
@@ -32,5 +53,10 @@ public class YdnaServiceImpl implements YdnaService {
 	@Override
 	public List<String> getSubcladiByClade(String clade) {
 		return ydnaRepository.getSubcladiByClade(clade);
+	}
+
+	@Override
+	public List<CladiAplo> getCladiByAploForAdna(String aplo) {
+		return cladiAploRepository.getCladiFromAplogruppo(aplo);
 	}
 }

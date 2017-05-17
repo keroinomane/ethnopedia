@@ -183,7 +183,7 @@
 								
 				<tr style="border: none;">
 					<td style="border: none;">
-						<c:if test="${fasciaEtaOK == true && nonniStessaRegione == true && userDati.sesso eq 'maschio'}">
+						<c:if test="${fasciaEtaOK == true && nonniStessaRegione == true}">
 							<c:if test="${altezza == null}">
 								<form id="altezzaForm" method="POST" action="${contextPath}/insertAltezza">
 						            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

@@ -138,7 +138,7 @@
 					<div id="ancestry" style="display:none;">
 					
 						<b>Attention:</b><br>
-						You must have 4 italian grandparents and have uploaded your raw data in GEDmatch.
+						You must have <u>4 italian grandparents</u> and have uploaded your raw data in GEDmatch.
 						<br><br>
 						
 						<table>

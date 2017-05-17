@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -37,8 +36,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import info.ethnopedia.account.model.Altezza;
+import info.ethnopedia.account.model.AncientYdna;
 import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.CladeFreqRegionali;
+import info.ethnopedia.account.model.CladiAplo;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.Frequenza;
@@ -101,25 +102,7 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;    
     
-    @RequestMapping(value = "/inserisciEutest", method = RequestMethod.GET)
-    public String inserisciEutest(Model model) {
-        return "inserisciEutest";
-    }
     
-    @RequestMapping(value = "/inserisciEutestPlebe", method = RequestMethod.GET)
-    public String inserisciEutestPlebe(Model model) {
-        return "inserisciEutestPlebe";
-    }
-    
-    @RequestMapping(value = "/statistiche", method = RequestMethod.GET)
-    public String statistiche(Model model) {
-		return "statistiche";
-    }
-    
-    @RequestMapping(value = "/diffusioneCladi", method = RequestMethod.GET)
-    public String diffusioneCladi(Model model) {
-		return "diffusioneCladi";
-    }
     
     @RequestMapping(value = "/calcolaFrequenzaClade", method = RequestMethod.GET)
     public String CalcolaFrequenzaClade(@RequestParam(value = "checkSubclade", required = false) String checkSubclade,
@@ -165,6 +148,12 @@ public class UserController {
     @ResponseBody
     public List<String> getSubcladiByClade(@RequestParam("clade") String clade) {
         return ydnaService.getSubcladiByClade(clade);
+    }
+    
+    @RequestMapping(value = "/getCladiByAploForAdna", method=RequestMethod.GET, produces="application/json")
+    @ResponseBody
+    public List<CladiAplo> getCladiByAploForAdna(@RequestParam("aplo") String aplo) {
+        return ydnaService.getCladiByAploForAdna(aplo);
     }
     
     @RequestMapping(value = " /calcMediaAploRegioni", method=RequestMethod.GET)
@@ -292,6 +281,38 @@ public class UserController {
     	return "admin";
     }
     
+    @RequestMapping(value="/saveAncientYdna", method=RequestMethod.POST)
+    public String saveAncientYdna(@ModelAttribute AncientYdna ancientYdna, String cladeRadio, String altroClade, String datazione, Model model) {
+    	
+    	if (cladeRadio.equals("altro"))
+    		ancientYdna.setClade(altroClade);
+    	else if (cladeRadio.equals("non si sa"))
+    		ancientYdna.setClade(null);
+    	
+    	if (ancientYdna.getTerminalsnp().equals(""))
+    		ancientYdna.setTerminalsnp(null);
+    	
+    	if (ancientYdna.getCultura().equals(""))
+    		ancientYdna.setCultura(null);
+    	
+    	if (datazione.equals("bce")) {
+    		ancientYdna.setFromybp(ancientYdna.getFromybp() + 2017);
+    		ancientYdna.setToybp(ancientYdna.getToybp() + 2017);
+    	} else if (datazione.equals("ce")) {
+    		ancientYdna.setFromybp(2017 - ancientYdna.getFromybp());
+    		ancientYdna.setToybp(2017 - ancientYdna.getToybp());
+    	}
+    	
+    	if (!ydnaService.exists(ancientYdna))
+    		ydnaService.save(ancientYdna);
+    	else
+    		return "admin/errorAncient";
+    	
+    	ancientYdna = new AncientYdna();
+    	model.addAttribute("ancientYdna", ancientYdna);
+    	return "admin/insertAncientYdna";
+    }
+    
     @RequestMapping(value="/saveYdnaManual", method=RequestMethod.POST)
     public String saveYdnaManual(@ModelAttribute Ydna ydna, Model model) {
     	if (ydna.getNome().equals("null"))
@@ -411,79 +432,79 @@ public class UserController {
         String resultMessage="";
         ModelAndView modelAndView=new ModelAndView("result");       
        
-   	if(!ServletFileUpload.isMultipartContent(request))
-		throw new Exception("Content type is not multipart/form-data");
-	
-	try {
-		List<FileItem> fileItemsList = uploader.parseRequest(request);
-		String nome = fileItemsList.get(0).getString();
-		String cognome = fileItemsList.get(1).getString();
-		String sesso = fileItemsList.get(2).getString();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		String nascita = fileItemsList.get(3).getString();
-		Date nascitaDate= sdf.parse(nascita);
-		String test = fileItemsList.get(4).getString();
-		String aplo = "";
-        String clade = "";
-        String provinciaP = fileItemsList.get(9).getString();
-        String gedmatch = fileItemsList.get(10).getString();
-        String nonnop = fileItemsList.get(11).getString();
-        String nonnap = fileItemsList.get(12).getString();
-        String nonnom = fileItemsList.get(13).getString();
-        String nonnam = fileItemsList.get(14).getString();
-        
-        String mtDNA = fileItemsList.get(15).getString();
-        String provinciaM = fileItemsList.get(16).getString();
-		FileItem rawdataFile = fileItemsList.get(17);
-		String rawdata=IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
-		boolean b = false;
+	   	if(!ServletFileUpload.isMultipartContent(request))
+			throw new Exception("Content type is not multipart/form-data");
 		
-		if (test.equals("ancestry")) {
-			content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
-			b = true;
-		} else if (sesso.equals("femmina"))  {
-			content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
-			b = true;
-		} else {
-			if (test.equals("23andMe")) {
-				aplo = fileItemsList.get(5).getString();
-				clade = fileItemsList.get(6).getString();
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo 23andMe: " + aplo + "\nclade 23andMe: " + clade + 
-	            		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM;
+		try {
+			List<FileItem> fileItemsList = uploader.parseRequest(request);
+			String nome = fileItemsList.get(0).getString();
+			String cognome = fileItemsList.get(1).getString();
+			String sesso = fileItemsList.get(2).getString();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			String nascita = fileItemsList.get(3).getString();
+			Date nascitaDate= sdf.parse(nascita);
+			String test = fileItemsList.get(4).getString();
+			String aplo = "";
+	        String clade = "";
+	        String provinciaP = fileItemsList.get(9).getString();
+	        String gedmatch = fileItemsList.get(10).getString();
+	        String nonnop = fileItemsList.get(11).getString();
+	        String nonnap = fileItemsList.get(12).getString();
+	        String nonnom = fileItemsList.get(13).getString();
+	        String nonnam = fileItemsList.get(14).getString();
+	        
+	        String mtDNA = fileItemsList.get(15).getString();
+	        String provinciaM = fileItemsList.get(16).getString();
+			FileItem rawdataFile = fileItemsList.get(17);
+			String rawdata=IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
+			boolean b = false;
+			
+			if (test.equals("ancestry")) {
+				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
+				b = true;
+			} else if (sesso.equals("femmina"))  {
+				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+				b = true;
 			} else {
-				aplo = fileItemsList.get(7).getString();
-				clade = fileItemsList.get(8).getString();
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo Geno: " + aplo + "\nclade Geno: " + clade + "\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+				if (test.equals("23andMe")) {
+					aplo = fileItemsList.get(5).getString();
+					clade = fileItemsList.get(6).getString();
+					content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo 23andMe: " + aplo + "\nclade 23andMe: " + clade + 
+		            		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM;
+				} else {
+					aplo = fileItemsList.get(7).getString();
+					clade = fileItemsList.get(8).getString();
+					content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo Geno: " + aplo + "\nclade Geno: " + clade + "\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+				}
+				b = VerifyAplo.isOk(test, rawdata, aplo, clade);
 			}
-			b = VerifyAplo.isOk(test, rawdata, aplo, clade);
-		}
-		if (b) {				
-			resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
-					+ "We're elaborating your data. <b>Don't insert them again.</b>";
-			String usern = SecurityContextHolder.getContext().getAuthentication().getName();
-			if (sesso.equals("maschio") && !test.equals("ancestry")) {
-				content += "\n\nRaw data corretti.";
-				YdnaBozza yb = new YdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(aplo), clade, WordUtils.capitalizeFully(provinciaP), nascitaDate);
-				bozzaService.save(yb);
+			if (b) {				
+				resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
+						+ "We're elaborating your data. <b>Don't insert them again.</b>";
+				String usern = SecurityContextHolder.getContext().getAuthentication().getName();
+				if (sesso.equals("maschio") && !test.equals("ancestry")) {
+					content += "\n\nRaw data corretti.";
+					YdnaBozza yb = new YdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(aplo), clade, WordUtils.capitalizeFully(provinciaP), nascitaDate);
+					bozzaService.save(yb);
+				}
+				MtdnaBozza mb = new MtdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(mtDNA), WordUtils.capitalizeFully(provinciaM), sesso, nascitaDate);
+				bozzaService.save(mb);
+			} else {
+				content += "\n\nRaw data errati.";
+				resultMessage = "Hai inserito dati errati oppure il file da te inserito non è corretto.<br><a href=\"javascript:history.back()\"><b>Riprova!</b></a>"
+						+ "<br><br>You have entered wrong data or the uploaded file is not correct.<br><a href=\"javascript:history.back()\"><b>Try again!</b></a>";
 			}
-			MtdnaBozza mb = new MtdnaBozza(usern, WordUtils.capitalizeFully(cognome), WordUtils.capitalizeFully(nome), WordUtils.capitalize(mtDNA), WordUtils.capitalizeFully(provinciaM), sesso, nascitaDate);
-			bozzaService.save(mb);
-		} else {
-			content += "\n\nRaw data errati.";
-			resultMessage = "Hai inserito dati errati oppure il file da te inserito non è corretto.<br><a href=\"javascript:history.back()\"><b>Riprova!</b></a>"
-					+ "<br><br>You have entered wrong data or the uploaded file is not correct.<br><a href=\"javascript:history.back()\"><b>Try again!</b></a>";
-		}
-		
-		EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);
-		
-	} catch (Exception e) {
-		resultMessage = "Exception in uploading file.";
-	} 
-	modelAndView.addObject("message", resultMessage);
-     
-    
-	return modelAndView;
-}
+			
+			EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);
+			
+		} catch (Exception e) {
+			resultMessage = "Exception in uploading file.";
+		} 
+		modelAndView.addObject("message", resultMessage);
+	     
+	    
+		return modelAndView;
+	}
     
     @RequestMapping(value = "/insertMtDNA", method = RequestMethod.POST)
     public ModelAndView insertMtDNA (String aplogruppoM, String provinciaM, String sesso) {
@@ -506,8 +527,8 @@ public class UserController {
 		bozzaService.save(mb);
 		modelAndView.addObject("message", resultMessage);
      
-	return modelAndView;
-}
+		return modelAndView;
+	}
     	
 
     	
@@ -860,7 +881,7 @@ public class UserController {
     		Eutest tizio = eutestService.findPuroById(user.getId());
     		
     		
-    		// restituisce altezza se è già inserita, altrimenti null
+    		// controllo età (da 21 a 54 anni)
     		if (userDati.getNascita() != null) {
     			Calendar c1 = Calendar.getInstance();
     			Calendar c2 = Calendar.getInstance();
@@ -872,7 +893,7 @@ public class UserController {
     		}
     		
     		// restituisce altezza se è già inserita, altrimenti null
-    		if (tizio != null && userDati.getSesso().equals("maschio") && tizio.getNonnop().equals(tizio.getNonnom()) 
+    		if (tizio != null && tizio.getNonnop().equals(tizio.getNonnom()) 
     			&& tizio.getNonnom().equals(tizio.getNonnap()) && tizio.getNonnap().equals(tizio.getNonnam()) 
     			&& tizio.getNonnam().equals(tizio.getNonnop())) {
     				

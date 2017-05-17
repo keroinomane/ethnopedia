@@ -164,17 +164,17 @@
 								<span class="glyphicon glyphicon-pencil"></span>
 							</button>
 							</a>&nbsp
-							Inserisci nuovi aplogruppi manualmente
+							Inserisci aplogruppi utenti manualmente
 							</h4>
 		        		</td>
 		        		<td id="scrivania" style="border:none;" align="center">
 		        			<h4>
-		        			<a style="text-decoration: none" href="<c:url value='/statistiche' />" >
+		        			<a style="text-decoration: none" href="<c:url value='/insertAncientYdna' />" >
 		        			<button type="button" class="btn btn-success">
-								<span class="glyphicon glyphicon-stats"></span>
+								<span class="glyphicon glyphicon-tower"></span>
 							</button>
 							</a>&nbsp
-		        			Aggiorna statistiche
+		        			Inserisci DNA antico
 		        			</h4>
 		        		</td>
 		        	</tr>

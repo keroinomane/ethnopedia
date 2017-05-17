@@ -19,11 +19,8 @@
 <script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 <style>
-	table, tr, td {
-		border:0;
-	}
-	.form-signin {
-    	margin: 0;
+	.container {
+		text-align:center;
 	}
 </style>
 </head>
@@ -46,11 +43,6 @@
 	</div>
     <!-- End Intro --> 
     <div class="container">
-	<table style="border-left:0;
-		border-top:0;border-right:0;">
-		<tr style="border-left:0;
-			border-top:0;">
-			<td style="border-right:0;vertical-align:middle;" align="right">
 				<form method="POST" action="${contextPath}/login" class="form-signin">
 			        <div class="form-group ${error != null ? 'has-error' : ''}">
 			            <span>${message}</span>
@@ -64,14 +56,9 @@
 			        </div>
 			
 			    </form>
-		    </td>
-			<td width=31% style="border-right:0;">
-				<a href="http://www.dpbolvw.net/click-8289828-12899160" target="_top">
-					<img src="http://www.awltovhc.com/image-8289828-12899160" width="100%" alt="" border="0"/>
-				</a>
-			</td>
-		</tr>
-	</table>	
+		    <a href="http://www.anrdoezrs.net/click-8289828-12899164" target="_top">
+				<img src="http://www.lduhtrp.net/image-8289828-12899164" width="728" height="90" alt="" border="0"/>
+			</a>
 	</div>
     <!-- End About --> 
     
