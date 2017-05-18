@@ -101,7 +101,7 @@
 		<!-- Begin Slider -->
 		<div id="cycle-wrapper">
 			<div id="sliderholder-cycle">
-				<img src="resources/img/header.jpg" width="100%" />
+				<img src="${contextPath}/resources/img/header.jpg" width="100%" />
 			</div>
 			<!-- End Slider -->
 
@@ -160,6 +160,7 @@
 													<form:option value="BT">BT</form:option>
 													<form:option value="CT">CT</form:option>
 													<form:option value="C1a">C1a</form:option>
+													<form:option value="C1a2">C1a2</form:option>
 													<form:option value="C1b">C1b</form:option>
 													<form:option value="E">E</form:option>
 													<form:option value="E1b1b">E1b1b</form:option>
@@ -178,6 +179,8 @@
 													<form:option value="K">K</form:option>
 													<form:option value="P">P</form:option>
 													<form:option value="Q">Q</form:option>
+													<form:option value="Q1a">Q1a</form:option>
+													<form:option value="Q1b">Q1b</form:option>
 													<form:option value="R">R</form:option>
 													<form:option value="R1a">R1a</form:option>
 													<form:option value="R1b">R1b</form:option>
@@ -325,7 +328,14 @@
 										</tr>
 									</table>
 									<br>
-									<input class="btn btn-primary" type="submit" value="Inserisci" />
+									<c:if test="${modifica == null}">
+										<input class="btn btn-primary" type="submit" value="Inserisci" />
+										<input type="hidden" name="modifica" value="false"/>
+									</c:if>
+									<c:if test="${modifica != null}">
+										<input class="btn btn-primary" type="submit" value="Modifica" />
+										<input type="hidden" name="modifica" value="true"/>
+									</c:if>
 								</form:form>
 						    </div>
 					    </c:if>
