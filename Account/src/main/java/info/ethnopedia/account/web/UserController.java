@@ -282,13 +282,15 @@ public class UserController {
     }
     
     @RequestMapping(value="/saveAncientYdna", method=RequestMethod.POST)
-    public String saveAncientYdna(@ModelAttribute AncientYdna ancientYdna, String cladeRadio, String altroClade, String datazione, Model model) {
+    public String saveAncientYdna(@ModelAttribute AncientYdna ancientYdna, String cladeRadio, String altroClade, String datazione, String modifica, Model model) {
     	
-    	if (cladeRadio.equals("altro"))
-    		ancientYdna.setClade(altroClade);
-    	else if (cladeRadio.equals("non si sa"))
-    		ancientYdna.setClade(null);
-    	
+    	if (cladeRadio != null) {
+	    	if (cladeRadio.equals("altro"))
+	    		ancientYdna.setClade(altroClade);
+	    	else if (cladeRadio.equals("non si sa"))
+	    		ancientYdna.setClade(null);
+    	}
+    
     	if (ancientYdna.getTerminalsnp().equals(""))
     		ancientYdna.setTerminalsnp(null);
     	
@@ -303,10 +305,10 @@ public class UserController {
     		ancientYdna.setToybp(2017 - ancientYdna.getToybp());
     	}
     	
-    	if (!ydnaService.exists(ancientYdna))
-    		ydnaService.save(ancientYdna);
-    	else
+    	if (ydnaService.exists(ancientYdna) && !modifica.equals("true"))
     		return "admin/errorAncient";
+    	else
+    		ydnaService.save(ancientYdna);
     	
     	ancientYdna = new AncientYdna();
     	model.addAttribute("ancientYdna", ancientYdna);
@@ -680,6 +682,21 @@ public class UserController {
     public String howToRawGenoNext(Model model) {
 
         return "howToRawGenoNext";
+    }
+    
+    @RequestMapping(value = "/ancientDNA", method = RequestMethod.GET)
+    public String ancientDNA(Model model) {
+    	List<AncientYdna> adna = ydnaService.findAllAncientYdna();
+		model.addAttribute("adna",adna);
+        return "ancientDNA";
+    }
+    
+    @RequestMapping(value = " /modificaAncientYdna/{id}", method=RequestMethod.GET)
+    public String modificaAncientYdna(@PathVariable("id")String id, Model model) {
+    	AncientYdna ancientYdna = ydnaService.findAncientYdnaById(id);
+		model.addAttribute("ancientYdna",ancientYdna);
+		model.addAttribute("modifica",true);
+		return "admin/insertAncientYdna";
     }
     
     @RequestMapping(value = "/aploRegioni", method = RequestMethod.GET)

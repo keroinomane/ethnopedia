@@ -59,4 +59,14 @@ public class YdnaServiceImpl implements YdnaService {
 	public List<CladiAplo> getCladiByAploForAdna(String aplo) {
 		return cladiAploRepository.getCladiFromAplogruppo(aplo);
 	}
+	
+	@Override
+	public List<AncientYdna> findAllAncientYdna() {
+		return ancientYdnaRepository.findAll();
+	}
+
+	@Override
+	public AncientYdna findAncientYdnaById(String id) {
+		return ancientYdnaRepository.exists(id);
+	}
 }

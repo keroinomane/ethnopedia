@@ -11,4 +11,5 @@ public interface AncientYdnaRepository extends JpaRepository<AncientYdna, Long> 
     		nativeQuery=true
     )
 	public AncientYdna exists(String id);
+	
 }
