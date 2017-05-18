@@ -16,5 +16,7 @@ public interface YdnaService {
 	List<String> getCladiByAplo(String aplo);
 	List<String> getSubcladiByClade(String clade);
 	List<CladiAplo> getCladiByAploForAdna(String aplo);
+	List<AncientYdna> findAllAncientYdna();
+	AncientYdna findAncientYdnaById(String id);
 	
 }
