@@ -1,4 +1,4 @@
-package info.ethnopedia.account.web;
+package info.ethnopedia.account.utility;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -60,6 +60,6 @@ public class Grafico {
 	    }
 
 	    // or save it in high-res
-	    BitmapEncoder.saveBitmapWithDPI(chart, "/nfs_home/ethno710/ethnopedia.info/html/account/resources/img/graficiMtdna/"+pcd.getMacroregione(), BitmapFormat.PNG, 100);
+	    BitmapEncoder.saveBitmapWithDPI(chart, "/nfs_home/ethno710/ethnopedia.info/html/account_img/graficiMtdna/"+pcd.getMacroregione(), BitmapFormat.PNG, 100);
 	  }
 }

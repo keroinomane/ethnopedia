@@ -19,6 +19,8 @@ public class UserDati implements java.io.Serializable {
 	public Boolean autosomal;
 	private String sesso;
 	private Date nascita;
+	public Boolean genproject;
+	public Boolean phenproject;
 
 	public UserDati () {
 		
@@ -42,12 +44,32 @@ public class UserDati implements java.io.Serializable {
 		this.sesso = sesso;
 	}
 	
+	public UserDati(String cognome, String nome, String sesso, Boolean genproject) {
+		super();
+		this.cognome = cognome;
+		this.nome = nome;
+		this.sesso = sesso;
+		this.genproject = genproject;
+	}
+	
 	public UserDati(String cognome, String nome, String sesso, Date nascita) {
 		super();
 		this.cognome = cognome;
 		this.nome = nome;
 		this.sesso = sesso;
 		this.nascita = nascita;
+	}
+	
+	public UserDati(String cognome, String nome, Boolean autosomal, String sesso, Date nascita, Boolean genproject,
+			Boolean phenproject) {
+		super();
+		this.cognome = cognome;
+		this.nome = nome;
+		this.autosomal = autosomal;
+		this.sesso = sesso;
+		this.nascita = nascita;
+		this.genproject = genproject;
+		this.phenproject = phenproject;
 	}
 
 	@Id
@@ -104,6 +126,22 @@ public class UserDati implements java.io.Serializable {
 
 	public void setNascita(Date nascita) {
 		this.nascita = nascita;
+	}
+
+	public Boolean getGenproject() {
+		return genproject;
+	}
+
+	public void setGenproject(Boolean genproject) {
+		this.genproject = genproject;
+	}
+	
+	public Boolean getPhenproject() {
+		return phenproject;
+	}
+
+	public void setPhenproject(Boolean phenproject) {
+		this.phenproject = phenproject;
 	}
 
 	@Override

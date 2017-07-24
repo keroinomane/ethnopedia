@@ -56,7 +56,9 @@
 			};
 		</script>
 		<style>
-			#scrivania {
+			.scrivania {
+				border: none;
+				text-align:center;
 			    vertical-align:middle;
 			    height: 150;
 			}
@@ -87,7 +89,9 @@
 		        <form id="logoutForm" method="POST" action="${contextPath}/logout">
 		            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		        </form>
-		        <h4>Ciao ${pageContext.request.userPrincipal.name} | <a href="${contextPath}/welcome">Profilo</a> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
+		        <h4>Ciao ${pageContext.request.userPrincipal.name} | <a href="${contextPath}/welcome">Profilo</a> | 
+		        <a href="${contextPath}/statistiche">Statistiche</a> | 
+		        <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
 		        <br>
 
 		        <table style="border:none;">
@@ -156,8 +160,10 @@
 							</table>
 		        		</td>
 		        	</tr>
-		        	<tr style="border:none;" >
-		        		<td id="scrivania" style="border:none;" align="center">
+		        </table>
+		        <table class="scrivania">
+		        	<tr class="scrivania">
+		        		<td class="scrivania">
 		        			<h4>
 		        			<a style="text-decoration: none" href="<c:url value='/scorciatoiaAplo' />" >
 		        			<button type="button" class="btn btn-success">
@@ -167,11 +173,21 @@
 							Inserisci aplogruppi utenti manualmente
 							</h4>
 		        		</td>
-		        		<td id="scrivania" style="border:none;" align="center">
+		        		<td class="scrivania">
+		        			<h4>
+		        			<a style="text-decoration: none" href="<c:url value='/autosomalPuri' />" >
+						        <button type="button" class="btn btn-success">
+									<span class="glyphicon glyphicon-stats"></span>
+								</button>
+							</a>&nbsp
+					        Medie autosomiche regionali
+					        </h4>
+		        		</td>
+		        		<td class="scrivania">
 		        			<h4>
 		        			<a style="text-decoration: none" href="<c:url value='/insertAncientYdna' />" >
 		        			<button type="button" class="btn btn-success">
-								<span class="glyphicon glyphicon-tower"></span>
+								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 							</a>&nbsp
 		        			Inserisci DNA antico

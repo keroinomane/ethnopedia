@@ -248,6 +248,7 @@
 								</tr>
 								<tr><td align="right">Aplogruppo: </td><td>
 									<form:select path="mtdnaId.aplogruppo" value="${mtdna.mtdnaId.aplogruppo}" id="aplogruppo">
+										<form:option value="A">A</form:option>
 										<form:option value="H">H</form:option>
 										<form:option value="H1">H1</form:option>
 										<form:option value="H2">H2</form:option>

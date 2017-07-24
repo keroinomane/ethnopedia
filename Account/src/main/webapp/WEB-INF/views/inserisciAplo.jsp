@@ -20,7 +20,11 @@
 	<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 	<script type="text/javascript" src="${contextPath}/resources/js/insertAplo.js"></script>
-  	
+  	<style>
+		#about {
+			width:75%;
+		}
+	</style>
 	<script type="text/javascript">
 	$( function() {
 	    $( "#datepicker" ).datepicker({
@@ -55,7 +59,7 @@
 	</div>
     <!-- End Intro --> 
     <!-- Begin About -->
-    <div id="about" align=center>
+    <div id="about">
 	<form action="UploadDownloadFile" method="post" enctype="multipart/form-data">
 	  <table style="border: none;">
 		  <tr style="border: none;">
@@ -84,6 +88,7 @@
 								<br><input type="radio" name="test" value="geno" onChange="display()"> Geno 2.0
 								<br><input type="radio" name="test" value="genoNext" onChange="display()"> Geno 2.0 Next Generation
 								<br><input type="radio" name="test" value="ancestry" onChange="display()"> AncestryDNA
+								<br><input type="radio" name="test" value="living" onChange="display()"> LivingDNA
 							</td>
 						</tr>
 					</table>
@@ -91,28 +96,9 @@
 				<td style="border: none;" class="template" rowspan=2>	
 					<div id="ydna" style="display:none;">
 						<table>
-						
-							<tr class="23" style="display:none;"><td>Aplogruppo<br>paterno: </td><td>
-								<select name="aplo23" >
-								   <option value="e1b1b">E1b1b</option>
-								   <option value="g2a">G2a</option>
-								   <option value="i1">I1</option>
-								   <option value="i2">I2</option>
-								   <option value="j1">J1</option>
-								   <option value="j2">J2</option>
-								   <option value="r1a">R1a</option>
-								   <option value="r1b">R1b</option>
-								   <option value="t">T</option>
-								  </select>
-								</td>
-							</tr>
-							<tr class="23" style="display:none;">
-								<td>Inserisci aplogruppo completo: </td>
-								<td align=center><input type="text" name="clade23" placeholder="Whole paternal haplogroup" style="width: 165px;"/><i>(es. R1b1b2a1a2d)</i></td>
-							</tr>
 							
-							<tr class="gen" style="display:none;"><td>Aplogruppo<br>paterno: </td><td>
-								<select name="aplogen" >
+							<tr><td>Aplogruppo<br>paterno: </td><td>
+								<select name="aplo" >
 								   <option value="e">E</option>
 								   <option value="g">G</option>
 								   <option value="i">I</option>
@@ -121,9 +107,9 @@
 								   <option value="t">T</option>
 								  </select></td>
 							</tr>
-							<tr class="gen" style="display:none;">
-								<td>Inserisci il clade: </td>
-								<td align=center><input type="text" placeholder="Terminal SNP" name="cladegen" style="width: 165px;"/><br><i>(es. Z36)</i></td>
+							<tr>
+								<td>Inserisci il subclade: </td>
+								<td align=center><input type="text" placeholder="Terminal SNP" name="clade" style="width: 165px;"/><br><i>(es. Z36)</i></td>
 							</tr>
 						
 							
@@ -197,7 +183,10 @@
 						Non sai dove prenderli? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
 						<em>You don't know where to find them? <a href="${contextPath}/howToRawGenoNext" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
 					</div>
-					
+					<div style="display:none;" class="expLiving">
+						Non sai dove prenderli? <a href="${contextPath}/howToRawLiving" onclick="window.open(this.href);return false"><b>Clicca qui.</b></a><br>
+						<em>You don't know where to find them? <a href="${contextPath}/howToRawLiving" onclick="window.open(this.href);return false"><b>Click here.</b></a></em>
+					</div>
 				</td>
 			</tr>
 			

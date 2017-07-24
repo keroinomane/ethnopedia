@@ -11,6 +11,7 @@ public class TableMtdna implements java.io.Serializable {
 
 	public String macroregione;
 	public int campioni;
+	public double a;
 	public double h;
 	public double h1;
 	public double h2;
@@ -47,33 +48,34 @@ public class TableMtdna implements java.io.Serializable {
 		super();
 		this.macroregione = macroregione;
 		this.campioni = campioni;
-		this.h = campi[0];
-		this.h1 = campi[1];
-		this.h2 = campi[2];
-		this.h3 = campi[3];
-		this.h4 = campi[4];
-		this.h5 = campi[5];
-		this.hv = campi[6];
-		this.i = campi[7];
-		this.j = campi[8];
-		this.k = campi[9];
-		this.l = campi[10];
-		this.m = campi[11];
-		this.n = campi[12];
-		this.r = campi[13];
-		this.t1 = campi[14];
-		this.t2 = campi[15];
-		this.u1 = campi[16];
-		this.u2 = campi[17];
-		this.u3 = campi[18];
-		this.u4 = campi[19];
-		this.u5 = campi[20];
-		this.u6 = campi[21];
-		this.u7 = campi[22];
-		this.u8 = campi[23];
-		this.v = campi[24];
-		this.w = campi[25];
-		this.x = campi[26];
+		this.a = campi[0];
+		this.h = campi[1];
+		this.h1 = campi[2];
+		this.h2 = campi[3];
+		this.h3 = campi[4];
+		this.h4 = campi[5];
+		this.h5 = campi[6];
+		this.hv = campi[7];
+		this.i = campi[8];
+		this.j = campi[9];
+		this.k = campi[10];
+		this.l = campi[11];
+		this.m = campi[12];
+		this.n = campi[13];
+		this.r = campi[14];
+		this.t1 = campi[15];
+		this.t2 = campi[16];
+		this.u1 = campi[17];
+		this.u2 = campi[18];
+		this.u3 = campi[19];
+		this.u4 = campi[20];
+		this.u5 = campi[21];
+		this.u6 = campi[22];
+		this.u7 = campi[23];
+		this.u8 = campi[24];
+		this.v = campi[25];
+		this.w = campi[26];
+		this.x = campi[27];
 	}
 
 
@@ -95,7 +97,15 @@ public class TableMtdna implements java.io.Serializable {
 	public void setCampioni(int campioni) {
 		this.campioni = campioni;
 	}
+	
+	public double getA() {
+		return a;
+	}
 
+	public void setA(double a) {
+		this.a = a;
+	}
+	
 	public double getH() {
 		return h;
 	}

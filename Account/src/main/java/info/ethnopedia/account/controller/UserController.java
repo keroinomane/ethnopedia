@@ -1,4 +1,4 @@
-package info.ethnopedia.account.web;
+package info.ethnopedia.account.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +38,12 @@ import org.springframework.web.servlet.ModelAndView;
 import info.ethnopedia.account.model.Altezza;
 import info.ethnopedia.account.model.AncientYdna;
 import info.ethnopedia.account.model.Autosomal;
+import info.ethnopedia.account.model.AutosomalPuri;
 import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.CladiAplo;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
+import info.ethnopedia.account.model.EutestPuri;
 import info.ethnopedia.account.model.Frequenza;
 import info.ethnopedia.account.model.FrequenzeMtdna;
 import info.ethnopedia.account.model.Mtdna;
@@ -65,6 +67,9 @@ import info.ethnopedia.account.service.StatisticheService;
 import info.ethnopedia.account.service.UserDatiService;
 import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
+import info.ethnopedia.account.utility.EmailUtility;
+import info.ethnopedia.account.utility.Grafico;
+import info.ethnopedia.account.utility.VerifyAplo;
 import info.ethnopedia.account.validator.UserValidator;
 
 @Controller
@@ -225,8 +230,17 @@ public class UserController {
     public String insertAltezza(String centimetri, Model model) {
     	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
     	User user = userService.findByUsername(nome);
-    	Eutest eutest = eutestService.findPuroById(user.getId());
-		Altezza altezza= new Altezza(user.getId(),Integer.parseInt(centimetri),eutest.getNonnop());
+    	EutestPuri eutest = eutestService.findPuroById(user.getId());
+		Altezza altezza= new Altezza(user.getId(),Integer.parseInt(centimetri),eutest.getRegione());
+		altezzaService.save(altezza);
+		return welcome(model);
+    }
+    
+    @RequestMapping(value = " /insertAltezzaPhenProject", method=RequestMethod.POST)
+    public String insertAltezzaPhenProject(String centimetri, String regione, Model model) {
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+		Altezza altezza= new Altezza(user.getId(),Integer.parseInt(centimetri),regione);
 		altezzaService.save(altezza);
 		return welcome(model);
     }
@@ -264,7 +278,7 @@ public class UserController {
     		ydna.setDownstream(ydna.getDownstream().toUpperCase());
     	
     	YdnaBozza yb = bozzaService.findById(idBozza);
-    	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), "maschio", yb.getNascita());
+    	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), null, "maschio", yb.getNascita(), true, null);
     	userDatiService.save(ud);
     	ydna.setId(ud.getId());
     	ydnaService.save(ydna);
@@ -284,13 +298,11 @@ public class UserController {
     @RequestMapping(value="/saveAncientYdna", method=RequestMethod.POST)
     public String saveAncientYdna(@ModelAttribute AncientYdna ancientYdna, String cladeRadio, String altroClade, String datazione, String modifica, Model model) {
     	
-    	if (cladeRadio != null) {
-	    	if (cladeRadio.equals("altro"))
-	    		ancientYdna.setClade(altroClade);
-	    	else if (cladeRadio.equals("non si sa"))
-	    		ancientYdna.setClade(null);
-    	}
-    
+    	if (cladeRadio.equals("altro"))
+	    	ancientYdna.setClade(altroClade);
+	    else if (cladeRadio.equals("non si sa"))
+	    	ancientYdna.setClade(null);
+    	
     	if (ancientYdna.getTerminalsnp().equals(""))
     		ancientYdna.setTerminalsnp(null);
     	
@@ -312,7 +324,10 @@ public class UserController {
     	
     	ancientYdna = new AncientYdna();
     	model.addAttribute("ancientYdna", ancientYdna);
-    	return "admin/insertAncientYdna";
+    	if (modifica.equals("true"))
+    		return "ancientDNA";
+    	else
+    		return "admin/insertAncientYdna";
     }
     
     @RequestMapping(value="/saveYdnaManual", method=RequestMethod.POST)
@@ -338,7 +353,7 @@ public class UserController {
     	
     	if(!ydnaService.exists(ydnaId)) {
     		ydna.setYdnaId(ydnaId);
-        	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), "maschio");
+        	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), "maschio", true);
         	userDatiService.save(ud);
         	ydna.setId(ud.getId());
         	ydnaService.save(ydna);    	
@@ -364,7 +379,7 @@ public class UserController {
     	MtdnaBozza mb = bozzaService.findMtdnaBozzaById(idBozza);
     	UserDati ud = userDatiService.findByCognomeAndNome(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome());
     	if (ud == null) {
-    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome(), mb.getSesso(), mb.getNascita());
+    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome(), null, mb.getSesso(), mb.getNascita(), true, null);
     		userDatiService.save(ud);
     	}
     	mtdna.setId(ud.getId());
@@ -394,7 +409,7 @@ public class UserController {
     	mtdna.setMtdnaId(mtdnaId);
     	UserDati ud = userDatiService.findByCognomeAndNome(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome());
     	if (ud == null) {
-    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome(), sesso);
+    		ud = new UserDati(mtdna.getMtdnaId().getCognome(),mtdna.getMtdnaId().getNome(), null, sesso, null, true, null);
     		userDatiService.save(ud);
     	}
     	mtdna.setId(ud.getId());
@@ -448,17 +463,17 @@ public class UserController {
 			String test = fileItemsList.get(4).getString();
 			String aplo = "";
 	        String clade = "";
-	        String provinciaP = fileItemsList.get(9).getString();
-	        String gedmatch = fileItemsList.get(10).getString();
-	        String nonnop = fileItemsList.get(11).getString();
-	        String nonnap = fileItemsList.get(12).getString();
-	        String nonnom = fileItemsList.get(13).getString();
-	        String nonnam = fileItemsList.get(14).getString();
+	        String provinciaP = fileItemsList.get(7).getString();
+	        String gedmatch = fileItemsList.get(8).getString();
+	        String nonnop = fileItemsList.get(9).getString();
+	        String nonnap = fileItemsList.get(10).getString();
+	        String nonnom = fileItemsList.get(11).getString();
+	        String nonnam = fileItemsList.get(12).getString();
 	        
-	        String mtDNA = fileItemsList.get(15).getString();
-	        String provinciaM = fileItemsList.get(16).getString();
-			FileItem rawdataFile = fileItemsList.get(17);
-			String rawdata=IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
+	        String mtDNA = fileItemsList.get(13).getString();
+	        String provinciaM = fileItemsList.get(14).getString();
+			FileItem rawdataFile = fileItemsList.get(15);
+			String rawdata = IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
 			boolean b = false;
 			
 			if (test.equals("ancestry")) {
@@ -468,18 +483,14 @@ public class UserController {
 				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 				b = true;
 			} else {
-				if (test.equals("23andMe")) {
-					aplo = fileItemsList.get(5).getString();
-					clade = fileItemsList.get(6).getString();
-					content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo 23andMe: " + aplo + "\nclade 23andMe: " + clade + 
-		            		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM;
-				} else {
-					aplo = fileItemsList.get(7).getString();
-					clade = fileItemsList.get(8).getString();
-					content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo Geno: " + aplo + "\nclade Geno: " + clade + "\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
-				}
+				aplo = fileItemsList.get(5).getString();
+				clade = fileItemsList.get(6).getString();
+				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo: " + aplo + "\nclade: " + clade + 
+		           		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM;
+				
 				b = VerifyAplo.isOk(test, rawdata, aplo, clade);
 			}
+			content += "\ntest: " + test;
 			if (b) {				
 				resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
 						+ "We're elaborating your data. <b>Don't insert them again.</b>";
@@ -500,7 +511,8 @@ public class UserController {
 			EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);
 			
 		} catch (Exception e) {
-			resultMessage = "Exception in uploading file.";
+			resultMessage = "Qualcosa è andato storto.<br>Hai inserito la data di nascita?<br>Hai scompattato il file zip?<br><br><a href=\"javascript:history.back()\"><b>Prova ancora!</b></a>"
+					+ "<br><br><br><small>Something went wrong.<br>Did you insert the date of birth?<br>Did you unzip the file?<br><br><a href=\"javascript:history.back()\"><b>Try again!</b></small></a>";
 		} 
 		modelAndView.addObject("message", resultMessage);
 	     
@@ -567,6 +579,11 @@ public class UserController {
     	
     	eutestService.save(eutestPlebe);
     	
+    	if (nonnoP.equals(nonnaP) && nonnaP.equals(nonnoM) && nonnoM.equals(nonnaM) && nonnaM.equals(nonnoP)) {
+    		EutestPuri eutestPuro = new EutestPuri(eutest);
+        	statService.save(eutestPuro);
+    	}
+    	
     	UserDati userDati = userDatiService.findById(user.getId());
 		Ydna ydna = userService.findById(user.getId());
     	Mtdna mtdna = mtdnaService.findById(user.getId());
@@ -588,6 +605,7 @@ public class UserController {
     	
     	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
     	User user = userService.findByUsername(nome);
+    	boolean regionalResult = false;
     	
     	EutestPlebe eutestPlebe = new EutestPlebe(user.getId(), user.getCognome(), user.getNome(), gedmatch, Double.parseDouble(baltic),Double.parseDouble(easteuro), Double.parseDouble(northcentraleuro), 
     			Double.parseDouble(atlantic), Double.parseDouble(westmed), Double.parseDouble(eastmed), Double.parseDouble(westasian), Double.parseDouble(middleastern), 
@@ -599,12 +617,18 @@ public class UserController {
 		Ydna ydna = userService.findById(user.getId());
     	Mtdna mtdna = mtdnaService.findById(user.getId());
     	String closestPop = calcolaClosestPop(eutestPlebe);
+    	String pureClosestPop = calcolaPureClosestPop(eutestPlebe);
+    	
+		if (!closestPop.equals(pureClosestPop))
+			regionalResult  = true;
     	
 		model.addAttribute("ydna", ydna);
 		model.addAttribute("mtdna", mtdna);
 		model.addAttribute("userDati", userDati);
 		model.addAttribute("eutest", eutestPlebe);
 		model.addAttribute("closestPop", closestPop);
+		model.addAttribute("pureClosestPop", pureClosestPop);
+		model.addAttribute("regionalResult", regionalResult);
     	
         return "welcome";
     }
@@ -612,7 +636,6 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
     
@@ -623,33 +646,6 @@ public class UserController {
     	model.addAttribute("ydnaBozza", yb);
     	model.addAttribute("mtdnaBozza", mb);
         return "admin";
-    }
-    
-    
-    
-    @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public String result(Model model) {
-
-        return "result";
-    }
-    
-    @RequestMapping(value = "/inserisci", method = RequestMethod.GET)
-    public String inserisci(Model model) {
-
-        return "inserisciAplo";
-    }
-    
-    @RequestMapping(value = "/inserisciMtdna", method = RequestMethod.GET)
-    public String inserisciMtdna(Model model) {
-
-        return "inserisciMtdna";
-    }
-    
-    //nel caso da cruscotto inserisci aplogruppi già esistenti
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String error(Model model) {
-
-        return "error";
     }
     
     @RequestMapping(value = "/scorciatoiaAplo", method = RequestMethod.GET)
@@ -664,24 +660,6 @@ public class UserController {
 		model.addAttribute("ydna",ydna);
 		model.addAttribute("mtdna",mtdna);
         return "scorciatoiaAplo";
-    }
-    
-    @RequestMapping(value = "/howToRaw23", method = RequestMethod.GET)
-    public String howToRaw23(Model model) {
-
-        return "howToRaw23";
-    }
-    
-    @RequestMapping(value = "/howToRawGeno", method = RequestMethod.GET)
-    public String howToRawGeno(Model model) {
-
-        return "howToRawGeno";
-    }
-    
-    @RequestMapping(value = "/howToRawGenoNext", method = RequestMethod.GET)
-    public String howToRawGenoNext(Model model) {
-
-        return "howToRawGenoNext";
     }
     
     @RequestMapping(value = "/ancientDNA", method = RequestMethod.GET)
@@ -713,6 +691,13 @@ public class UserController {
         return "autosomal";
     }
     
+    @RequestMapping(value = "/autosomalPuri", method = RequestMethod.GET)
+    public String autosomalPuri(Model model) {
+    	List<AutosomalPuri> auto = statService.findAllAutosomalPuri();
+		model.addAttribute("auto",auto);
+        return "autosomalPuri";
+    }
+    
     @RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
     public String aploMtdnaMacroregioni(Model model) {
         return "aploMtdnaMacroregioni";
@@ -740,6 +725,29 @@ public class UserController {
 		List<Autosomal> auto = statService.findAllAutosomal();
 		model.addAttribute("auto",auto);
         return "autosomal";
+    }
+    
+    @RequestMapping(value = "/aggiornaAutosomalPuri", method = RequestMethod.GET)
+    public String aggiornaAutosomalPuri(Model model) throws IOException, IllegalArgumentException, IllegalAccessException {
+    	statService.deleteAllAutosomalPuri();
+    	String[] admix = new String[] {"baltic","nordic","atlantic","westmed","eastmed","westasian","mena","asian","ssa"};
+		List<String> regioni = statService.getRegioniAutosomalPuri();
+		Collections.sort(regioni);
+		
+		Double[] valori = new Double[9];
+		Iterator<String> it = regioni.iterator();
+		while (it.hasNext()) {
+			String reg = it.next();
+			int campioni = statService.countAutoRegio(reg);
+			for (int i=0; i<admix.length; i++) {
+				valori[i] = statService.countSumAdmixRegio(admix[i], reg);
+			}
+			AutosomalPuri daje = new AutosomalPuri(reg,campioni,valori[0],valori[1],valori[2],valori[3],valori[4],valori[5],valori[6],valori[7],valori[8]);
+	    	statService.save(daje);
+		}		
+		List<AutosomalPuri> auto = statService.findAllAutosomalPuri();
+		model.addAttribute("auto",auto);
+        return "autosomalPuri";
     }
     
     @RequestMapping(value = "/aggiornaAploMtdnaMacroregioni", method = RequestMethod.GET)
@@ -863,8 +871,10 @@ public class UserController {
     	String infoaplo = null;
     	String infoclade = null;
     	String closestPop = "";
+    	String pureClosestPop = "";
     	boolean nonniStessaRegione = false;
     	boolean fasciaEtaOK = false;
+    	boolean regionalResult = false;
     	
     	if (userDati != null) {
     		// se non ha inserito Y-DNA o mtDNA o autosomal
@@ -892,27 +902,29 @@ public class UserController {
     	    			infoclade = infoAploRepository.getContent(ydna.getClade());
     	    		infoaplo = infoAploRepository.getContent(ydna.getYdnaId().getAplogruppo());
     	    	}
-    	    	if (eutest != null)
+    	    	if (eutest != null) {
     	    		closestPop = calcolaClosestPop(eutest);
+    	    		pureClosestPop = calcolaPureClosestPop(eutest);
+    	    		if (!closestPop.equals(pureClosestPop))
+    	    			regionalResult = true;
+    	    	}
         	}
-    		Eutest tizio = eutestService.findPuroById(user.getId());
+    		EutestPuri tizio = eutestService.findPuroById(user.getId());
     		
     		
-    		// controllo età (da 21 a 54 anni)
+    		// controllo età (da 21 a 60 anni)
     		if (userDati.getNascita() != null) {
     			Calendar c1 = Calendar.getInstance();
     			Calendar c2 = Calendar.getInstance();
     			c1.setTime(new Date());
     			c2.setTime(userDati.getNascita());
     			int yearDiff = c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
-    			if (yearDiff > 20 && yearDiff < 55)
+    			if (yearDiff > 20 && yearDiff < 61)
     				fasciaEtaOK = true;
     		}
     		
     		// restituisce altezza se è già inserita, altrimenti null
-    		if (tizio != null && tizio.getNonnop().equals(tizio.getNonnom()) 
-    			&& tizio.getNonnom().equals(tizio.getNonnap()) && tizio.getNonnap().equals(tizio.getNonnam()) 
-    			&& tizio.getNonnam().equals(tizio.getNonnop())) {
+    		if (tizio != null || userDati.getPhenproject() != null) {
     				
     			nonniStessaRegione = true;
     			altezza = altezzaService.findById(user.getId());
@@ -930,6 +942,8 @@ public class UserController {
     	model.addAttribute("altezza", altezza);
     	model.addAttribute("eutest", eutest);
     	model.addAttribute("closestPop", closestPop);
+    	model.addAttribute("pureClosestPop", pureClosestPop);
+    	model.addAttribute("regionalResult", regionalResult);
         return "welcome";
     }
 
@@ -1044,5 +1058,190 @@ public class UserController {
 				val[0] = val[i];
 		return val[0];
 	}
+	
+	private String calcolaPureClosestPop(EutestPlebe e) {
+		int ticino,valledaosta,piemonte,liguria,lombardia,veneto,trentino,friuli,emilia,toscana,umbria,marche,lazio,abruzzo,molise,campania,puglia,basilicata,calabria,sicilia,sardegna;
 
+		ticino=valledaosta=piemonte=liguria=lombardia=veneto=trentino=friuli=emilia=toscana=umbria=marche=lazio=abruzzo=molise=campania=puglia=basilicata=calabria=sicilia=sardegna=0;
+		
+		List<AutosomalPuri> atList = statService.findAllAutosomalPuri();
+    	double[] percent = new double [] {e.getBaltic()+e.getEasteuro(),e.getNorthcentraleuro(),e.getAtlantic(),e.getWestmed(),e.getEastmed(),e.getWestasian(),e.getMiddleastern(),e.getSouthasian()+e.getEastasian()+e.getSiberian(),e.getWestafrican()+e.getEastafrican()};
+    	for (int i=0; i<9; i++) {
+    		List<String> res = closestPuro(percent[i], i, atList);
+    		Iterator<String> it = res.iterator();
+    		while(it.hasNext()) {
+	    		switch(it.next()) {
+		    		case "Ticino":
+		    			ticino++;
+		    			break;
+		    		case "Valle d'Aosta":
+		    			valledaosta++;
+		    			break;
+		    		case "Piemonte":
+		    			piemonte++;
+		    			break;
+		    		case "Liguria":
+		    			liguria++;
+		    			break;
+		    		case "Lombardia":
+		    			lombardia++;
+		    			break;
+		    		case "Veneto":
+		    			veneto++;
+		    			break;
+		    		case "Trentino - Alto Adige":
+		    			trentino++;
+		    			break;
+		    		case "Friuli - Venezia Giulia":
+		    			friuli++;
+		    			break;
+		    		case "Emilia - Romagna":
+		    			emilia++;
+		    			break;
+		    		case "Toscana":
+		    			toscana++;
+		    			break;
+		    		case "Umbria":
+		    			umbria++;
+		    			break;
+		    		case "Marche":
+		    			marche++;
+		    			break;
+		    		case "Lazio":
+		    			lazio++;
+		    			break;
+		    		case "Abruzzo":
+		    			abruzzo++;
+		    			break;
+		    		case "Molise":
+		    			molise++;
+		    			break;
+		    		case "Campania":
+		    			campania++;
+		    			break;
+		    		case "Puglia":
+		    			puglia++;
+		    			break;
+		    		case "Basilicata":
+		    			basilicata++;
+		    			break;
+		    		case "Calabria":
+		    			calabria++;
+		    			break;
+		    		case "Sicilia":
+		    			sicilia++;
+		    			break;
+		    		case "Sardegna":
+		    			sardegna++;
+		    			break;
+	    		}  
+    		}
+    	}
+		
+		return calcolaPuro(ticino,valledaosta,piemonte,liguria,lombardia,veneto,trentino,friuli,emilia,toscana,umbria,marche,lazio,abruzzo,molise,campania,puglia,basilicata,calabria,sicilia,sardegna);
+	}
+	
+	public List<String> closestPuro(double of, int admixture, List<AutosomalPuri> in) {
+	    double min = Double.MAX_VALUE;
+	    List<String> result = new ArrayList<String>();
+	    String riserva="";
+	    Iterator<AutosomalPuri> it = in.iterator();
+	    while (it.hasNext()) {
+	    	AutosomalPuri at = it.next();
+		    double diff = 0;
+		    switch(admixture) {
+		    	case 0:
+			   		diff = Math.abs(at.getBaltic() - of);
+			   		break;
+		    	case 1:
+		    		diff = Math.abs(at.getNordic() - of);
+			   		break;
+		    	case 2:
+		    		diff = Math.abs(at.getAtlantic() - of);
+			   		break;
+		    	case 3:
+		    		diff = Math.abs(at.getWestmed() - of);
+			   		break;
+		    	case 4:
+		    		diff = Math.abs(at.getEastmed() - of);
+			   		break;
+		    	case 5:
+		    		diff = Math.abs(at.getWestasian() - of);
+			   		break;
+		    	case 6:
+		    		diff = Math.abs(at.getMena() - of);
+			   		break;
+		    	case 7:
+		    		diff = Math.abs(at.getAsian() - of);
+			   		break;
+		    	case 8:
+		    		diff = Math.abs(at.getSsa() - of);
+			   		break;		    	
+		    }
+		    if (diff < min) {
+			    min = diff;		
+			    riserva = at.getRegione();
+		    }
+		    if (admixture != 7 && admixture != 8 && diff < 1)
+		    	result.add(at.getRegione());
+	    }
+	    if (result.isEmpty() && admixture != 7)
+    		result.add(riserva);
+	    return result;
+	}
+	
+	private String calcolaPuro(int ticino, int valledaosta, int piemonte, int liguria, int lombardia, int veneto, int trentino, int friuli, int emilia, int toscana, int umbria, int marche, int lazio, int abruzzo, int molise, int campania, int puglia, int basilicata, int calabria, int sicilia, int sardegna) {
+		int max = maxPuro(new int[]{ticino,valledaosta,piemonte,liguria,lombardia,veneto,trentino,friuli,emilia,toscana,umbria,marche,lazio,abruzzo,molise,campania,puglia,basilicata,calabria,sicilia,sardegna});
+		String risp = "";
+		if (ticino==max)
+			risp += "i ticinesi, ";
+		if (valledaosta==max)
+			risp += "i valdostani, ";
+		if (piemonte==max)
+			risp += "i piemontesi, ";
+		if (liguria==max)
+			risp += "i liguri, ";
+		if (lombardia==max)
+			risp += "i lombardi, ";
+		if (veneto==max)
+			risp += "i veneti, ";
+		if (trentino==max)
+			risp += "i trentini e gli altoatesini, ";
+		if (friuli==max)
+			risp += "i friulani, ";
+		if (emilia==max)
+			risp += "gli emiliani e i romagnoli, ";
+		if (toscana==max)
+			risp += "i toscani, ";
+		if (umbria==max)
+			risp += "gli umbri, ";
+		if (marche==max)
+			risp += "i marchigiani, ";
+		if (lazio==max)
+			risp += "i laziali, ";
+		if (abruzzo==max)
+			risp += "gli abruzzesi, ";
+		if (molise==max)
+			risp += "i molisani, ";
+		if (campania==max)
+			risp += "i campani, ";
+		if (puglia==max)
+			risp += "i pugliesi, ";
+		if (basilicata==max)
+			risp += "i lucani, ";
+		if (calabria==max)
+			risp += "i calabresi, ";
+		if (sicilia==max)
+			risp += "i siciliani, ";
+		if (sardegna==max)
+			risp += "i sardi, ";
+		return risp.substring(0, risp.length()-2);
+	}
+	
+	private int maxPuro(int[]val) {
+		for (int i=1; i<21; i++) 
+			if(val[0] < val[i])
+				val[0] = val[i];
+		return val[0];
+	}
 }

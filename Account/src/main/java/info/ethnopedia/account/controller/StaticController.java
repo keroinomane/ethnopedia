@@ -30,6 +30,52 @@ public class StaticController {
 		return "diffusioneCladi";
     }
     
+    @RequestMapping(value = "/howToRaw23", method = RequestMethod.GET)
+    public String howToRaw23(Model model) {
+        return "howTo/howToRaw23";
+    }
+    
+    @RequestMapping(value = "/howToRawGeno", method = RequestMethod.GET)
+    public String howToRawGeno(Model model) {
+        return "howTo/howToRawGeno";
+    }
+    
+    @RequestMapping(value = "/howToRawGenoNext", method = RequestMethod.GET)
+    public String howToRawGenoNext(Model model) {
+        return "howTo/howToRawGenoNext";
+    }
+    
+    @RequestMapping(value = "/howToRawLiving", method = RequestMethod.GET)
+    public String howToRawLiving(Model model) {
+        return "howTo/howToRawLiving";
+    }
+    
+    @RequestMapping(value = "/howToGedmatch", method = RequestMethod.GET)
+    public String howToGedmatch(Model model) {
+        return "howTo/howToGedmatch";
+    }
+    
+    @RequestMapping(value = "/result", method = RequestMethod.POST)
+    public String result(Model model) {
+        return "result";
+    }
+    
+    @RequestMapping(value = "/inserisci", method = RequestMethod.GET)
+    public String inserisci(Model model) {
+        return "inserisciAplo";
+    }
+    
+    @RequestMapping(value = "/inserisciMtdna", method = RequestMethod.GET)
+    public String inserisciMtdna(Model model) {
+        return "inserisciMtdna";
+    }
+    
+    //nel caso da cruscotto inserisci aplogruppi già esistenti
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error(Model model) {
+        return "error";
+    }
+    
     @RequestMapping(value = "/insertAncientYdna", method = RequestMethod.GET)
     public String insertAncientYdna(Model model) {
     	AncientYdna ancientYdna = new AncientYdna();

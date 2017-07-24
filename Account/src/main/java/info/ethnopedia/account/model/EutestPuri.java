@@ -27,21 +27,39 @@ public class EutestPuri implements java.io.Serializable {
     private double eastasian;
     private double siberian;
     private double westafrican;
-    private String nonnop;
-    private String nonnap;
-    private String nonnom;
-    private String nonnam;
+    private String regione;
     
     public EutestPuri() {
     	
     }
+    
+    public EutestPuri(Eutest eutest) {
+    	this.id = eutest.getId();
+		this.cognome = eutest.getCognome();
+		this.nome = eutest.getNome();
+		this.macroregione = eutest.getMacroregione();
+		this.kitgedmatch = eutest.getKitgedmatch();
+		this.baltic = eutest.getBaltic();
+		this.easteuro = eutest.getEasteuro();
+		this.northcentraleuro = eutest.getNorthcentraleuro();
+		this.atlantic = eutest.getAtlantic();
+		this.westmed = eutest.getWestmed();
+		this.eastmed = eutest.getEastmed();
+		this.westasian = eutest.getWestasian();
+		this.middleastern = eutest.getMiddleastern();
+		this.southasian = eutest.getSouthasian();
+		this.eastafrican = eutest.getEastafrican();
+		this.eastasian = eutest.getEastasian();
+		this.siberian = eutest.getSiberian();
+		this.westafrican = eutest.getWestafrican();
+		this.regione = eutest.getNonnop();    }
 
 	public EutestPuri(Long id, String cognome, String nome, String macroregione, String kitgedmatch,
 			double baltic, double easteuro, double northcentraleuro,
 			double atlantic, double westmed, double eastmed, double westasian,
 			double middleastern, double southasian, double eastafrican,
 			double eastasian, double siberian, double westafrican,
-			String nonnop, String nonnap, String nonnom, String nonnam) {
+			String regione) {
 		this.id = id;
 		this.cognome = cognome;
 		this.nome = nome;
@@ -60,10 +78,7 @@ public class EutestPuri implements java.io.Serializable {
 		this.eastasian = eastasian;
 		this.siberian = siberian;
 		this.westafrican = westafrican;
-		this.nonnop = nonnop;
-		this.nonnap = nonnap;
-		this.nonnom = nonnom;
-		this.nonnam = nonnam;
+		this.regione = regione;
 	}
 	
 	@Id
@@ -102,7 +117,6 @@ public class EutestPuri implements java.io.Serializable {
 		this.macroregione = macroregione;
 	}
 
-	@NotNull
 	public String getKitgedmatch() {
 		return kitgedmatch;
 	}
@@ -228,36 +242,12 @@ public class EutestPuri implements java.io.Serializable {
 		this.westafrican = westafrican;
 	}
 	
-	public String getNonnop() {
-		return nonnop;
+	public String getRegione() {
+		return regione;
 	}
 
-	public void setNonnop(String nonnop) {
-		this.nonnop = nonnop;
-	}
-
-	public String getNonnap() {
-		return nonnap;
-	}
-
-	public void setNonnap(String nonnap) {
-		this.nonnap = nonnap;
-	}
-
-	public String getNonnom() {
-		return nonnom;
-	}
-
-	public void setNonnom(String nonnom) {
-		this.nonnom = nonnom;
-	}
-
-	public String getNonnam() {
-		return nonnam;
-	}
-
-	public void setNonnam(String nonnam) {
-		this.nonnam = nonnam;
+	public void setRegione(String regione) {
+		this.regione = regione;
 	}
 
 	@Override
@@ -267,8 +257,7 @@ public class EutestPuri implements java.io.Serializable {
 				+ ", northcentraleuro=" + northcentraleuro + ", atlantic=" + atlantic + ", westmed=" + westmed
 				+ ", eastmed=" + eastmed + ", westasian=" + westasian + ", middleastern=" + middleastern
 				+ ", southasian=" + southasian + ", eastafrican=" + eastafrican + ", eastasian=" + eastasian
-				+ ", siberian=" + siberian + ", westafrican=" + westafrican + ", nonnop=" + nonnop + ", nonnap="
-				+ nonnap + ", nonnom=" + nonnom + ", nonnam=" + nonnam + "]";
+				+ ", siberian=" + siberian + ", westafrican=" + westafrican + ", regione=" + regione + "]";
 	}
     
 }

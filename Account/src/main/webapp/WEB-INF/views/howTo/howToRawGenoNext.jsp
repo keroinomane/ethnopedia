@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="basis/alto.html" %>
+<%@ include file="../basis/alto.html" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -25,7 +25,17 @@
 <script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 <script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script> 
-
+<style>
+	#about {
+		width:75%;
+	}
+	table, tr, td {
+		border:none !important;
+	}
+	td {
+		text-align:center;
+	}
+</style>
 </head>
 
 <body>
@@ -43,43 +53,47 @@
   <div id="wrapper"> 
     <!-- Begin Intro -->
     <div class="intro">
-      <h1>Come scaricare i raw data del cromosoma Y dal sito di 23andMe</h1>
+      <h1>Come scaricare i raw data del cromosoma Y da Geno 2.0 Next Generation</h1>
 	</div>
     <!-- End Intro --> 
     <!-- Begin About -->
-    <div id="about" align=center>
-    <table style="border:none; width:100%;">
-    	<tr style="border:none;">
-    		<td style="border:none; text-align:justify; vertical-align:middle;">
-				Accedi su <a href="https://www.23andme.com/cas/signin/" onclick="window.open(this.href);return false">23andMe.</a><br><br>
-				Una volta effettuato l'accesso, clicca su <strong>TOOLS</strong> in alto.<br><br>
-				Dovrebbe apparirti questo menu a tendina, clicca su <strong>Browse Raw Data</strong>.<br><br>
-				Uscirà una nuova schermata in cui dovrai cliccare su <strong>I understand</strong>.
+    <div id="about">
+    <table style="width:100%;">
+    	<tr>
+    		<td style="vertical-align:middle; text-align:right;">
+				Trasferisci i tuoi dati di Geno su <strong>FTDna,</strong> se non l'hai già fatto.<br><br>
+				Vai prima nel tuo profilo.
 			</td>
-			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/23/1.png" width=75%/>
-			</td>
-		</tr>	
-		<tr style="border:none;">
-			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/23/2.png" width=75%/>
-			</td>
-    		<td style="border:none; text-align:justify; vertical-align:middle;">
-				Tornando in alto, clicca su <strong>download</strong>.
-			</td>
-		</tr>	
-		<tr style="border:none;">
-			<td style="border:none; text-align:justify; vertical-align:middle;">
-				Apparirà una nuova pagina, vai in basso e:<br>
-					1) seleziona <strong>Y Chromosome</strong> dal menu a tendina<br>
-					2) digita la tua password<br>
-				infine clicca su <strong>Download Raw Data</strong>.<br><br>
-				Una volta che hai scaricato il file, <strong>devi decomprimerlo</strong> (unzipparlo) e caricarlo nel form del nostro sito che hai visto prima.
-			</td>
-			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/23/3.png" width=75%/>
+			<td>
+				<a href="${contextPath}/resources/img/howto/genoNext/1.PNG">
+					<img src="${contextPath}/resources/img/howto/genoNext/1.PNG" width=80%/>
+				</a>
 			</td>
 		</tr>
+		<tr>
+    		<td style="vertical-align:middle; text-align:center;">
+				Copiati il codice GPID e clicca su <b>Click here to start the transfer.</b><br>
+				Dopodiché incolla il codice nella schermata che apparirà e crea un nuovo account FTDna (se ne hai già uno, accedi con quello).
+			</td>
+			<td>
+				<a href="${contextPath}/resources/img/howto/genoNext/2.PNG">
+					<img src="${contextPath}/resources/img/howto/genoNext/2.PNG" width=80%/>
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">
+				Una volta effettuato l'accesso su FTDna, clicca su <b>myFTDna</b> e poi <b>myDashboard.</b><br>
+				Dovrebbe apparirti la pagina con i tuoi dati e i test che hai effettuato.<br><br>
+				Sotto <strong>Genographic transfer</strong>, trovi <strong>Download Y-DNA SNPs as CSV</strong>.<br><br>
+				Cliccalo e allega il documento quando inserisci i tuoi dati nel nostro sito.
+			</td>
+			<td>
+				<a href="${contextPath}/resources/img/howto/genoNext/9.png">
+					<img src="${contextPath}/resources/img/howto/genoNext/9.png" width=80%/>
+				</a>
+			</td>
+		</tr>	
 	</table>
 	</div>
 

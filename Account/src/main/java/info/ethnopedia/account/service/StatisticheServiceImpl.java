@@ -2,15 +2,18 @@ package info.ethnopedia.account.service;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import info.ethnopedia.account.model.Autosomal;
+import info.ethnopedia.account.model.AutosomalPuri;
+import info.ethnopedia.account.model.Eutest;
+import info.ethnopedia.account.model.EutestPuri;
 import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
+import info.ethnopedia.account.repository.AutosomalPuriRepository;
 import info.ethnopedia.account.repository.AutosomalRepository;
+import info.ethnopedia.account.repository.EutestPuriRepository;
 import info.ethnopedia.account.repository.EutestRepository;
 import info.ethnopedia.account.repository.MtdnaRepository;
 import info.ethnopedia.account.repository.TableMtdnaRepository;
@@ -30,6 +33,9 @@ public class StatisticheServiceImpl implements StatisticheService {
 	private AutosomalRepository arep;
 	
 	@Autowired
+	private AutosomalPuriRepository aPuriRep;
+	
+	@Autowired
 	private YdnaRepository yrep;
 	
 	@Autowired
@@ -37,6 +43,9 @@ public class StatisticheServiceImpl implements StatisticheService {
 	
 	@Autowired
 	private EutestRepository erep;
+	
+	@Autowired
+	private EutestPuriRepository ePuriRep;
     
 	@Override
 	public void deleteAllTableYdna() {
@@ -49,8 +58,18 @@ public class StatisticheServiceImpl implements StatisticheService {
 	}
 	
 	@Override
+	public void deleteAllEutestPuri() {
+		ePuriRep.deleteAll();
+	}
+	
+	@Override
 	public void deleteAllAutosomal() {
 		arep.deleteAll();
+	}
+	
+	@Override
+	public void deleteAllAutosomalPuri() {
+		aPuriRep.deleteAll();
 	}
 
 	@Override
@@ -61,6 +80,11 @@ public class StatisticheServiceImpl implements StatisticheService {
 	@Override
 	public List<String> getMacroregioniAutosomal() {
 		return erep.getMacroregioni();
+	}
+	
+	@Override
+	public List<String> getRegioniAutosomalPuri() {
+		return ePuriRep.getRegioni();
 	}
 
 	@Override
@@ -108,8 +132,18 @@ public class StatisticheServiceImpl implements StatisticheService {
 	}
 	
 	@Override
+	public void save(EutestPuri eutestPuri) {
+		ePuriRep.save(eutestPuri);
+	}
+	
+	@Override
 	public void save(Autosomal autosomal) {
 		arep.save(autosomal);
+	}
+	
+	@Override
+	public void save(AutosomalPuri autosomalPuri) {
+		aPuriRep.save(autosomalPuri);
 	}
 
 	@Override
@@ -121,13 +155,21 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public List<TableMtdna> findAllMtdnaMacroreg() {
 		return tmrep.findAll();
 	}
-
+	
+	@Override
+	public List<Eutest> findAllEutest() {
+		return erep.findAll();
+	}
+	
 	@Override
 	public List<Autosomal> findAllAutosomal() {
 		return arep.findAll();
 	}
 
-	
+	@Override
+	public List<AutosomalPuri> findAllAutosomalPuri() {
+		return aPuriRep.findAll();
+	}
     
 	@Override
 	public double countSumAdmixMacroregio(String admix, String mac) {
@@ -166,10 +208,54 @@ public class StatisticheServiceImpl implements StatisticheService {
 		
 		return tot;
 	}
+	
+	@Override
+	public double countSumAdmixRegio(String admix, String regione) {
+		
+		double tot = 0;
+		
+		switch(admix) {
+			case "baltic":
+				tot = ePuriRep.mediaBaltic(regione);
+				break;
+			case "nordic":
+				tot = ePuriRep.mediaNordic(regione);
+				break;
+			case "mena":
+				tot = ePuriRep.mediaMena(regione);
+				break;
+			case "asian":
+				tot = ePuriRep.mediaAsian(regione);
+				break;
+			case "ssa":
+				tot = ePuriRep.mediaSsa(regione);
+				break;
+			case "atlantic":
+				tot = ePuriRep.mediaAtlantic(regione);
+				break;
+			case "westmed":
+				tot = ePuriRep.mediaWestmed(regione);
+				break;
+			case "eastmed":
+				tot = ePuriRep.mediaEastmed(regione);
+				break;
+			case "westasian":
+				tot = ePuriRep.mediaWestasian(regione);
+				break;
+		}
+		
+		return tot;
+	}
 
 	@Override
 	public int countAutoMacroregio(String macro) {
 		return erep.countAutoMacroregio(macro);
 	}
+	
+	@Override
+	public int countAutoRegio(String regione) {
+		return ePuriRep.countAutoRegio(regione);
+	}
+
 
 }

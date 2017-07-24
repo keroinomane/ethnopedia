@@ -28,7 +28,17 @@
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script> 
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery.dataTables.min.js"></script> 
 		<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-		
+		<style>
+			th, tr {
+				vertical-align: middle;
+			}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			    $('#autosomal').DataTable( {
+			    } );
+			});
+		</script>
 	</head>
 	
 	<body>
@@ -46,7 +56,7 @@
 		  <div id="wrapper"> 
 		    <!-- Begin Intro -->
 		    <div class="intro">
-		      <h1>Aplogruppi mtDNA per macroregione</h1>
+		      <h1>Medie regionali del DNA autosomico</h1>
 			</div>
 		    <!-- End Intro --> 
 		<div class="container">
@@ -64,7 +74,7 @@
 				<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
 					<div>
 				   		<h4>
-				   		<a style="text-decoration: none" href="<c:url value='aggiornaAploMtdnaMacroregioni' />" >
+				   		<a style="text-decoration: none" href="<c:url value='/aggiornaAutosomalPuri' />" >
 						<button type="button" class="btn btn-success">
 							<span class="glyphicon glyphicon-stats"></span>
 						</button>
@@ -74,14 +84,40 @@
 				    </div>
 				    <br>
 			    </c:if>
-			    <b>N.B.</b><br>
-			    Con H* si intendono tutti gli aplogruppi discendenti da H ma negativi a H1, H2, H3, H4 e H5.
-			    <br><br>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/nord.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/centro.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sud.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sicilia.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sardegna.png" width="80%"/>
+				<table id="autosomal">
+					<thead>
+						<tr>
+							<th>Regione</th>
+							<th>Campioni</th>
+							<th>Baltic</th>
+							<th>Nordic</th>
+							<th>Atlantic</th>
+							<th>West Med</th>
+							<th>East Med</th>
+							<th>West Asian</th>
+							<th>MENA</th>
+							<th>Asian</th>
+							<th>SSA</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${auto}" var="au">
+								<tr>
+									<td>${au.regione}</td>
+									<td>${au.campioni}</td>
+									<td>${au.baltic}%</td>
+									<td>${au.nordic}%</td>
+									<td>${au.atlantic}%</td>
+									<td>${au.westmed}%</td>
+									<td>${au.eastmed}%</td>
+									<td>${au.westasian}%</td>
+									<td>${au.mena}%</td>
+									<td>${au.asian}%</td>
+									<td>${au.ssa}%</td>
+								</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 		    </c:if>  	
 		</div>
 		    

@@ -1824,8 +1824,8 @@ pre code {
 }
 
 .container {
-    margin-right: auto;
-    margin-left: auto
+	width:75%;
+    margin: auto
 }
 
 

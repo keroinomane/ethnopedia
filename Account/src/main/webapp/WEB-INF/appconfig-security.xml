@@ -10,6 +10,15 @@
     <http auto-config="true">
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/welcome" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/statistiche" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/ancientDNA" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/admin" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/cruscotto" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/aploRegioni" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/aploMtdnaMacroregioni" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/diffusioneCladi" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/autosomal" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/insertAncientYdna" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
         <csrf disabled="true"/>

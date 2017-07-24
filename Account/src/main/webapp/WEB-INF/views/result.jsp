@@ -54,7 +54,7 @@
         <h4>Ciao ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
         
 		<c:if test="${ydna == null}">
-		<br><br><br>
+		<br><br>
 		<div align=center>
 				${message}
 				

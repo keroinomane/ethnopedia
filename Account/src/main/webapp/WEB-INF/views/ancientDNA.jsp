@@ -32,6 +32,7 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 			    $('#ancientYdna').DataTable( {
+			    	"order": [[ 2, "desc" ]]
 			    } );
 			});
 		</script>
@@ -72,15 +73,15 @@
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Eta</th>
+							<th>Età</th>
+							<th>Da (anni fa)</th>
+							<th>A (anni fa)</th>
 							<th>Aplogruppo</th>
 							<th>Clade</th>
 							<th>SNP terminale</th>
 							<th>Cultura</th>
 							<th>Stato</th>
 							<th>Località</th>
-							<th>Da</th>
-							<th>A</th>
 							<th>Ultimo studio</th>
 							<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
 								<th></th>
@@ -92,14 +93,14 @@
 							<tr>
 								<td>${dna.id}</td>
 								<td>${dna.eta}</td>
+								<td>${dna.fromybp}</td>
+								<td>${dna.toybp}</td>
 								<td>${dna.aplogruppo}</td>
 								<td>${dna.clade}</td>
 								<td>${dna.terminalsnp}</td>
 								<td>${dna.cultura}</td>
 								<td>${dna.stato}</td>
 								<td>${dna.location}</td>
-								<td>${dna.fromybp} anni fa</td>
-								<td>${dna.toybp} anni fa</td>
 								<td>${dna.lastpaper}</td>
 								<c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
 									<td>

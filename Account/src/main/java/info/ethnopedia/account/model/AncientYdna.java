@@ -23,7 +23,7 @@ public class AncientYdna implements java.io.Serializable {
 	private String stato;
 	private String location;
 	private int fromybp;
-	private int toybp;
+	private Integer toybp;
 	private String lastpaper;
 	
 	public AncientYdna() {
@@ -31,7 +31,7 @@ public class AncientYdna implements java.io.Serializable {
 	}
 	
 	public AncientYdna(String id, String eta, String aplogruppo, String clade, String terminalsnp,
-			String cultura, String stato, String location, int fromybp, int toybp, String lastpaper) {
+			String cultura, String stato, String location, int fromybp, Integer toybp, String lastpaper) {
 		super();
 		this.id = id;
 		this.eta = eta;
@@ -124,12 +124,11 @@ public class AncientYdna implements java.io.Serializable {
 		this.fromybp = fromybp;
 	}
 	
-	@NotNull
-	public int getToybp() {
+	public Integer getToybp() {
 		return toybp;
 	}
 
-	public void setToybp(int toybp) {
+	public void setToybp(Integer toybp) {
 		this.toybp = toybp;
 	}
 	

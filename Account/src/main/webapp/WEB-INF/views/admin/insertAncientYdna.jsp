@@ -33,14 +33,8 @@
 			td {
 			   vertical-align: middle !important;
 			}
-			td .inside {
-				text-align: left;
-			} 
-			.inside {
-				border: none;
-			} 
 			table {
-				width: 65%;
+				width: 35%;
 				text-align: center;
 			}
 			.sinistra {
@@ -69,6 +63,8 @@
 				} else {
 					if ($('input[name="cladeRadio"]:checked').val() == 'non si sa')
 						$('#clade').find('option').remove().end();
+					else
+						viewCladi();
 					$('#altroClade').hide();
 					$('#altroClade').val('null');
 				}
@@ -177,6 +173,7 @@
 													<form:option value="J1">J1</form:option>
 													<form:option value="J2">J2</form:option>
 													<form:option value="K">K</form:option>
+													<form:option value="K2a">K2a</form:option>
 													<form:option value="P">P</form:option>
 													<form:option value="Q">Q</form:option>
 													<form:option value="Q1a">Q1a</form:option>
@@ -191,38 +188,17 @@
 										<tr>
 											<td class="sinistra">Clade:</td>
 											<td class="destra">
-												<table class="inside" style="width:100%">
-													<tr class="inside">
-														<td rowspan="2" class="inside">
-															<form:select path="clade" id="clade">
-																<form:option value="L278" class="R1b">R1b1 (L278)</form:option>
-																<form:option value="L754" class="R1b">R1b1a (L754)</form:option>
-																<form:option value="V88" class="R1b">R1b1a2 (V88)</form:option>
-																<form:option value="P297" class="R1b">R1b1a1a (P297)</form:option>
-																<form:option value="M269" class="R1b">R1b1a1a2 (M269)</form:option>
-																<form:option value="Z2103" class="R1b">Z2103</form:option>
-																<form:option value="L51" class="R1b">L51</form:option>
-																<form:option value="L11" class="R1b">L11</form:option>
-																<form:option value="P312" class="R1b">P312</form:option>
-																<form:option value="U106" class="R1b">U106</form:option>
-																<form:option value="U152" class="R1b">U152</form:option>
-																<form:option value="DF27" class="R1b">DF27</form:option>
-																<form:option value="L21" class="R1b">L21</form:option>
-															</form:select>
-														</td>
-														<td class="inside">
-															<input type="radio" name="cladeRadio" value="altro" onChange="abilitaAltroClade()" />
-															Nessuno dei cladi nella lista
-															<input id="altroClade" type="text" name="altroClade" style="width:20%; display:none;" />
-														</td>
-													</tr>
-													<tr class="inside">
-														<td class="inside">
-															<input type="radio" name="cladeRadio" value="non si sa" onChange="abilitaAltroClade()" />
-															Non si conosce il clade
-														</td>
-													</tr>
-												</table>
+												<input type="radio" name="cladeRadio" value="ok" onChange="abilitaAltroClade()" checked />
+												<form:select path="clade" id="clade">
+													<form:option value="L278" class="R1b">R1b1 (L278)</form:option>
+												</form:select>
+												<br>
+												<input type="radio" name="cladeRadio" value="altro" onChange="abilitaAltroClade()" />
+												Nessuno dei cladi nella lista 
+												<input id="altroClade" type="text" name="altroClade" style="width:20%; display:none;" />
+												<br>
+												<input type="radio" name="cladeRadio" value="non si sa" onChange="abilitaAltroClade()" />
+												Non si conosce il clade
 											</td>
 										</tr>
 										<tr>
@@ -309,7 +285,7 @@
 										<tr>
 											<td class="sinistra">Datazione:</td>
 											<td class="destra">
-												<input type="radio" name="datazione" value="ybp" /> ybp/BP 
+												<input type="radio" name="datazione" value="ybp" checked /> ybp/BP 
 												<input type="radio" name="datazione" value="bce" /> bce/BC 
 												<input type="radio" name="datazione" value="ce" /> ce/AD
 												<br><br>
@@ -328,14 +304,25 @@
 										</tr>
 									</table>
 									<br>
-									<c:if test="${modifica == null}">
-										<input class="btn btn-primary" type="submit" value="Inserisci" />
-										<input type="hidden" name="modifica" value="false"/>
-									</c:if>
-									<c:if test="${modifica != null}">
-										<input class="btn btn-primary" type="submit" value="Modifica" />
-										<input type="hidden" name="modifica" value="true"/>
-									</c:if>
+									<table style="border:none;">
+										<tr style="border:none;">
+											<td style="border:none;">
+												<c:if test="${modifica == null}">
+													<input class="btn btn-primary" type="submit" value="Inserisci" />
+													<input type="hidden" name="modifica" value="false"/>
+												</c:if>
+												<c:if test="${modifica != null}">
+													<input class="btn btn-primary" type="submit" value="Modifica" />
+													<input type="hidden" name="modifica" value="true"/>
+												</c:if>
+											</td>
+											<td style="border:none;">
+												<a href="<c:url value='/ancientDNA' />" >
+													<button type="button" class="btn">Mostra gli altri</button>
+												</a>
+											</td>
+										</tr>
+									</table>
 								</form:form>
 						    </div>
 					    </c:if>

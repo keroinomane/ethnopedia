@@ -1,4 +1,4 @@
-package info.ethnopedia.account.web;
+package info.ethnopedia.account.utility;
 
 import java.io.File;
 import java.io.IOException;

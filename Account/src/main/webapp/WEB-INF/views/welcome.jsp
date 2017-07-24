@@ -35,6 +35,10 @@
 		.eutest {
 			text-align:center;
 		}
+		td {
+			text-align:center;
+		}
+		.custom-tooltip-styling { max-width: 420px;}
 	</style>
 	<script type="text/javascript">
 	$( function() {
@@ -48,7 +52,18 @@
 	    	    'Lug','Ago','Set','Ott','Nov','Dic'],
 	    	    defaultDate: new Date('1 January 1980')
 	    });
-	  } );
+	    
+	    $( "#baltic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Baltic è più presente tra gli estoni.<img width='400px' src='https://www.counter-currents.com/wp-content/uploads/2016/09/estonians.jpg'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#nordic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Nordic è più presente tra i norvegesi.<img width='400px' src='http://www.ethnopedia.info/account_img/nordic.png'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#atlantic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Atlantic è più presente tra i baschi.<img width='400px' src='http://i.telegraph.co.uk/multimedia/archive/03320/basques_3320429k.jpg'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#westmed" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "West Med è più presente tra i sardi.<img width='400px' src='https://farm5.static.flickr.com/4120/4897681109_6f67793726_b.jpg'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#eastmed" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "East Med è più presente tra i drusi.<img width='400px' src='https://electronicintifada.net/sites/default/files/styles/original_800w/public/2014-05/140514-omar-saad.jpg?itok=jTemVH48&timestamp=1448949295'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#westasian" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "West Asian è più presente tra i georgiani.<img width='400px' src='http://s1.ibtimes.com/sites/www.ibtimes.com/files/2015/03/21/2015-03-21t154334z1600933612gf10000034274rtrmadp3georgia-protest.JPG'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#mena" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "MENA è più presente tra i beduini.<img width='400px' src='http://www.ilovemuslims.net/wp-content/uploads/2012/10/IMG_2169.-a-jpg-600x411.jpg'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#asian" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Asian è più presente tra gli asiatici.<img width='400px' src='http://www.ethnopedia.info/genitaly/autosomal/china.png'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#ssa" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "SSA è più presente tra gli africani subsahariani.<img width='400px' src='http://www.ethnopedia.info/account_img/ssa.png'/>", position: {my: "center bottom", at: "center top"} });
+	} );
+	
 	</script>	
 </head>
 
@@ -82,7 +97,7 @@
         <a href="${contextPath}/admin">Pannello di amministrazione</a> | 
         </c:if>
         <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
-        <c:if test="${userDati != null}">
+        <c:if test="${userDati != null && userDati.genproject != null}">
         	<br>
 			<table style="border: none;">
 				<tr style="border: none;">
@@ -183,7 +198,7 @@
 								
 				<tr style="border: none;">
 					<td style="border: none;">
-						<c:if test="${fasciaEtaOK == true && nonniStessaRegione == true}">
+						<c:if test="${fasciaEtaOK == true && (nonniStessaRegione == true || userDati.phenproject == true)}">
 							<c:if test="${altezza == null}">
 								<form id="altezzaForm" method="POST" action="${contextPath}/insertAltezza">
 						            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -221,6 +236,13 @@
 								</button>
 							</a>&nbsp
 					        Statistiche
+					        &nbsp&nbsp
+					        <a style="text-decoration: none" href="<c:url value='/ancientDNA' />" >
+				        		<button type="button" class="btn btn-success">
+									<span class="glyphicon glyphicon-tower"></span>
+								</button>
+							</a>&nbsp
+				        	DNA antico
 					    </h4>
 					</td>
 				</tr>
@@ -256,15 +278,15 @@
 				<br>
 				<table id="fissato">
 				    <tr>
-				    	<th align=center class="eutest"><b>Baltic</b></th>
-					 	<th align=center class="eutest"><b>Nordic</b></th>
-					 	<th align=center class="eutest"><b>Atlantic</b></th>
-					 	<th align=center class="eutest"><b>West Med</b></th>
-						<th align=center class="eutest"><b>East Med</b></th>
-						<th align=center class="eutest"><b>West Asian</b></th>
-						<th align=center class="eutest"><b>MENA</b></th>
-						<th align=center class="eutest"><b>Asian</b></th>
-						<th align=center class="eutest"><b>SSA</b></th>
+				    	<th align=center class="eutest"><b><a id="baltic" title="">Baltic</a></b></th>
+					 	<th align=center class="eutest"><b><a id="nordic" title="">Nordic</a></b></th>
+					 	<th align=center class="eutest"><b><a id="atlantic" title="">Atlantic</a></b></th>
+					 	<th align=center class="eutest"><b><a id="westmed" title="">West Med</a></b></th>
+						<th align=center class="eutest"><b><a id="eastmed" title="">East Med</a></b></th>
+						<th align=center class="eutest"><b><a id="westasian" title="">West Asian</a></b></th>
+						<th align=center class="eutest"><b><a id="mena" title="">MENA</a></b></th>
+						<th align=center class="eutest"><b><a id="asian" title="">Asian</a></b></th>
+						<th align=center class="eutest"><b><a id="ssa" title="">SSA</a></b></th>
 				    </tr>
 				    <tr>
 				    	<c:set var="baltico"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${eutest.baltic + eutest.easteuro}" /></c:set>
@@ -282,7 +304,13 @@
 				    </tr>
 		    	</table>
 		    	<br>
-		    	<div align="right">La popolazione a te più vicina geneticamente sono <b>${closestPop}.</b></div>	
+		    	<div align="right">La popolazione a te più vicina geneticamente sono <b>${closestPop}.</b>
+		    	<c:if test="${regionalResult == true}">
+		    	<br>
+		    	Popolazioni regionali (stima sperimentale!): <b>${pureClosestPop}.</b>
+		    	</c:if>
+		    	</div>	
+		    	
     		</c:if>
     		
     		<!-- Se non ha inserito l'autosomal -->
@@ -293,13 +321,15 @@
     					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
     						<a href="https://www.gedmatch.com">GedMatch.</a><br>
     					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
-						<a href="/account/inserisciEutest">Inseriscili!</a>
+						<a href="/account/inserisciEutest"><b>Inseriscili!</b></a>
+						<br>
+						Se non sai come fare, segui queste <a href="/account/howToGedmatch"><b>istruzioni.</b></a>
 						<br><br>
 						
 						<small>
 						We're gathering also autosomal DNA data, like the <a href="https://www.gedmatch.com">GedMatch</a>'s calculators results.<br>
     					You can insert your Eurogenes EUtest's results right now.<br>
-						<a href="/account/inserisciEutest">Insert them!</a>
+						<a href="/account/inserisciEutest"><b>Insert them!</b></a>
 						</small>
 					</div>
     			</c:if>
@@ -309,37 +339,177 @@
     					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
     						<a href="https://www.gedmatch.com">GedMatch.</a><br>
     					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
-						<a href="/account/inserisciEutestPlebe">Inseriscili!</a>
+						<a href="/account/inserisciEutestPlebe"><b>Inseriscili!</b></a>
+						<br>
+						Se non sai come fare, segui queste <a href="/account/howToGedmatch"><b>indicazioni.</b></a>
 						<br><br>
 						
 						<small>
 						We're gathering also autosomal DNA data, like the <a href="https://www.gedmatch.com">GedMatch</a>'s calculators results.<br>
     					You can insert your Eurogenes EUtest's results right now.<br>
-						<a href="/account/inserisciEutestPlebe">Insert them!</a>
+						<a href="/account/inserisciEutestPlebe"><b>Insert them!</b></a>
 						</small>
 					</div>
     			</c:if>
     		</c:if>
+    		<div>Supporta il nostro lavoro e aiutaci a mandare avanti il sito con una 
+		    	<a href="http://www.ethnopedia.info/donazioni.html">
+		    		donazione!
+		    	</a>
+		    </div>
 		</c:if>
-		<c:if test="${userDati == null}">
-			<br><br>
-			<div align=center>
-					Non hai inserito i tuoi dati genetici.<br>
-					<a href="/account/inserisci">Inseriscili!</a>
-					<br>
-					Se li hai già inseriti, li stiamo elaborando.<br>
-					Torna più tardi!
-					
-					<br>
-					<br>
-					
-					<small>
-						You haven't inserted your genetic data yet.<br>
-						<a href="/account/inserisci">Insert them!</a>
-						<br>
-						If you already inserted them, we're elaborating them.<br>
-						Come back later!
-					</small>
+		<c:if test="${userDati == null || userDati.genproject == null}">
+			<br>
+			<c:if test="${userDati != null && userDati.phenproject != null}">
+				<div align=center>
+					<table style="border: none; width:75%; text-align:center">
+						<tr style="border: none;">
+							<td style="border: none; width:33%;">
+								<table>
+									<tr><td width=50%>Cognome</td><td><c:out value="${userDati.cognome}" /></td></tr>
+									<tr><td>Nome</td><td><c:out value="${userDati.nome}" /></td></tr>
+								</table>
+							</td>
+							<td style="border: none; width:33%">
+								<c:if test="${userDati.nascita == null}">
+									<form id="nascitaForm" method="POST" action="${contextPath}/insertNascita">
+								    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										<table style="border:0;">
+											<tr style="border:0;">
+												<td colspan="2">
+													Inserisci la tua data di nascita:<br>
+													<i>Insert your birth date:</i>
+												</td>
+											</tr>
+											<tr>
+												<td style="border:0;">
+													<input type="text" name="nascita" id="datepicker" style="width: 80px;">
+												</td>
+												<td align="right" style="border:0;">
+													<input type="submit" />
+												</td>
+											</tr>
+										</table>
+									</form>
+								</c:if>
+								<c:if test="${userDati.nascita != null}">
+									<table>
+										<tr>
+											<td width=50%>Data di nascita</td>
+											<td>
+												<fmt:formatDate value="${userDati.nascita}" pattern="dd/MM/yyyy" />
+											</td>
+										</tr>
+									</table>
+								</c:if>
+								<br><br>
+								<c:if test="${fasciaEtaOK == true && (nonniStessaRegione == true || userDati.phenproject == true)}">
+									<c:if test="${altezza == null}">
+										<form id="altezzaForm" method="POST" action="${contextPath}/insertAltezzaPhenProject">
+							        	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+									        <table style="border:0;">
+												<tr style="border:0;">
+													<td style="text-align:left; border:0;">
+														Altezza:
+													</td>
+													<td style="text-align:left">
+														<input type="text" name="centimetri" style="width: 40px;" /> cm
+													</td>
+												</tr>
+												<tr style="border:0;">
+													<td style="text-align:left; border:0;">
+														Regione:
+													</td>
+													<td style="text-align:left">
+														<select name="regione">
+														   <option value="Abruzzo">Abruzzo</option>
+														   <option value="Basilicata">Basilicata</option>
+														   <option value="Calabria">Calabria</option>
+														   <option value="Campania">Campania</option>
+														   <option value="Emilia - Romagna">Emilia - Romagna</option>
+														   <option value="Friuli - Venezia Giulia">Friuli - Venezia Giulia</option>
+														   <option value="Lazio">Lazio</option>
+														   <option value="Liguria">Liguria</option>
+														   <option value="Lombardia">Lombardia</option>
+														   <option value="Marche">Marche</option>
+														   <option value="Molise">Molise</option>
+														   <option value="Piemonte">Piemonte</option>
+														   <option value="Puglia">Puglia</option>
+														   <option value="Sardegna">Sardegna</option>
+														   <option value="Sicilia">Sicilia</option>
+														   <option value="Toscana">Toscana</option>
+														   <option value="Trentino - Alto Adige">Trentino - Alto Adige</option>
+														   <option value="Umbria">Umbria</option>
+														   <option value="Valle d'Aosta">Valle d'Aosta</option>
+														   <option value="Veneto">Veneto</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td style="border:0; text-align:right" colspan="2">					
+														<input type="submit" value="Aggiorna" />
+													</td>
+												</tr>
+											</table>
+								        </form>
+									</c:if>
+									<c:if test="${altezza != null}">
+										<table>
+											<tr><td width=50%>Altezza</td><td><c:out value="${altezza.centimetri}" /> cm</td></tr>
+										</table>
+									</c:if>
+								</c:if>
+							</td>
+							<td style="border: none;">
+								<h4>
+							        <a style="text-decoration: none" href="<c:url value='/statistiche' />" >
+								        <button type="button" class="btn btn-success">
+											<span class="glyphicon glyphicon-stats"></span>
+										</button>
+									</a>&nbsp
+							        Statistiche
+							   	    <br><br>
+							       	<a style="text-decoration: none" href="<c:url value='/ancientDNA' />" >
+							       		<button type="button" class="btn btn-success">
+											<span class="glyphicon glyphicon-tower"></span>
+										</button>
+									</a>&nbsp
+							       	DNA antico
+							    </h4>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<br>
+				<div>Supporta il nostro lavoro e aiutaci a mandare avanti il sito con una 
+			    	<a href="http://www.ethnopedia.info/donazioni.html">
+			    		donazione!
+			    	</a>
+			    </div>
+			</c:if>	
+				
+			<div align=center>	
+				<br>
+				<table style="width:60%; border:none">
+					<tr style="border:none">
+						<td width="50%" style="border:none">
+							<h5>
+							Non hai inserito i tuoi dati genetici.<br>
+							<a href="/account/inserisci">Inseriscili!</a>
+							<br>
+							Se li hai già inseriti, li stiamo elaborando.<br>
+							Torna più tardi!
+							</h5>
+						</td>
+						<td style="border:none">
+							You haven't inserted your genetic data yet.<br>
+							<a href="/account/inserisci">Insert them!</a>
+							<br>
+							If you already inserted them, we're elaborating them.<br>
+							Come back later!
+						</td>
+					</tr>
+				</table>
 			</div>
 		</c:if>
 		

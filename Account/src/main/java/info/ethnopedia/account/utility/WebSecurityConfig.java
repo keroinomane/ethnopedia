@@ -1,4 +1,4 @@
-package info.ethnopedia.account.web;
+package info.ethnopedia.account.utility;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

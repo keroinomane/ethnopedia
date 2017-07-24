@@ -729,12 +729,12 @@ table.price td h2 sup {
 #cycle-wrapper {
 	min-height:85%;
 	position: relative;
-	width:60%;
 	margin: 0 auto 0;
 }
 
 #sliderholder-cycle {
-	overflow: hidden;
+	width: 960px;
+    margin: auto;
 	background:transparent;
 	-moz-box-shadow: 0px 1px 3px #8e8e8e;
 	-webkit-box-shadow: 0px 1px 3px #8e8e8e;
@@ -886,6 +886,10 @@ table.price td h2 sup {
 /*-----------------------------------------------------------------------------------*/
 /*	8.	HOME ABOUT
 /*-----------------------------------------------------------------------------------*/
+
+#about {
+	margin: auto;
+}
 
 #about .one-fourth img {
 	-moz-box-shadow: 0px 1px 2px #656565;

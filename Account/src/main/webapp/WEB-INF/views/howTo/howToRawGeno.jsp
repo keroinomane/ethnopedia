@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="basis/alto.html" %>
+<%@ include file="../basis/alto.html" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -25,7 +25,14 @@
 <script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 <script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script> 
-
+<style>
+	#about {
+		width:75%;
+	}
+	td {
+		text-align:center;
+	}
+</style>
 </head>
 
 <body>
@@ -50,7 +57,7 @@
     <div id="about" align=center>
     <table style="border:none; width:100%;">
     	<tr style="border:none;">
-    		<td style="border:none; text-align:justify; vertical-align:middle;">
+    		<td style="border:none; vertical-align:middle;">
 				Accedi sul sito del <a href="https://genographic.nationalgeographic.com/" onclick="window.open(this.href);return false">
 				Genographic Project.</a><br><br>
 				Una volta effettuato l'accesso, clicca sull'omino di fianco al tuo nickname in alto a destra.<br> 
@@ -61,7 +68,7 @@
 			</td>
 		</tr>	
 		<tr style="border:none;">
-			<td style="border:none; text-align:justify; vertical-align:middle;">
+			<td style="border:none; vertical-align:middle;">
 				Infine, clicca su "<strong>Download Genetic Data</strong>".<br>
 			</td>
 			<td style="border:none;">
