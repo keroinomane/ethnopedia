@@ -474,6 +474,7 @@ public class UserController {
 	        String provinciaM = fileItemsList.get(14).getString();
 			FileItem rawdataFile = fileItemsList.get(15);
 			String rawdata = IOUtils.toString(rawdataFile.getInputStream(),"UTF-8");
+			
 			boolean b = false;
 			
 			if (test.equals("ancestry")) {
@@ -486,7 +487,7 @@ public class UserController {
 				aplo = fileItemsList.get(5).getString();
 				clade = fileItemsList.get(6).getString();
 				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo: " + aplo + "\nclade: " + clade + 
-		           		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM;
+		           		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 				
 				b = VerifyAplo.isOk(test, rawdata, aplo, clade);
 			}
@@ -508,7 +509,7 @@ public class UserController {
 						+ "<br><br>You have entered wrong data or the uploaded file is not correct.<br><a href=\"javascript:history.back()\"><b>Try again!</b></a>";
 			}
 			
-			EmailUtility.sendEmail("smtp.gmail.com", "587", "daniele.pisano90@gmail.com", "zwpwhxoldjicegmj", "admin@ethnopedia.info", "Aplogruppi", content);
+			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", "admin@ethnopedia.info", "Aplogruppi", content);
 			
 		} catch (Exception e) {
 			resultMessage = "Qualcosa è andato storto.<br>Hai inserito la data di nascita?<br>Hai scompattato il file zip?<br><br><a href=\"javascript:history.back()\"><b>Prova ancora!</b></a>"

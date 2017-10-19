@@ -114,16 +114,41 @@
 							<tr><td>Aplogruppo</td><td><a data-balloon="${infoaplo}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.ydnaId.aplogruppo}"/></u></b></a></td></tr>
 							<tr><td>Clade</td>
 								<td>
-									<c:if test="${infoclade != null}">
-										<a data-balloon="${infoclade}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.clade}" /></u></b></a>
+									<c:if test="${ydna.clade != null}">
+										<c:if test="${infoclade != null}">
+											<a data-balloon="${infoclade}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.clade}" /></u></b></a>
+										</c:if>
+										<c:if test="${infoclade == null}">
+											<c:out value="${ydna.clade}" />
+										</c:if>
 									</c:if>
-									<c:if test="${infoclade == null}">
-										<c:out value="${ydna.clade}" />
+									<c:if test="${ydna != null && ydna.clade == null}">
+										<a href="http://www.ethnopedia.info/contatti.html">Scrivici per maggiori informazioni</a>
 									</c:if>
 								</td>
 							</tr>
-							<tr><td>Subclade</td><td><c:out value="${ydna.subclade}" /></td></tr>
-							<tr><td>Deepest known clade</td><td><c:out value="${ydna.downstream}" /></td></tr>
+							<tr>
+								<td>Subclade</td>
+								<td>
+									<c:if test="${ydna.subclade != null}">
+										<c:out value="${ydna.subclade}" />
+									</c:if>
+									<c:if test="${ydna != null && ydna.subclade == null}">
+										<a href="http://www.ethnopedia.info/contatti.html">Scrivici per maggiori informazioni</a>
+									</c:if>
+								</td>
+							</tr>
+							<tr>
+								<td>Deepest known clade</td>
+								<td>
+									<c:if test="${ydna.downstream != null}">
+										<c:out value="${ydna.downstream}" />
+									</c:if>
+									<c:if test="${ydna != null && ydna.downstream == null}">
+										<a href="http://www.ethnopedia.info/contatti.html">Scrivici per maggiori informazioni</a>
+									</c:if>
+								</td>
+							</tr>
 							<tr><td>Provincia</td><td><c:out value="${ydna.ydnaId.provincia}" /></td></tr>
 						</table>
 					</td>

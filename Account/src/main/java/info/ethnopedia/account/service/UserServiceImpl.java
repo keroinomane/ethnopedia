@@ -58,4 +58,5 @@ public class UserServiceImpl implements UserService {
 	public String getContent(String aplogruppo) {
 		return infoAploRepository.getContent(aplogruppo);
 	}
+	
 }
