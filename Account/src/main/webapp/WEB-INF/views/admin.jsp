@@ -185,6 +185,16 @@
 		        		</td>
 		        		<td class="scrivania">
 		        			<h4>
+		        			<a style="text-decoration: none" href="<c:url value='/aggiornaYdnaProvinceConPiuDi10Campioni' />" >
+						        <button type="button" class="btn btn-success">
+									<span class="glyphicon glyphicon-stats"></span>
+								</button>
+							</a>&nbsp
+					        Medie Y-DNA provinciali
+					        </h4>
+		        		</td>
+		        		<td class="scrivania">
+		        			<h4>
 		        			<a style="text-decoration: none" href="<c:url value='/insertAncientYdna' />" >
 		        			<button type="button" class="btn btn-success">
 								<span class="glyphicon glyphicon-plus"></span>

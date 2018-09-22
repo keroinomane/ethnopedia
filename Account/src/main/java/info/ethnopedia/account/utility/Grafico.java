@@ -22,6 +22,12 @@ public class Grafico {
 			case "nord":
 				macroregione = "Italia settentrionale";
 				break;
+			case "nordovest":
+				macroregione = "Italia nordoccidentale";
+				break;
+			case "nordest":
+				macroregione = "Italia nordorientale";
+				break;
 			case "centro":
 				macroregione = "Italia centrale";
 				break;

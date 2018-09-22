@@ -177,7 +177,7 @@
 									<table>
 										<tr>
 											<td>
-												<img src="http://www.ethnopedia.info/blog/testdna/1.jpg" width="100%">
+												<img src="https://www.ethnopedia.info/blog/testdna/1.jpg" width="100%">
 											</td>
 											<td>
 												<h4>
@@ -196,8 +196,8 @@
 						</td>
 						<td>
 							<h2>Ordina il kit Living DNA</h2>
-							<a href="http://www.dpbolvw.net/click-8289828-12899160" target="_top">
-								<img src="http://www.awltovhc.com/image-8289828-12899160"
+							<a href="http://www.anrdoezrs.net/links/8289828/type/dlg/https://www.livingdna.com/" target="_top">
+								<img src="https://www.awltovhc.com/image-8289828-12899160"
 								width="50%" alt="" border="0" />
 							</a>
 							<h2>Order Living DNA kit</h2>

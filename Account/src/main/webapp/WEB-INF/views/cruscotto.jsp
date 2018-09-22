@@ -284,7 +284,8 @@
 								</td></tr>
 								<tr><td align="right">Macroregione: </td><td>
 									<form:select path="macroregione" value="${mtdna.macroregione}" id="macroregione">
-										<form:option value="nord" selected="selected">Italia settentrionale</form:option>
+										<form:option value="nordovest" selected="selected">Italia nordoccidentale</form:option>
+										<form:option value="nordest" selected="selected">Italia nordorientale</form:option>
 									    <form:option value="centro">Italia centrale</form:option>
 									    <form:option value="sud">Italia meridionale</form:option>
 									    <form:option value="Sicilia">Sicilia</form:option>
@@ -298,22 +299,22 @@
 									   <form:option value="Basilicata" class="sud">Basilicata</form:option>
 									   <form:option value="Calabria" class="sud">Calabria</form:option>
 									   <form:option value="Campania" class="sud">Campania</form:option>
-									   <form:option value="Emilia - Romagna" class="nord">Emilia - Romagna</form:option>
-									   <form:option value="Friuli - Venezia Giulia" class="nord">Friuli - Venezia Giulia</form:option>
+									   <form:option value="Emilia - Romagna" class="nordovest">Emilia - Romagna</form:option>
+									   <form:option value="Friuli - Venezia Giulia" class="nordest">Friuli - Venezia Giulia</form:option>
 									   <form:option value="Lazio" class="centro">Lazio</form:option>
-									   <form:option value="Liguria" class="nord">Liguria</form:option>
-									   <form:option value="Lombardia" class="nord">Lombardia</form:option>
+									   <form:option value="Liguria" class="nordovest">Liguria</form:option>
+									   <form:option value="Lombardia" class="nordovest">Lombardia</form:option>
 									   <form:option value="Marche" class="centro">Marche</form:option>
 									   <form:option value="Molise" class="sud">Molise</form:option>
-									   <form:option value="Piemonte" class="nord">Piemonte</form:option>
+									   <form:option value="Piemonte" class="nordovest">Piemonte</form:option>
 									   <form:option value="Puglia" class="sud">Puglia</form:option>
 									   <form:option value="Sardegna" class="Sardegna">Sardegna</form:option>
 									   <form:option value="Sicilia" class="Sicilia">Sicilia</form:option>
 									   <form:option value="Toscana" class="centro">Toscana</form:option>
-									   <form:option value="Trentino - Alto Adige" class="nord">Trentino - Alto Adige</form:option>
+									   <form:option value="Trentino - Alto Adige" class="nordest">Trentino - Alto Adige</form:option>
 									   <form:option value="Umbria" class="centro">Umbria</form:option>
-									   <form:option value="Valle d'Aosta" class="nord">Valle d'Aosta</form:option>
-									   <form:option value="Veneto" class="nord">Veneto</form:option>
+									   <form:option value="Valle d'Aosta" class="nordovest">Valle d'Aosta</form:option>
+									   <form:option value="Veneto" class="nordest">Veneto</form:option>
 									</form:select>
 									<i><b>da controllare</b></i>
 								</td></tr>

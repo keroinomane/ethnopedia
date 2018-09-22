@@ -30,21 +30,25 @@ function display() {
 			$('.expGen').hide();
 			$('.expGenNext').hide();
 			$('.expLiving').hide();
+			$('.living').hide();
 		} else if (test == 'living') {
 			$('.exp23').hide();
 			$('.expGen').hide();
 			$('.expGenNext').hide();
 			$('.expLiving').show();
+			$('.living').show();
 		} else if (test == 'geno') {
 			$('.exp23').hide();
 			$('.expGen').show();
 			$('.expGenNext').hide();
 			$('.expLiving').hide();
+			$('.living').hide();
 		} else {
 			$('.exp23').hide();
 			$('.expGen').hide();
 			$('.expGenNext').show();
 			$('.expLiving').hide();
+			$('.living').hide();
 		}
 	}
 }

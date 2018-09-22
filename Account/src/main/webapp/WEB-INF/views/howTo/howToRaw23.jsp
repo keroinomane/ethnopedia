@@ -77,10 +77,8 @@
 		</tr>	
 		<tr style="border:none;">
 			<td style="border:none; text-align:right; vertical-align:middle;">
-				Apparirà una nuova pagina, vai in basso e:<br><br>
-					1) seleziona <strong>Y Chromosome</strong> dal menu a tendina<br><br>
-					2) digita la tua password<br><br>
-				infine clicca su <strong>Download Raw Data</strong>.<br><br><br>
+				Apparirà una nuova pagina, vai in basso e clicca <strong>Submit request</strong>.<br><br>
+				Ti arriverà dopo qualche minuto un'email, aprila e clicca su <strong>Download raw data</strong>.<br><br>
 				Una volta che hai scaricato il file, <strong>devi decomprimerlo</strong> (unzipparlo) e caricarlo nel form del nostro sito che hai visto prima.
 			</td>
 			<td style="border:none;">

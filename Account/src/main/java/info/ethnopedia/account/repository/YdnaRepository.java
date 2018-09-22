@@ -2,6 +2,7 @@ package info.ethnopedia.account.repository;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -35,13 +36,31 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     )
 	public int countAploRegio(String aplo, String regione);
     
+    @Query(value = "select count(*) from ydna y where (y.aplogruppo = 'G' or y.aplogruppo = 'G2a')and y.provincia = ?1", 
+    		nativeQuery=true
+    )
+	public int countAploGProv(String prov);
+    
+    @Query(value = "select count(*) from ydna y where y.aplogruppo = ?1 and y.provincia = ?2", 
+    		nativeQuery=true
+    )
+	public int countAploProv(String aplo, String prov);
+    
     @Query(value = "select count(*) from ydna y where y.regione = ?1", 
     		nativeQuery=true
     )
 	public int countRegio(String regione);
     
+    @Query(value = "select count(*) from ydna y where y.provincia = ?1", 
+    		nativeQuery=true
+    )
+	public int countProv(String prov);
+    
     @Query(value = "SELECT distinct(regione) FROM ydna", nativeQuery=true)
 	public List<String> getRegioni();
+    
+    @Query(value = "SELECT provincia FROM ydna GROUP BY provincia HAVING COUNT(provincia) > 9", nativeQuery=true)
+    public List<String> getProvinceConPiuCampioni();
     
     @Query(value = "SELECT distinct(clade) FROM ydna WHERE aplogruppo = ?1 AND clade IS NOT NULL", nativeQuery=true)
 	public List<String> getCladiByAplo(String aplo);
@@ -58,5 +77,6 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     		nativeQuery=true
     )
 	public int countSubcladeRegio(String subclade, String regione);
+    
     
 }

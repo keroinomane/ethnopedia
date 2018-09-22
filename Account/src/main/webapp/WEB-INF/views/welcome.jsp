@@ -25,12 +25,12 @@
 	<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 	<link rel="stylesheet" media="all" href="${contextPath}/resources/css/jquery-ui.css" />
-	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script> 
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
 	<style>
 		.eutest {
 			text-align:center;
@@ -62,7 +62,17 @@
 	    $( "#mena" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "MENA è più presente tra i beduini.<img width='400px' src='http://www.ilovemuslims.net/wp-content/uploads/2012/10/IMG_2169.-a-jpg-600x411.jpg'/>", position: {my: "center bottom", at: "center top"} });
 	    $( "#asian" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Asian è più presente tra gli asiatici.<img width='400px' src='http://www.ethnopedia.info/genitaly/autosomal/china.png'/>", position: {my: "center bottom", at: "center top"} });
 	    $( "#ssa" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "SSA è più presente tra gli africani subsahariani.<img width='400px' src='http://www.ethnopedia.info/account_img/ssa.png'/>", position: {my: "center bottom", at: "center top"} });
+	
+	    $('input:radio[name="autosomal"]').change(function(){
+			if ($(this).is(':checked')) {
+				$('#bottoneNonni').prop('disabled', false);
+			} else {
+				$('#bottoneNonni').prop('disabled', true);
+			}
+		});
+	
 	} );
+	
 	
 	</script>	
 </head>
@@ -284,12 +294,15 @@
 							I tuoi nonni erano TUTTI e 4 provenienti da regioni dello stesso colore in questa mappa?<br>
 							<em>Are all your grandparents from regions with the same color in this map?</em>
 							<br><br>
+							
 							<input type="radio" name="autosomal" value="true"> Sì, ho tutti e 4 nonni originari di regioni dello stesso colore<br>
 							<em>Yes, my grandparents are from regions with the same color</em><br><br>
+							
 							<input type="radio" name="autosomal" value="false"> No, ho 4 nonni provenienti da regioni di colore diverso<br>
 							<em>No, my grandparents are from regions with different colors</em>
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							<input type="submit" value="Invia"/>
+							<br><br>
+							
+							<input id="bottoneNonni" type="submit" value="Invia" disabled />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 						</td>
 					</tr>
@@ -343,12 +356,11 @@
     			<!--  Se utente con 4 nonni della stessa macroregione -->
     			<c:if test="${userDati.autosomal == true}">
 					<div align="center">
-    					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
-    						<a href="https://www.gedmatch.com">GedMatch.</a><br>
-    					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
+    					Inserisci i tuoi dati di <a href="https://www.gedmatch.com">GEDmatch</a> per avere maggiori informazioni sul tuo DNA.<br>
+    					Al momento puoi inviarci i tuoi risultati del calcolatore <b>Eurogenes EUtest.</b><br>
 						<a href="/account/inserisciEutest"><b>Inseriscili!</b></a>
 						<br>
-						Se non sai come fare, segui queste <a href="/account/howToGedmatch"><b>istruzioni.</b></a>
+						Non conosci GEDmatch? È gratuito, segui queste <a href="/account/howToGedmatch"><b>istruzioni.</b></a>
 						<br><br>
 						
 						<small>
@@ -361,12 +373,11 @@
     			<!--  Se utente con 4 nonni misti -->
     			<c:if test="${userDati.autosomal == false}">
     				<div align="center">
-    					Raccogliamo anche i dati sul DNA autosomico, come i risultati dei calcolatori di 
-    						<a href="https://www.gedmatch.com">GedMatch.</a><br>
-    					Al momento puoi inviarci i tuoi risultati del calcolatore Eurogenes EUtest.<br>
+    					Inserisci i tuoi dati di <a href="https://www.gedmatch.com">GedMatch</a> per avere maggiori informazioni sul tuo DNA.<br>
+    					Al momento puoi inviarci i tuoi risultati del calcolatore <b>Eurogenes EUtest.</b><br>
 						<a href="/account/inserisciEutestPlebe"><b>Inseriscili!</b></a>
 						<br>
-						Se non sai come fare, segui queste <a href="/account/howToGedmatch"><b>indicazioni.</b></a>
+						Non sai come fare? È gratuito, segui queste <a href="/account/howToGedmatch"><b>indicazioni.</b></a>
 						<br><br>
 						
 						<small>
@@ -376,6 +387,7 @@
 						</small>
 					</div>
     			</c:if>
+    			<br><br>
     		</c:if>
     		<div>Supporta il nostro lavoro e aiutaci a mandare avanti il sito con una 
 		    	<a href="http://www.ethnopedia.info/donazioni.html">
@@ -559,7 +571,7 @@
       <!-- Begin Copyright -->
       <div id="copyright">
         <p>© Copyright 2017 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
-		<img src="${contextPath}/resources/style/images/icon-facebook.png" alt="" /></a>
+		<img src="https://www.ethnopedia.info/account/resources/style/images/icon-facebook.png" alt="" /></a>
 		</p>
       </div>
       <!-- End Copyright -->  

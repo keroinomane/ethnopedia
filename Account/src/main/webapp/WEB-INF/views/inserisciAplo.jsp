@@ -108,7 +108,7 @@
 								  </select></td>
 							</tr>
 							<tr>
-								<td>Inserisci il subclade: </td>
+								<td>Inserisci il subclade (il codice dopo il trattino): </td>
 								<td align=center><input type="text" placeholder="Terminal SNP" name="clade" style="width: 165px;"/><br><i>(es. Z36)</i></td>
 							</tr>
 						
@@ -154,7 +154,10 @@
 				
 				<td style="border: none; width:33%" class="template" id="mtdna">
 					<table>
-						<tr><td>Aplogruppo materno: </td><td align=center><input type="text" name="aplogruppoM" placeholder="Maternal haplogroup" style="width: 180px;" /></td></tr>
+						<tr><td>Aplogruppo materno
+						<span class="living"> (inserire il subclade se si conosce)</span>: </td>
+						
+						<td align=center><input type="text" name="aplogruppoM" placeholder="Maternal haplogroup" style="width: 180px;" /></td></tr>
 						<tr>
 							<td>Provincia di origine della nonna materna: </td>
 							<td align=center><input type="text" name="provinciaM" placeholder="Mother's mother's city of birth" style="width: 180px;"/><br><i>(o meglio ancora<br> della bisnonna)</i></td>

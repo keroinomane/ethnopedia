@@ -28,7 +28,11 @@
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery-3.0.0.min.js"></script> 
 		<script type="text/javascript" src="${contextPath}/resources/js/jquery.dataTables.min.js"></script> 
 		<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-		
+		<style>
+			table, tr, td {
+				border: none !important;
+			}
+		</style>
 	</head>
 	
 	<body>
@@ -77,11 +81,33 @@
 			    <b>N.B.</b><br>
 			    Con H* si intendono tutti gli aplogruppi discendenti da H ma negativi a H1, H2, H3, H4 e H5.
 			    <br><br>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/nord.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/centro.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sud.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sicilia.png" width="80%"/>
-				<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sardegna.png" width="80%"/>
+			    <table>
+			    	<tr>
+			    		<td>
+			    			<img src="http://www.ethnopedia.info/account_img/graficiMtdna/nordovest.png" width="100%"/>
+			    		</td>
+			    		<td>
+							<img src="http://www.ethnopedia.info/account_img/graficiMtdna/nordest.png" width="100%"/>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			<img src="http://www.ethnopedia.info/account_img/graficiMtdna/centro.png" width="100%"/>
+			    		</td>
+			    		<td>
+							<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sud.png" width="100%"/>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sicilia.png" width="100%"/>
+			    		</td>
+			    		<td>
+			    			<img src="http://www.ethnopedia.info/account_img/graficiMtdna/sardegna.png" width="100%"/>
+			    		</td>
+			    	</tr>
+			    	
+			    </table>
 		    </c:if>  	
 		</div>
 		    

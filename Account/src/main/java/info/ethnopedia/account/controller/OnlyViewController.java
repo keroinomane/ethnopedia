@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import info.ethnopedia.account.model.AncientYdna;
 
 @Controller
-public class StaticController {
+public class OnlyViewController {
 	
 	@RequestMapping(value = "/inserisciEutest", method = RequestMethod.GET)
     public String inserisciEutest(Model model) {

@@ -52,7 +52,7 @@
 				</td>
 			</tr>
 						
-			<tr><td style="width:50%">Aplogruppo materno: </td><td align=center><input type="text" placeholder="Maternal haplogroup" name="aplogruppoM" style="width: 180px;" /></td></tr>
+			<tr><td style="width:50%">Aplogruppo materno (inserire il subclade se si conosce): </td><td align=center><input type="text" placeholder="Maternal haplogroup" name="aplogruppoM" style="width: 180px;" /></td></tr>
 			<tr><td>Provincia di origine della nonna materna: </td>
 			<td align=center><input type="text" placeholder="Mother's mother's city of birth" name="provinciaM" style="width: 180px;"/><br><i>(o meglio ancora<br> della bisnonna)</i></td></tr>
 		</table>

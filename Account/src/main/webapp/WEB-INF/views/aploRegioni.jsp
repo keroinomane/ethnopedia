@@ -98,7 +98,7 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${ydnaReg}" var="yr">
-							<c:if test="${yr.campioni > 15}">
+							<c:if test="${provincia || (!provincia && yr.campioni > 15)}">
 								<tr>
 									<td>${yr.regione}</td>
 									<td>${yr.campioni}</td>
