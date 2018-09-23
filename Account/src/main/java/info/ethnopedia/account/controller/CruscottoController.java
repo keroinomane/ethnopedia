@@ -1,6 +1,7 @@
 package info.ethnopedia.account.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -163,7 +164,11 @@ public class CruscottoController {
         	user.setId(ydna.getId());
         	userService.update(user);
         	
-        	String content = "Ciao " + user.getNome() + ",\nil tuo aplogruppo Y-DNA è stato approvato. Ora potrai accedere al tuo profilo e completarlo.\nSaluti\nEthnopedia staff";
+        	String content = "Ciao " + user.getNome() + ",\nil tuo aplogruppo Y-DNA è stato approvato. Ora potrai accedere al tuo profilo e completarlo.\n";
+        	content += "Ti consigliamo di iscriverti al nostro gruppo su Facebook dedicato al tuo aplogruppo "+ydna.getYdnaId().getAplogruppo() + ": ";
+        	
+        	content = aggiungiLinkGruppoFB (ydna.getYdnaId().getAplogruppo(), content);
+        	content+= "\n\nSaluti\nEthnopedia staff";
         	
         	try {
     			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Registrazione Ethnopedia", content);
@@ -172,6 +177,8 @@ public class CruscottoController {
     		} catch (MessagingException e) {
     			e.printStackTrace();
     		}
+        	
+        	model.addAttribute("user",user);
         	return "admin";
         // se esiste già quell'aplogruppo associato a quel cognome e provincia
     	} else {
@@ -179,6 +186,39 @@ public class CruscottoController {
     	}
     	
     	
+    }
+    
+    private String aggiungiLinkGruppoFB (String aplo, String content) {
+    	switch (aplo) {
+	    	case "E1b1b":
+				content += "https://www.facebook.com/groups/961610670667507";
+				break;
+			case "G2a":
+				content += "https://www.facebook.com/groups/377998456047741";
+				break;
+			case "I1":
+				content += "https://www.facebook.com/groups/1667245460018074";
+				break;
+			case "I2":
+				content += "https://www.facebook.com/groups/443604132742578";
+				break;
+			case "J1":
+				content += "https://www.facebook.com/groups/2049800221907739";
+				break;
+			case "J2":
+				content += "https://www.facebook.com/groups/225796151506608";
+				break;
+			case "R1a":
+				content += "https://www.facebook.com/groups/1783440311712524";
+				break;
+			case "R1b":
+				content += "https://www.facebook.com/groups/2036198019979624";
+				break;
+			case "T":
+	    		content += "https://www.facebook.com/groups/463826757407866";
+	    		break;	
+    	}
+		return content;
     }
     
     @RequestMapping(value="/saveAncientYdna", method=RequestMethod.POST)
@@ -248,6 +288,10 @@ public class CruscottoController {
         	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
         	model.addAttribute("ydnaBozza", lyb);
         	model.addAttribute("mtdnaBozza", lmb);
+        	
+        	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+        	User user = userService.findByUsername(nome);
+        	model.addAttribute("user",user);
         	return "admin";
     	} else {
     		return "error";
@@ -291,6 +335,8 @@ public class CruscottoController {
 			e.printStackTrace();
 		}
     	
+    	model.addAttribute("user",user);
+    	
     	return "admin";
     }
     
@@ -315,6 +361,10 @@ public class CruscottoController {
     	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
     	model.addAttribute("ydnaBozza", lyb);
     	model.addAttribute("mtdnaBozza", lmb);
+    	
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
     	return "admin";
     }
     

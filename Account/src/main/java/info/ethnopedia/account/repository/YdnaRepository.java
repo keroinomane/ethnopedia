@@ -78,5 +78,10 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     )
 	public int countSubcladeRegio(String subclade, String regione);
     
+    @Query(value = "SELECT y.* FROM ydna y join usersito u on y.id=u.id WHERE y.clade = ?1 and y.id <> ?2", nativeQuery=true)
+	public List<Ydna> getPersoneByClade(String clade, Long id);
+    
+    @Query(value = "SELECT y.* FROM ydna y join usersito u on y.id=u.id WHERE y.subclade = ?1 and y.id <> ?2", nativeQuery=true)
+	public List<Ydna> getPersoneBySubClade(String subclade, Long id);
     
 }

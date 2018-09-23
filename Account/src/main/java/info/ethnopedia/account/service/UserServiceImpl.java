@@ -1,16 +1,14 @@
 package info.ethnopedia.account.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.User;
-import info.ethnopedia.account.model.UserDati;
 import info.ethnopedia.account.model.Ydna;
 import info.ethnopedia.account.repository.InfoAploRepository;
-import info.ethnopedia.account.repository.MtdnaRepository;
-import info.ethnopedia.account.repository.UserDatiRepository;
 import info.ethnopedia.account.repository.UserRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
 
@@ -43,6 +41,11 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    
+    @Override
+	public List<String> findEmailById(long id) {
+		return userRepository.findEmailById(id);
+	}
 
 	@Override
 	public Ydna findById(long id) {

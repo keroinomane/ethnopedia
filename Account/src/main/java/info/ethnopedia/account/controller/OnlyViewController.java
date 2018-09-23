@@ -103,4 +103,5 @@ public class OnlyViewController {
     	model.addAttribute("ancientYdna",ancientYdna);
 		return "admin/insertAncientYdna";
     }
+    
 }

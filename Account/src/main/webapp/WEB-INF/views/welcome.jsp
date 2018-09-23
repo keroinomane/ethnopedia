@@ -389,11 +389,23 @@
     			</c:if>
     			<br><br>
     		</c:if>
-    		<div>Supporta il nostro lavoro e aiutaci a mandare avanti il sito con una 
-		    	<a href="http://www.ethnopedia.info/donazioni.html">
-		    		donazione!
-		    	</a>
-		    </div>
+    		<c:choose>
+				<c:when test="${user.donatore}">
+					<a style="text-decoration: none" href="<c:url value='/donatori' />" >
+						<button type="button" class="btn btn-warning">
+						<span class="glyphicon glyphicon-gift"></span>
+						&nbsp <b>Sezione donatori</b>
+						</button>
+					</a>
+				</c:when>
+				<c:otherwise>
+					<div>Sostieni il nostro lavoro e aiutaci a mandare avanti il sito con una 
+				    	<a href="http://www.ethnopedia.info/donazioni.html">
+				    		donazione!
+				    	</a>
+				    </div>
+			    </c:otherwise>
+			</c:choose>
 		</c:if>
 		<c:if test="${userDati == null || userDati.genproject == null}">
 			<br>
@@ -518,11 +530,23 @@
 					</table>
 				</div>
 				<br>
-				<div>Supporta il nostro lavoro e aiutaci a mandare avanti il sito con una 
-			    	<a href="http://www.ethnopedia.info/donazioni.html">
-			    		donazione!
-			    	</a>
-			    </div>
+				<c:choose>
+					<c:when test="${user.donatore}">
+						<a style="text-decoration: none" href="<c:url value='/donatori' />" >
+							<button type="button" class="btn btn-warning">
+							<span class="glyphicon glyphicon-gift"></span>
+							&nbsp <b>Sezione donatori</b>
+							</button>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<div>Sostieni il nostro lavoro e aiutaci a mandare avanti il sito con una 
+					    	<a href="http://www.ethnopedia.info/donazioni.html">
+					    		donazione!
+					    	</a>
+					    </div>
+				    </c:otherwise>
+				</c:choose>
 			</c:if>	
 				
 			<div align=center>	

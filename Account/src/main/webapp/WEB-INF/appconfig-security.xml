@@ -19,6 +19,7 @@
         <intercept-url pattern="/diffusioneCladi" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/autosomal" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/insertAncientYdna" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/donatori" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
         <csrf disabled="true"/>

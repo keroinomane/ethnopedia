@@ -69,4 +69,14 @@ public class YdnaServiceImpl implements YdnaService {
 	public AncientYdna findAncientYdnaById(String id) {
 		return ancientYdnaRepository.exists(id);
 	}
+
+	@Override
+	public List<Ydna> getPersoneByClade(String clade, Long id) {
+		return ydnaRepository.getPersoneByClade(clade, id);
+	}
+
+	@Override
+	public List<Ydna> getPersoneBySubClade(String subclade, Long id) {
+		return ydnaRepository.getPersoneBySubClade(subclade, id);
+	}
 }
