@@ -1,14 +1,29 @@
 package info.ethnopedia.account.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import info.ethnopedia.account.model.AncientYdna;
+import info.ethnopedia.account.model.User;
+import info.ethnopedia.account.service.UserService;
 
 @Controller
 public class OnlyViewController {
+	
+	@Autowired
+    private UserService userService;
+	
+	@RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
+	public String aploMtdnaMacroregioni(Model model) {
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+	 	User user = userService.findByUsername(nome);
+	   	model.addAttribute("user",user);
+	    return "aploMtdnaMacroregioni";
+	}
 	
 	@RequestMapping(value = "/inserisciEutest", method = RequestMethod.GET)
     public String inserisciEutest(Model model) {
@@ -22,11 +37,17 @@ public class OnlyViewController {
     
     @RequestMapping(value = "/statistiche", method = RequestMethod.GET)
     public String statistiche(Model model) {
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
 		return "statistiche";
     }
     
     @RequestMapping(value = "/diffusioneCladi", method = RequestMethod.GET)
     public String diffusioneCladi(Model model) {
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
 		return "diffusioneCladi";
     }
     

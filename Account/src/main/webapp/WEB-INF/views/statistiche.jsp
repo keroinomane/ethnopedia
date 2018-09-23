@@ -64,7 +64,7 @@
 			            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			        </form>
 			        <h4>Ciao ${nick} | <a href="${contextPath}/welcome">Profilo</a> |
-			        <c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
+			        <c:if test="${user.ruolo eq 'admin'}">
 			        <a href="${contextPath}/admin">Pannello di amministrazione</a> | 
 			        </c:if>
 			        <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>

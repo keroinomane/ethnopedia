@@ -16,6 +16,8 @@ public class User {
     private String email;
     private String nome;
     private String cognome;
+    private Boolean donatore;
+    private String ruolo;
     
     @NotNull
     public String getNome() {
@@ -77,16 +79,21 @@ public class User {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
-    /*
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    public Set<Role> getRoles() {
-        return roles;
-    }
+	public Boolean getDonatore() {
+		return donatore;
+	}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-    */
+	public void setDonatore(Boolean donatore) {
+		this.donatore = donatore;
+	}
+
+	public String getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+   
 }

@@ -85,7 +85,7 @@
 		    <!-- End Intro --> 
 		<div class="container">
 		
-		    <c:if test="${pageContext.request.userPrincipal.name != null}">
+		    <c:if test="${user.ruolo eq 'admin'}">
 		        <form id="logoutForm" method="POST" action="${contextPath}/logout">
 		            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		        </form>

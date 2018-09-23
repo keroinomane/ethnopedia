@@ -1,16 +1,10 @@
 package info.ethnopedia.account.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -28,35 +22,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import info.ethnopedia.account.model.Altezza;
-import info.ethnopedia.account.model.AncientYdna;
-import info.ethnopedia.account.model.Autosomal;
-import info.ethnopedia.account.model.AutosomalPuri;
-import info.ethnopedia.account.model.CladeFreqRegionali;
-import info.ethnopedia.account.model.CladiAplo;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
-import info.ethnopedia.account.model.Frequenza;
-import info.ethnopedia.account.model.FrequenzeMtdna;
 import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.MtdnaBozza;
-import info.ethnopedia.account.model.MtdnaId;
-import info.ethnopedia.account.model.PieChartData;
-import info.ethnopedia.account.model.TableMtdna;
-import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.UserDati;
 import info.ethnopedia.account.model.Ydna;
 import info.ethnopedia.account.model.YdnaBozza;
-import info.ethnopedia.account.model.YdnaId;
 import info.ethnopedia.account.repository.InfoAploRepository;
 import info.ethnopedia.account.service.AltezzaService;
 import info.ethnopedia.account.service.BozzaService;
@@ -68,7 +47,6 @@ import info.ethnopedia.account.service.UserDatiService;
 import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
 import info.ethnopedia.account.utility.EmailUtility;
-import info.ethnopedia.account.utility.Grafico;
 import info.ethnopedia.account.utility.VerifyAplo;
 import info.ethnopedia.account.validator.UserValidator;
 
@@ -383,15 +361,16 @@ public class UserController {
     
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
+        
+    	// valida i campi
+    	userValidator.validate(userForm, bindingResult);
+    	
+    	// se ci sono errori nel validator, rimanda alla pagina di registrazione
+        if (bindingResult.hasErrors())
             return "registration";
-        }
-
+            
         userService.save(userForm);
         
-
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return welcome(model);
@@ -485,6 +464,7 @@ public class UserController {
     	model.addAttribute("mtdna", mtdna);
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
+    	model.addAttribute("user", user);
     	model.addAttribute("userDati", userDati);
     	model.addAttribute("fasciaEtaOK", fasciaEtaOK);
     	model.addAttribute("nonniStessaRegione", nonniStessaRegione);

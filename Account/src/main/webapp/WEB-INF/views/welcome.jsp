@@ -103,8 +103,8 @@
         </form>
 		<c:set var="nick" scope="session" value="${pageContext.request.userPrincipal.name}"/>
         <h4>Ciao ${nick} | 
-        <c:if test="${nick eq 'kerosene' || nick eq 'vinniepassa' || nick eq 'MarMar81' || nick eq 'Timoleonte'}">
-        <a href="${contextPath}/admin">Pannello di amministrazione</a> | 
+        <c:if test="${user.ruolo eq 'admin'}">
+        	<a href="${contextPath}/admin">Pannello di amministrazione</a> | 
         </c:if>
         <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
         <c:if test="${userDati != null && userDati.genproject != null}">

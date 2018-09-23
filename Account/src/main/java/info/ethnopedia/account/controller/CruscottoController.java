@@ -8,6 +8,7 @@ import javax.mail.internet.AddressException;
 
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -58,6 +59,10 @@ public class CruscottoController {
     	List<MtdnaBozza> mb = bozzaService.findAllMtdna();
     	model.addAttribute("ydnaBozza", yb);
     	model.addAttribute("mtdnaBozza", mb);
+    	
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "admin";
     }
     

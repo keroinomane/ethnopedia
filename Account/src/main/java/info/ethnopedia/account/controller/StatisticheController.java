@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.AutosomalPuri;
 import info.ethnopedia.account.model.CladeFreqRegionali;
-import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.Frequenza;
 import info.ethnopedia.account.model.FrequenzeMtdna;
 import info.ethnopedia.account.model.PieChartData;
 import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableYdna;
+import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.service.MtdnaService;
 import info.ethnopedia.account.service.StatisticheService;
+import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
 import info.ethnopedia.account.utility.Grafico;
 
@@ -42,11 +44,18 @@ public class StatisticheController {
     @Autowired
     private MtdnaService mtdnaService;
     
+    @Autowired
+    private UserService userService;
+    
     @RequestMapping(value = "/aploRegioni", method = RequestMethod.GET)
     public String aploRegioni(Model model) {
     	List<TableYdna> ydnaReg = statService.findAll();
 		model.addAttribute("ydnaReg",ydnaReg);
 		model.addAttribute("provincia",false);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "aploRegioni";
     }
     
@@ -54,6 +63,10 @@ public class StatisticheController {
     public String autosomal(Model model) {
     	List<Autosomal> auto = statService.findAllAutosomal();
 		model.addAttribute("auto",auto);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "autosomal";
     }
     
@@ -61,12 +74,11 @@ public class StatisticheController {
     public String autosomalPuri(Model model) {
     	List<AutosomalPuri> auto = statService.findAllAutosomalPuri();
 		model.addAttribute("auto",auto);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "autosomalPuri";
-    }
-    
-    @RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
-    public String aploMtdnaMacroregioni(Model model) {
-        return "aploMtdnaMacroregioni";
     }
 	
 	@RequestMapping(value = "/calcolaFrequenzaClade", method = RequestMethod.GET)
@@ -148,6 +160,10 @@ public class StatisticheController {
 		List<TableYdna> ydnaReg = statService.findAll();
 		model.addAttribute("ydnaReg",ydnaReg);
 		model.addAttribute("provincia",false);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
 		return "aploRegioni";
     }
     
@@ -183,6 +199,10 @@ public class StatisticheController {
 		List<TableYdna> ydnaProv = statService.findAll();
 		model.addAttribute("ydnaReg",ydnaProv);
 		model.addAttribute("provincia",true);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
 		return "aploRegioni";
 	}
     
@@ -207,6 +227,10 @@ public class StatisticheController {
 		}		
 		List<Autosomal> auto = statService.findAllAutosomal();
 		model.addAttribute("auto",auto);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "autosomal";
     }
     
@@ -230,6 +254,10 @@ public class StatisticheController {
 		}		
 		List<AutosomalPuri> auto = statService.findAllAutosomalPuri();
 		model.addAttribute("auto",auto);
+		
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "autosomalPuri";
     }
     
@@ -284,6 +312,10 @@ public class StatisticheController {
     	while (itPie.hasNext()) {
     		Grafico.create(itPie.next());
     	}
+    	
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(nome);
+    	model.addAttribute("user",user);
         return "aploMtdnaMacroregioni";
     }
     
