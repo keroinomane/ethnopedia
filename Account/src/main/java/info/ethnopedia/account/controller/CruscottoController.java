@@ -178,6 +178,8 @@ public class CruscottoController {
     			e.printStackTrace();
     		}
         	
+        	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+        	user = userService.findByUsername(nome);
         	model.addAttribute("user",user);
         	return "admin";
         // se esiste già quell'aplogruppo associato a quel cognome e provincia
@@ -335,6 +337,8 @@ public class CruscottoController {
 			e.printStackTrace();
 		}
     	
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	user = userService.findByUsername(nome);
     	model.addAttribute("user",user);
     	
     	return "admin";

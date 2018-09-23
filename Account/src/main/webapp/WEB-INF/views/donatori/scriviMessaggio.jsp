@@ -74,12 +74,12 @@
 			        	<form:textarea path="testo" name="testo" style="width:800px; height:200px;"/>
 			        	<br><br>
 			        	<button class="btn btn-lg btn-primary" type="submit">Invia messaggio</button>
+			        	&nbsp&nbsp
+			        	<a href="<c:url value='/donatori' />"><button type="button" class="btn btn-lg">Indietro</button></a>
 			        	
 			        </form:form>
 			        
 					<br><br>
-					
-					<a href="${contextPath}/donatori"><button class="btn btn-lg">Indietro</button></a>
 					
 				</c:if> 
 			</div>
