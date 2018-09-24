@@ -25,4 +25,11 @@ public interface MtdnaRepository extends JpaRepository<Mtdna, Long> {
     		nativeQuery=true
     )
 	public int countMacroRegio(String macroregione);
+    
+    @Query(value = "SELECT m.* FROM mtdna m join usersito u on m.id=u.id WHERE m.clade = ?1 and m.id <> ?2 group by m.id", nativeQuery=true)
+	public List<Mtdna> getPersoneByClade(String clade, Long id);
+    
+    @Query(value = "SELECT m.* FROM mtdna m join usersito u on m.id=u.id WHERE m.aplogruppo = ?1 and m.id <> ?2 group by m.id", nativeQuery=true)
+	public List<Mtdna> getPersoneByAplogruppo(String aplogruppo, Long id);
+    
 }

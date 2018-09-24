@@ -33,4 +33,14 @@ public class MtdnaServiceImpl implements MtdnaService {
 	public List<String> getMacroregioni() {
 		return mtdnaRepository.getMacroregioni();
 	}
+
+	@Override
+	public List<Mtdna> getPersoneByClade(String clade, Long id) {
+		return mtdnaRepository.getPersoneByClade(clade, id);
+	}
+
+	@Override
+	public List<Mtdna> getPersoneByAplogruppo(String aplogruppo, Long id) {
+		return mtdnaRepository.getPersoneByAplogruppo(aplogruppo, id);
+	}
 }

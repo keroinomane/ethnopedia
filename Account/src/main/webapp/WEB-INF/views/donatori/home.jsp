@@ -35,9 +35,14 @@
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function(){
-			    $('#peopleClade').DataTable( {
+				$('#peopleClade').DataTable( {
 			    	"paging": false,
-			    	"filter": false
+			    	"filter": false,
+			    	"bInfo" : false
+			    } );
+				$('#peopleMtdna').DataTable( {
+			    	"paging": false,
+			    	"bInfo" : false
 			    } );
 			});
 		</script>
@@ -74,43 +79,82 @@
 			        <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
 			        
 			        <br><br>
+			        <c:if test="${personeClade != null }">
 			        
-			        Questi sono gli utenti che hanno il tuo stesso clade.<br>
-			        Per questione di privacy, al posto del nome troverai un numero identificativo univoco.
-			        
-			        <br><br>
-			        
-					<table id ="peopleClade" width="50%">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Clade</th>
-								<th>Subclade</th>
-								<th>Deepest known clade</th>
-								<th>Provincia</th>
-								<th>Contatta</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${personeClade}" var="people">
+				        Questi sono gli utenti che hanno il tuo stesso clade Y-DNA.<br>
+				        Per questione di privacy, al posto del nome troverai un numero identificativo univoco.
+				        
+				        <br><br>
+				        
+						<table id ="peopleClade" width="50%">
+							<thead>
 								<tr>
-									<td>${people.id}</td>
-									<td>${people.ydnaId.aplogruppo}-${people.clade}</td>
-									<td>${people.subclade}</td>
-									<td>${people.downstream}</td>
-									<td>${people.ydnaId.provincia}</td>
-									<td>
-										<a href="<c:url value='contatta/${people.id}' />" >
-												<span class="glyphicon glyphicon-envelope"></span>
-											</button>
-										</a>
-									</td>
+									<th>ID</th>
+									<th>Clade</th>
+									<th>Subclade</th>
+									<th>Deepest known clade</th>
+									<th>Provincia</th>
+									<th>Contatta</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table> 
+							</thead>
+							<tbody>
+								<c:forEach items="${personeClade}" var="people">
+									<tr>
+										<td>${people.id}</td>
+										<td>${people.ydnaId.aplogruppo}-${people.clade}</td>
+										<td>${people.subclade}</td>
+										<td>${people.downstream}</td>
+										<td>${people.ydnaId.provincia}</td>
+										<td>
+											<a href="<c:url value='contatta/${people.id}' />" >
+													<span class="glyphicon glyphicon-envelope"></span>
+												</button>
+											</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table> 
+					</c:if>
 					
 					<br><br>
+					
+					<c:if test="${personeMtdna != null }">
+			        
+				        Questi sono gli utenti che hanno il tuo stesso aplogruppo mtDNA.<br>
+				        Per questione di privacy, al posto del nome troverai un numero identificativo univoco.<br>
+				        A destra, puoi digitare nella casella di ricerca una parola chiave<c:if test="${cladeMtdnaUtente != null}">, ad esempio il tuo clade specifico: <b>${cladeMtdnaUtente}</b></c:if>.
+				        
+				        <br><br>
+				        
+						<table id ="peopleMtdna" width="50%">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Aplogruppo</th>
+									<th>Clade</th>
+									<th>Provincia</th>
+									<th>Contatta</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${personeMtdna}" var="peopleMtdna">
+									<tr>
+										<td>${peopleMtdna.id}</td>
+										<td>${peopleMtdna.mtdnaId.aplogruppo}</td>
+										<td>${peopleMtdna.clade}</td>
+										<td>${peopleMtdna.mtdnaId.provincia}</td>
+										<td>
+											<a href="<c:url value='contatta/${peopleMtdna.id}' />" >
+													<span class="glyphicon glyphicon-envelope"></span>
+												</button>
+											</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table> 
+					</c:if>
 					
 				</c:if> 
 			</div>

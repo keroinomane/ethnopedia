@@ -9,4 +9,6 @@ public interface MtdnaService {
 	 void save (Mtdna mtdna);
 	 List<String> getAplogruppi();
 	 List<String> getMacroregioni();
+	 List<Mtdna> getPersoneByClade(String clade, Long id);
+	 List<Mtdna> getPersoneByAplogruppo(String aplogruppo, Long id);
 }

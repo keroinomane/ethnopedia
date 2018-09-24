@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.UserDati;
 import info.ethnopedia.account.model.Ydna;
@@ -48,11 +49,22 @@ public class DonorController {
     	
     	UserDati userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	Ydna ydna = userService.findById(userDati.getId());
+    	Mtdna mtdna = mtdnaService.findById(userDati.getId());
     	
-    	List<Ydna> personeClade = ydnaService.getPersoneByClade(ydna.getClade(), user.getId());
+    	List<Ydna> personeClade = null;
     	
+    	if (ydna != null)
+    		personeClade = ydnaService.getPersoneByClade(ydna.getClade(), user.getId());
+    	
+    	List<Mtdna> personeMtdna = null;
+    	String cladeMtdnaUtente = null;
+    	if (mtdna != null) {
+    		personeMtdna = mtdnaService.getPersoneByAplogruppo(mtdna.getMtdnaId().getAplogruppo(), user.getId());
+    		cladeMtdnaUtente = mtdna.getClade();
+    	}
     	model.addAttribute("personeClade",personeClade);
-    	
+    	model.addAttribute("personeMtdna",personeMtdna);
+    	model.addAttribute("cladeMtdnaUtente",cladeMtdnaUtente);
         return "donatori/home";
     }
     

@@ -403,6 +403,8 @@
 				    	<a href="http://www.ethnopedia.info/donazioni.html">
 				    		donazione!
 				    	</a>
+				    	<br>
+					    Se doni almeno 1 euro tramite donazione mensile ricorrente (occorre avere un account PayPal), ti sarà abilitata la sezione "donatori" con altre nuove funzionalità utili.
 				    </div>
 			    </c:otherwise>
 			</c:choose>
@@ -544,6 +546,8 @@
 					    	<a href="http://www.ethnopedia.info/donazioni.html">
 					    		donazione!
 					    	</a>
+					    	<br>
+					    	Se doni almeno 1 euro tramite donazione mensile ricorrente (occorre avere un account PayPal), ti sarà abilitata la sezione "donatori" con altre nuove funzionalità utili.
 					    </div>
 				    </c:otherwise>
 				</c:choose>
