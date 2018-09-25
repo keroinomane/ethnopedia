@@ -89,9 +89,9 @@ public class DonorController {
     	
     	List<String> destinatari = messaggio.getDestinatari();
     	String oggetto = "Hai ricevuto un nuovo messaggio";
-    	String testo = "Ciao, hai ricevuto un messaggio dall'utente " + messaggio.getMittente().getUsername() + ".\n";
+    	String testo = "Ciao, hai ricevuto un messaggio dall'utente " + messaggio.getMittente().getUsername() + " (ID "+ user.getId() +").\n";
     	testo += "La nostra è un'email automatica. Né tu né il mittente potete vedere il nome o l'email dell'altro.\n";
-    	testo += "Questo è il testo del messaggio: \n--------------------------------------------------------------------\n";
+    	testo += "Questo è il testo del messaggio: \n----------------------------------------------------------------------------------------\n";
     	testo += messaggio.getTesto();
     	try {
 			EmailUtility.sendMultipleEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", destinatari, oggetto, testo);
