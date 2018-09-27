@@ -295,6 +295,7 @@
 								<tr><td align="right">Aplogruppo: </td><td>
 									<form:select path="mtdnaId.aplogruppo" value="${mtdna.mtdnaId.aplogruppo}" id="aplogruppo">
 										<form:option value="A">A</form:option>
+										<form:option value="C">C</form:option>
 										<form:option value="H">H</form:option>
 										<form:option value="H1">H1</form:option>
 										<form:option value="H2">H2</form:option>
@@ -318,6 +319,7 @@
 										<form:option value="U4">U4</form:option>
 										<form:option value="U5">U5</form:option>
 										<form:option value="U6">U6</form:option>
+										<form:option value="U7">U7</form:option>
 										<form:option value="U8">U8</form:option>
 										<form:option value="V">V</form:option>
 										<form:option value="W">W</form:option>
