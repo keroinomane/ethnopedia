@@ -2,6 +2,7 @@ package info.ethnopedia.account.service;
 
 import java.util.List;
 
+import info.ethnopedia.account.model.CambioPassword;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.Ydna;
 
@@ -13,4 +14,6 @@ public interface UserService {
 	void update(User user);
 	String getContent(String aplogruppo);
 	List<String> findEmailById(long id);
+	User findByEmail(String username);
+	void save (CambioPassword cambioPassword);
 }

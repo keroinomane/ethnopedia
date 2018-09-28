@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import info.ethnopedia.account.model.Altezza;
+import info.ethnopedia.account.model.CambioPassword;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
@@ -475,5 +477,37 @@ public class UserController {
     	model.addAttribute("regionalResult", regionalResult);
         return "welcome";
     }
+    
+    @RequestMapping(value = "/inviaLinkEmail", method = RequestMethod.POST)
+    public ModelAndView inviaLinkEmail (String email) {
+        
+        ModelAndView modelAndView=new ModelAndView("result"); 
+		
+        String resultMessage = "Ti abbiamo inviato un'email col link da cliccare per cambiare la password.</b><br><br>"
+				+ "We sent you an e-mail. Click the link to change password.</b>";
+        
+		User user = userService.findByEmail(email);
+		String link = UUID.randomUUID().toString();
+		CambioPassword cambioPassword = new CambioPassword(user.getUsername(), link, email);
+		userService.save(cambioPassword);
+		
+		// FINO A QUA OK, ORA INVIA EMAIL!!
+		
+		String content = "Id: " + user.getId() + "\nCognome: " + user.getCognome() + "\nNome: " + user.getNome() + "\nEmail: " + user.getEmail() + "\n"
+				+ "Ha dichiarato di avere 4 nonni della stessa macroregione.";
+		try {
+			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", "admin@ethnopedia.info", "Dichiarazione dei nonni", content);
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		modelAndView.addObject("message", resultMessage);
+     
+		return modelAndView;
+	}
+
 	
 }

@@ -52,7 +52,9 @@
 			            <span>${error}</span>
 			            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-			            <h4 class="text-center"><a href="${contextPath}/registration">Crea un nuovo account</a></h4>
+			            <br>
+			            Non ricordi l'username o la password?&nbsp&nbsp<a href="${contextPath}/emailForPassword">Clicca qui</a><br>
+			            Non sei registrato?&nbsp&nbsp<a href="${contextPath}/registration">Crea un nuovo account</a>
 			        </div>
 			
 			    </form>
@@ -76,7 +78,7 @@
       
       <!-- Begin Copyright -->
       <div id="copyright">
-        <p>© Copyright 2017 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
+        <p>© Copyright 2018 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
 		<img src="${contextPath}/resources/style/images/icon-facebook.png" alt="" /></a>
 		</p>
       </div>

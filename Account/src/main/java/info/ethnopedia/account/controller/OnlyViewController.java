@@ -104,4 +104,9 @@ public class OnlyViewController {
 		return "admin/insertAncientYdna";
     }
     
+    @RequestMapping(value = "/emailForPassword", method = RequestMethod.GET)
+    public String emailForPassword(Model model) {
+		return "changePassword/insertEmail";
+    }
+    
 }

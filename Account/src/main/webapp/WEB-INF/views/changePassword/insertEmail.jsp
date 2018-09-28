@@ -3,41 +3,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="../basis/alto.html" %>
+<%@ include file="basis/alto.html" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-     <title>Come scaricare i raw data del cromosoma Y</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Inserisci email</title>
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
 	<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
-	<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-	<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/ddsmoothmenu.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/style/js/scripts.js"></script>  
-	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script> 
 	<style>
-		#about {
-			width:75%;
-		}
-		td {
-			text-align:center;
+		tr {
+			vertical-align: middle;
 		}
 	</style>
 </head>
-
 <body>
 <div id="container"> 
-  
   <c:import url="basis/alto.html" />
   
   <!-- Begin Slider -->
@@ -48,30 +34,29 @@
   
   <!-- Begin Wrapper -->
   <div id="wrapper"> 
+    
     <!-- Begin Intro -->
     <div class="intro">
-      <h1>Come scaricare i raw data del cromosoma Y dal sito di Living DNA</h1>
+      <h1>Cambia password</h1>
 	</div>
     <!-- End Intro --> 
     <!-- Begin About -->
-    <div id="about">
-    <table style="border:none; width:100%;">
-    	<tr style="border:none;">
-    		<td style="border:none; text-align:right; vertical-align:middle;">
-				Accedi su <a href="https://my.livingdna.com/login" onclick="window.open(this.href);return false">Living DNA.</a><br><br>
-				Una volta effettuato l'accesso, clicca su <strong>Download Raw Data</strong> a sinistra.<br><br>
-				Uscirà una nuova schermata in cui dovrai selezionare la casella per dare il consenso al download.<br><br>
-				Infine clicca su <strong>Download FT-DNA (fatherline) list of positive SNPs</strong>.
-			</td>
-			<td style="border:none;">
-				<img src="${contextPath}/resources/img/howto/living/1.png" width=75%/>
-			</td>
-		</tr>	
-	</table>
-	</div>
+    <div id="about" align=center>
+	<form action="${contextPath}/inviaLinkEmail" method="post">
+		<br><br><br>
+		Inserisci la tua email:<br><br>
+		<input type="text" placeholder="Insert your e-mail" name="email" style="width: 180px;" />
+		<br><br>
+		<input type="submit" value="Invia"/>
+	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+	</form>	 
+<br><br><br>
+</div>
 
     <!-- End About --> 
+    
   </div>
+  
   <!-- End Wrapper -->
   <div class="clearfix"></div>
   <div class="push"></div>
@@ -95,7 +80,5 @@
 </div>
 <!-- End Footer -->
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

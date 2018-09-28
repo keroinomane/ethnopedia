@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import info.ethnopedia.account.model.CambioPassword;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.Ydna;
+import info.ethnopedia.account.repository.CambioPasswordRepository;
 import info.ethnopedia.account.repository.InfoAploRepository;
 import info.ethnopedia.account.repository.UserRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
@@ -16,6 +18,8 @@ import info.ethnopedia.account.repository.YdnaRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+    private CambioPasswordRepository cambioPasswordRepository;
 	@Autowired
     private InfoAploRepository infoAploRepository;
     @Autowired
@@ -30,6 +34,11 @@ public class UserServiceImpl implements UserService {
         user.setRuolo("user");
         user.setDonatore(false);
         userRepository.save(user);
+    }
+    
+    @Override
+    public void save(CambioPassword cambioPassword) {
+    	cambioPasswordRepository.save(cambioPassword);
     }
     
     @Override
@@ -63,5 +72,10 @@ public class UserServiceImpl implements UserService {
 	public String getContent(String aplogruppo) {
 		return infoAploRepository.getContent(aplogruppo);
 	}
+	
+	@Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).get(0);
+    }
 	
 }
