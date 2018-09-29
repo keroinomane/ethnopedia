@@ -327,15 +327,17 @@ public class CruscottoController {
     	user.setId(mtdna.getId());
     	userService.update(user);
     	
-    	String content = "Ciao " + user.getNome() + ",\nil tuo aplogruppo mtDNA è stato approvato. Ora potrai accedere al tuo profilo e completarlo.\nSaluti\nEthnopedia staff";
-    	
-    	try {
-			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Registrazione Ethnopedia", content);
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+    	// Invia l'email solo se è femmina, se no va a finire che manda due email per entrambi gli aplo
+    	if (ud.getSesso().equals("femmina")) {
+    		String content = "Ciao " + user.getNome() + ",\nil tuo aplogruppo mtDNA è stato approvato. Ora potrai accedere al tuo profilo e completarlo.\nSaluti\nEthnopedia staff";
+        	try {
+    			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Registrazione Ethnopedia", content);
+    		} catch (AddressException e) {
+    			e.printStackTrace();
+    		} catch (MessagingException e) {
+    			e.printStackTrace();
+    		}
+    	}
     	
     	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
     	user = userService.findByUsername(nome);

@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="basis/alto.html" %>
+<%@ include file="../basis/alto.html" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,14 +42,22 @@
     <!-- End Intro --> 
     <!-- Begin About -->
     <div id="about" align=center>
-	<form action="${contextPath}/inviaLinkEmail" method="post">
-		<br><br><br>
-		Inserisci la tua email:<br><br>
-		<input type="text" placeholder="Insert your e-mail" name="email" style="width: 180px;" />
-		<br><br>
-		<input type="submit" value="Invia"/>
-	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-	</form>	 
+    	<c:if test="${message != null}">
+    		<br><br>
+    		${message}
+		</c:if>
+		<c:if test="${message == null}">
+			<form action="${contextPath}/inviaLinkEmail" method="post">
+				<br><br><br>
+				
+				Inserisci la tua email:<br><br>
+				<input type="text" placeholder="Insert your e-mail" name="email" style="width: 180px;" />
+				<br><br>
+				<input type="submit" value="Invia"/>
+				<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+			</form>	 
+		</c:if>
+	
 <br><br><br>
 </div>
 

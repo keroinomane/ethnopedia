@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -479,35 +480,62 @@ public class UserController {
     }
     
     @RequestMapping(value = "/inviaLinkEmail", method = RequestMethod.POST)
-    public ModelAndView inviaLinkEmail (String email) {
-        
-        ModelAndView modelAndView=new ModelAndView("result"); 
+    public String inviaLinkEmail (Model model, String email) {
 		
-        String resultMessage = "Ti abbiamo inviato un'email col link da cliccare per cambiare la password.</b><br><br>"
-				+ "We sent you an e-mail. Click the link to change password.</b>";
+        String resultMessage;
         
 		User user = userService.findByEmail(email);
-		String link = UUID.randomUUID().toString();
-		CambioPassword cambioPassword = new CambioPassword(user.getUsername(), link, email);
-		userService.save(cambioPassword);
-		
-		// FINO A QUA OK, ORA INVIA EMAIL!!
-		
-		String content = "Id: " + user.getId() + "\nCognome: " + user.getCognome() + "\nNome: " + user.getNome() + "\nEmail: " + user.getEmail() + "\n"
-				+ "Ha dichiarato di avere 4 nonni della stessa macroregione.";
-		try {
-			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", "admin@ethnopedia.info", "Dichiarazione dei nonni", content);
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
+		if (user != null) {
+			resultMessage = "<b>Ti abbiamo inviato un'email col link da cliccare per cambiare la password.<br><br>"
+					+ "We sent you an e-mail. Click the link to change password.</b>";
+			String link = UUID.randomUUID().toString().replace("-", "");
+			CambioPassword cambioPassword = new CambioPassword(user.getUsername(), link, email);
+			userService.save(cambioPassword);
+			
+			String content = "Ciao " + user.getNome() + ",\n" + 
+					"il tuo username è " + user.getUsername() + ".\n" + 
+					"Clicca qui per cambiare la password: https://www.ethnopedia.info/account/insertPassword/"+link+"\n" +
+					"Saluti\nEthnopedia staff";
+			try {
+				EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Cambia password", content);
+			} catch (AddressException e) {
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		} else {
+			resultMessage = "<b>L'email inserita non è corretta.<br><br>"
+					+ "The email is wrong.</b><br><br><br>"
+					+ "<a href=\"emailForPassword\"><button>Riprova</button></a>";
 		}
-		
-		
-		modelAndView.addObject("message", resultMessage);
-     
-		return modelAndView;
-	}
-
 	
+		model.addAttribute("message", resultMessage);
+     
+		return "changePassword/insertEmail";
+	}
+    
+    @RequestMapping(value = " /insertPassword/{link}", method=RequestMethod.GET)
+    public String insertMater(@PathVariable("link")String link,Model model) {
+    	CambioPassword change = userService.findByLink(link);
+    	if (change != null)
+    		model.addAttribute("cambioPassword", new CambioPassword(change.getUsername(), link, change.getEmail()));
+    	
+		return "changePassword/insertPassword";
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public String changePassword(@ModelAttribute("cambioPassword") CambioPassword cambioPassword, BindingResult bindingResult, Model model) {
+            
+        userService.updatePassword(cambioPassword);
+        
+        userService.delete(cambioPassword);
+        
+        String resultMessage = "<b>La password è stata modificata correttamente.<br><br>"
+				+ "Password changed successfully.</b><br><br><br>"
+				+ "<a href=\"login\"><button>Accedi</button></a>";
+        
+        model.addAttribute("message", resultMessage);
+        
+		return "changePassword/insertEmail";
+    }
 }

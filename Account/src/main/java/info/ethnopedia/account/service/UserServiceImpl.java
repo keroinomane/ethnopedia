@@ -75,7 +75,27 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).get(0);
+		List<User> user = userRepository.findByEmail(email);
+		if (user.isEmpty())
+			return null;
+		else
+			return user.get(0);
     }
+	
+	@Override
+    public CambioPassword findByLink(String link) {
+        return cambioPasswordRepository.findByLink(link);
+    }
+
+	@Override
+	public void updatePassword(CambioPassword cambioPassword) {
+		String password = bCryptPasswordEncoder.encode(cambioPassword.getPassword());
+		userRepository.updatePassword(password, cambioPassword.getUsername());
+	}
+
+	@Override
+	public void delete(CambioPassword cambioPassword) {
+		cambioPasswordRepository.delete(cambioPassword);
+	}
 	
 }

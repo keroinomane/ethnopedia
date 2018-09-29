@@ -1,10 +1,23 @@
 package info.ethnopedia.account.model;
 
-public class CambioPassword {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity(name="cambiopassword")
+@Table(name = "cambiopassword")
+public class CambioPassword implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2811264157679479568L;
 	private String username;
 	private String link;
 	private String email;
+	private String password;
+	private String passwordConfirm;
 	
 	public CambioPassword() {
 		
@@ -16,7 +29,7 @@ public class CambioPassword {
 		this.link = link;
 		this.email = email;
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -24,7 +37,8 @@ public class CambioPassword {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	@Id
 	public String getLink() {
 		return link;
 	}
@@ -40,5 +54,24 @@ public class CambioPassword {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@Transient
+	public String getPassword() {
+		return password;
+	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	@Transient
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	
+	
 }

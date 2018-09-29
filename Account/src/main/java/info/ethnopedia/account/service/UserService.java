@@ -16,4 +16,7 @@ public interface UserService {
 	List<String> findEmailById(long id);
 	User findByEmail(String username);
 	void save (CambioPassword cambioPassword);
+	void delete (CambioPassword cambioPassword);
+	CambioPassword findByLink(String link);
+	void updatePassword(CambioPassword cambioPassword);
 }
