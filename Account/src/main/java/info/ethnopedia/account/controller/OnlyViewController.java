@@ -17,6 +17,12 @@ public class OnlyViewController {
 	@Autowired
     private UserService userService;
 	
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+        return "registration";
+    }
+	
 	@RequestMapping(value = "/aploMtdnaMacroregioni", method = RequestMethod.GET)
 	public String aploMtdnaMacroregioni(Model model) {
 		String nome = SecurityContextHolder.getContext().getAuthentication().getName();

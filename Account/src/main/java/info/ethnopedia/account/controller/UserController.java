@@ -325,14 +325,7 @@ public class UserController {
 		model.addAttribute("regionalResult", regionalResult);
     	
         return "welcome";
-    }
-    
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
-    }
-    
+    }    
     
     @RequestMapping(value = "/aggiorna", method = RequestMethod.POST)
     public String aggiorna(Model model, String autosomal) {
