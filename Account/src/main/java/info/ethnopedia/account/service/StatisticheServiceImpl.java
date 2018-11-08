@@ -483,42 +483,44 @@ public class StatisticheServiceImpl implements StatisticheService {
 	    Iterator<AutosomalPuri> it = in.iterator();
 	    while (it.hasNext()) {
 	    	AutosomalPuri at = it.next();
-		    double diff = 0;
-		    switch(admixture) {
-		    	case 0:
-			   		diff = Math.abs(at.getBaltic() - of);
-			   		break;
-		    	case 1:
-		    		diff = Math.abs(at.getNordic() - of);
-			   		break;
-		    	case 2:
-		    		diff = Math.abs(at.getAtlantic() - of);
-			   		break;
-		    	case 3:
-		    		diff = Math.abs(at.getWestmed() - of);
-			   		break;
-		    	case 4:
-		    		diff = Math.abs(at.getEastmed() - of);
-			   		break;
-		    	case 5:
-		    		diff = Math.abs(at.getWestasian() - of);
-			   		break;
-		    	case 6:
-		    		diff = Math.abs(at.getMena() - of);
-			   		break;
-		    	case 7:
-		    		diff = Math.abs(at.getAsian() - of);
-			   		break;
-		    	case 8:
-		    		diff = Math.abs(at.getSsa() - of);
-			   		break;		    	
-		    }
-		    if (diff < min) {
-			    min = diff;		
-			    riserva = at.getRegione();
-		    }
-		    if (admixture != 7 && admixture != 8 && diff < 1)
-		    	result.add(at.getRegione());
+	    	if (!at.getRegione().equals("Ticino") && !at.getRegione().equals("Trentino - Alto Adige") && !at.getRegione().equals("Umbria")) {
+	    		double diff = 0;
+			    switch(admixture) {
+			    	case 0:
+				   		diff = Math.abs(at.getBaltic() - of);
+				   		break;
+			    	case 1:
+			    		diff = Math.abs(at.getNordic() - of);
+				   		break;
+			    	case 2:
+			    		diff = Math.abs(at.getAtlantic() - of);
+				   		break;
+			    	case 3:
+			    		diff = Math.abs(at.getWestmed() - of);
+				   		break;
+			    	case 4:
+			    		diff = Math.abs(at.getEastmed() - of);
+				   		break;
+			    	case 5:
+			    		diff = Math.abs(at.getWestasian() - of);
+				   		break;
+			    	case 6:
+			    		diff = Math.abs(at.getMena() - of);
+				   		break;
+			    	case 7:
+			    		diff = Math.abs(at.getAsian() - of);
+				   		break;
+			    	case 8:
+			    		diff = Math.abs(at.getSsa() - of);
+				   		break;		    	
+			    }
+			    if (diff < min) {
+				    min = diff;		
+				    riserva = at.getRegione();
+			    }
+			    if (admixture != 7 && admixture != 8 && diff < 1)
+			    	result.add(at.getRegione());
+	    	}
 	    }
 	    if (result.isEmpty() && admixture != 7)
     		result.add(riserva);
