@@ -3,6 +3,7 @@ package info.ethnopedia.account.service;
 import java.util.List;
 
 import info.ethnopedia.account.model.CambioPassword;
+import info.ethnopedia.account.model.ConfirmEmail;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.Ydna;
 
@@ -18,5 +19,7 @@ public interface UserService {
 	void save (CambioPassword cambioPassword);
 	void delete (CambioPassword cambioPassword);
 	CambioPassword findByLink(String link);
+	ConfirmEmail findConfirmEmailByLink(String link);
 	void updatePassword(CambioPassword cambioPassword);
+	void save(ConfirmEmail confirmEmail);
 }

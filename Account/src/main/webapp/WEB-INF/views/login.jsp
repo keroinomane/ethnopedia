@@ -54,7 +54,7 @@
 			            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
 			            <br>
 			            Non ricordi l'username o la password?&nbsp&nbsp<a href="${contextPath}/emailForPassword">Clicca qui</a><br>
-			            Non sei registrato?&nbsp&nbsp<a href="${contextPath}/registration">Crea un nuovo account</a>
+			            Non sei registrato?&nbsp&nbsp<a href="${contextPath}/haiFattoIlTest">Crea un nuovo account</a>
 			        </div>
 			
 			    </form>

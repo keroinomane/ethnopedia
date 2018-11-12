@@ -115,4 +115,9 @@ public class OnlyViewController {
 		return "changePassword/insertEmail";
     }
     
+    @RequestMapping(value = "/haiFattoIlTest", method = RequestMethod.GET)
+    public String haiFattoIlTest(Model model) {
+		return "haiFattoIlTest";
+    }
+    
 }

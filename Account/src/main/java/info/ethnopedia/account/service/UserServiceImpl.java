@@ -7,9 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import info.ethnopedia.account.model.CambioPassword;
+import info.ethnopedia.account.model.ConfirmEmail;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.Ydna;
 import info.ethnopedia.account.repository.CambioPasswordRepository;
+import info.ethnopedia.account.repository.ConfirmEmailRepository;
 import info.ethnopedia.account.repository.InfoAploRepository;
 import info.ethnopedia.account.repository.UserRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
@@ -20,6 +22,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 	@Autowired
     private CambioPasswordRepository cambioPasswordRepository;
+	@Autowired
+    private ConfirmEmailRepository confirmEmailRepository;
 	@Autowired
     private InfoAploRepository infoAploRepository;
     @Autowired
@@ -39,6 +43,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(CambioPassword cambioPassword) {
     	cambioPasswordRepository.save(cambioPassword);
+    }
+    
+    @Override
+    public void save(ConfirmEmail confirmEmail) {
+    	confirmEmailRepository.save(confirmEmail);
     }
     
     @Override
@@ -86,7 +95,12 @@ public class UserServiceImpl implements UserService {
     public CambioPassword findByLink(String link) {
         return cambioPasswordRepository.findByLink(link);
     }
-
+	
+	@Override
+    public ConfirmEmail findConfirmEmailByLink(String link) {
+        return confirmEmailRepository.findByLink(link);
+    }
+	
 	@Override
 	public void updatePassword(CambioPassword cambioPassword) {
 		String password = bCryptPasswordEncoder.encode(cambioPassword.getPassword());

@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import info.ethnopedia.account.model.Altezza;
 import info.ethnopedia.account.model.CambioPassword;
+import info.ethnopedia.account.model.ConfirmEmail;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
@@ -363,13 +364,50 @@ public class UserController {
     	
     	// se ci sono errori nel validator, rimanda alla pagina di registrazione
         if (bindingResult.hasErrors())
-            return "registration";
-            
-        userService.save(userForm);
+        	return "registration";
         
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        // se non ci sono errori nel validator
+        String resultMessage = "<b>Ti abbiamo inviato un'email col link da cliccare per confermare la tua e-mail.<br><br>"
+					+ "We sent you an e-mail. Click the link in the e-mail to confirm it.</b>";
+		String link = UUID.randomUUID().toString().replace("-", "");
+		ConfirmEmail confirmEmail = new ConfirmEmail(userForm.getUsername(), link, userForm.getEmail(), userForm.getNome(), userForm.getCognome(), userForm.getPassword());
+		userService.save(confirmEmail);
+		
+		String content = "Ciao " + userForm.getNome() + ",\n" + 
+				"Clicca qui per confermare la tua e-mail: https://www.ethnopedia.info/account/confermaEmail/"+link+"\n" +
+				"Saluti\nEthnopedia staff";
+		try {
+			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", userForm.getEmail(), "Conferma la tua e-mail", content);
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	
+		model.addAttribute("message", resultMessage);
+     
+		return "confirmEmail/esito";
+	
+    }
+    
+    @RequestMapping(value = " /confermaEmail/{link}", method=RequestMethod.GET)
+    public String confermaEmail(@PathVariable("link")String link, Model model) {
+    	ConfirmEmail ce = userService.findConfirmEmailByLink(link);
+    	if (ce != null) {
+    		User user = new User();
+    		user.setCognome(ce.getCognome());
+    		user.setNome(ce.getNome());
+    		user.setEmail(ce.getEmail());
+    		user.setPassword(ce.getPassword());
+    		user.setUsername(ce.getUsername());
+    		userService.save(user);
+            
+            securityService.autologin(ce.getUsername(), ce.getPassword());
 
-        return welcome(model);
+            return welcome(model);
+    	}
+    		
+		return "/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -508,7 +546,7 @@ public class UserController {
 	}
     
     @RequestMapping(value = " /insertPassword/{link}", method=RequestMethod.GET)
-    public String insertMater(@PathVariable("link")String link,Model model) {
+    public String insertPassword(@PathVariable("link")String link,Model model) {
     	CambioPassword change = userService.findByLink(link);
     	if (change != null)
     		model.addAttribute("cambioPassword", new CambioPassword(change.getUsername(), link, change.getEmail()));

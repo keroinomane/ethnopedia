@@ -3,7 +3,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +18,7 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-
+	
 	<style>
 		html, body {
 			height: 100%;
@@ -40,16 +39,6 @@
 		}
 	</style>
 	<script>
-		$(document).ready(function() {
-			$('#yes').click(function() {
-				$('.didYouTakeTest').hide();
-				$('.signin').show();
-			});
-			$('#no').click(function() {
-				$('.didYouTakeTest').hide();
-				$('.banner').show();
-			});
-		});
 		function checkPass() {
 			var pass1 = document.getElementById('pass1');
 			var pass2 = document.getElementById('pass2');
@@ -66,26 +55,30 @@
 				message.innerHTML = "Password errata!"
 			}
 		};
-		
+		function checkEmail() {
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			var goodColor = "#66cc66";
+			var badColor = "#ff6666";		
+			var email = document.getElementById('email');
+			var message = document.getElementById('emailMessage');
+			if(!email.value.match(re)) {
+				email.style.backgroundColor = badColor;
+				message.style.color = badColor;
+				message.innerHTML = "E-mail non valida!"
+			} else {
+				email.style.backgroundColor = goodColor;
+				message.style.color = goodColor;
+				message.innerHTML = "OK!"
+			}
+		};
 	</script>
-
 </head>
 
 <body>
-
 	<div class="main">
 		<div class="wrapper">
-		
-			<div class="didYouTakeTest">
-				<h2 class="form-signin-heading" align=center>
-					Hai già fatto un test genetico?<br> <small>Have you
-						already taken a DNA test?</small> <br> <br>
-					<button type="button" class="btn btn-success btn-lg" id="yes">Yes</button>
-					<button type="button" class="btn btn-danger btn-lg" id="no">No</button>
-				</h2>
-			</div>
 			
-			<div class="signin" style="display:none;">
+			<div class="signin">
 				<form:form method="POST" modelAttribute="userForm" class="form-signin">
 					<h2 class="form-signin-heading" align=center>Crea il tuo account</h2>
 					<br>
@@ -116,8 +109,9 @@
 					<spring:bind path="email">
 						<div class="form-group ${status.error ? 'has-error' : ''}">
 							<form:input type="text" path="email" class="form-control"
-								placeholder="Email"></form:input>
+								placeholder="Email" id="email" onkeyup="checkEmail();"></form:input>
 							<form:errors path="email"></form:errors>
+							<span id="emailMessage" class="emailMessage"></span>
 						</div>
 					</spring:bind>
 		
@@ -156,60 +150,7 @@
 					</div>
 				</form:form>
 			</div>
-	
-			<div class="banner" style="display:none;">
-				
-				<h2>
-					Possono iscriversi <u>solo</u> gli utenti<br>che hanno fatto il
-					test genetico<br> <small><u>Only</u> people who
-						purchased DNA test can register</small>
-				</h2>
-				
-				<br>
-				
-				<br>
-				<table align=center width="70%">
-					<tr>
-						<td style="text-align:left">
-							<div class="preview">
-								<a href="${contextPath}/../blog/testDNA.html" style="text-decoration: none; color : #000;">
-								
-									<table>
-										<tr>
-											<td>
-												<img src="https://www.ethnopedia.info/blog/testdna/1.jpg" width="100%">
-											</td>
-											<td>
-												<h4>
-													<b>Il test genetico</b><br> perché farlo, a cosa serve, cosa ci offre, quali scegliere
-												</h4> 
-												Il nostro DNA è strettamente personale, unico, ci accompagna dalla
-												nascita alla morte, non possiamo modificarlo a piacimento e anzi
-												rimane immutato nel temp... &nbsp&nbsp&nbsp 
-												<p style="color:blue;text-align:right;"><em> Continua</em></p>
-											</td>
-										</tr>
-									</table>
-								</a>
-							</div>
-							
-						</td>
-						<td>
-							<h2>Ordina il kit Living DNA</h2>
-							<a href="http://www.anrdoezrs.net/links/8289828/type/dlg/https://www.livingdna.com/" target="_top">
-								<img src="https://www.awltovhc.com/image-8289828-12899160"
-								width="50%" alt="" border="0" />
-							</a>
-							<h2>Order Living DNA kit</h2>
-						</td>
-					</tr>
-				</table>
-							
-			</div>
-			
 		</div>
 	</div>
-
-
 </body>
 </html>
