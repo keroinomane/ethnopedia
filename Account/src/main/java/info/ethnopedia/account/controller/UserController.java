@@ -494,6 +494,10 @@ public class UserController {
     		
     	}
     	
+    	if (infoclade != null)
+    		infoclade += " La regione dove abbiamo registrato la maggior frequenza di questo clade è: "+
+    				statService.regionePiccoCladeYdna(ydna.getClade()) + ".";
+    	
     	model.addAttribute("ydna", ydna);
     	model.addAttribute("mtdna", mtdna);
     	model.addAttribute("infoaplo", infoaplo);

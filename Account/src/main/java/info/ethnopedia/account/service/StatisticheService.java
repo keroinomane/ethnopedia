@@ -46,4 +46,5 @@ public interface StatisticheService {
 	int countSubcladeRegio(String subclade, String regio);
 	String calcolaClosestPop(EutestPlebe e);
 	String calcolaPureClosestPop(EutestPlebe e);
+	String regionePiccoCladeYdna(String clade);
 }

@@ -193,7 +193,12 @@ public class StatisticheServiceImpl implements StatisticheService {
 	public List<AutosomalPuri> findAllAutosomalPuri() {
 		return aPuriRep.findAll();
 	}
-    
+	
+	@Override
+	public String regionePiccoCladeYdna(String clade) {
+		return yrep.getRegionePiccoCladeYdna(clade);
+	}
+	
 	@Override
 	public double countSumAdmixMacroregio(String admix, String mac) {
 		
