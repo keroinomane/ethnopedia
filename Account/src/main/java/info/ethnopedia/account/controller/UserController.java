@@ -464,6 +464,22 @@ public class UserController {
     	    			infoclade = infoAploRepository.getContent(ydna.getClade());
     	    		infoaplo = infoAploRepository.getContent(ydna.getYdnaId().getAplogruppo());
     	    	}
+    	    	
+    	    	if (infoaplo != null) {
+    	    		double tot = statService.countAploRegio(ydna.getYdnaId().getAplogruppo(), ydna.getRegione());
+    	    		int campioni = statService.countRegio(ydna.getRegione());
+    	    		tot /= campioni;
+    	    		tot *= 10000;
+    				tot = (int) tot;
+    				tot /= 100;
+    				infoaplo += " Nella tua regione abbiamo registrato una percentuale di "+ydna.getYdnaId().getAplogruppo() + " pari al "+
+    	    				tot + "%.";
+    	    	}
+    	    	
+    	    	if (infoclade != null)
+    	    		infoclade += " La regione dove abbiamo registrato la maggior frequenza di questo clade è: "+
+    	    				statService.regionePiccoCladeYdna(ydna.getClade()) + ".";
+    	    	
     	    	if (eutest != null) {
     	    		closestPop = statService.calcolaClosestPop(eutest);
     	    		pureClosestPop = statService.calcolaPureClosestPop(eutest);
@@ -471,8 +487,8 @@ public class UserController {
     	    			regionalResult = true;
     	    	}
         	}
-    		EutestPuri tizio = eutestService.findPuroById(user.getId());
     		
+    		EutestPuri tizio = eutestService.findPuroById(user.getId());
     		
     		// controllo età (da 21 a 60 anni)
     		if (userDati.getNascita() != null) {
@@ -493,10 +509,6 @@ public class UserController {
     		}
     		
     	}
-    	
-    	if (infoclade != null)
-    		infoclade += " La regione dove abbiamo registrato la maggior frequenza di questo clade è: "+
-    				statService.regionePiccoCladeYdna(ydna.getClade()) + ".";
     	
     	model.addAttribute("ydna", ydna);
     	model.addAttribute("mtdna", mtdna);
