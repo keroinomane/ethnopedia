@@ -552,6 +552,8 @@
 				    </c:otherwise>
 				</c:choose>
 			</c:if>	
+			
+			<!-- SE NON SONO STATI INSERITI I DATI -->
 				
 			<div align=center>	
 				<br>
@@ -572,6 +574,14 @@
 							<br>
 							If you already inserted them, we're elaborating them.<br>
 							Come back later!
+						</td>
+					</tr>
+					<tr style="border:none">
+						<td colspan="2" style="border:none">
+							<h5>
+							Stai riscontrando dei problemi?<br>
+							<a href="https://www.ethnopedia.info/contatti.html">Contattaci!</a>
+							</h5>
 						</td>
 					</tr>
 				</table>
