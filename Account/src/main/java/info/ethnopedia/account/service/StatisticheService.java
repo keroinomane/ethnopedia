@@ -8,11 +8,13 @@ import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
 import info.ethnopedia.account.model.TableMtdna;
+import info.ethnopedia.account.model.TableMtdnaRegioni;
 import info.ethnopedia.account.model.TableYdna;
 
 public interface StatisticheService {
 	void deleteAllTableYdna();
 	void deleteAllTableMtdna();
+	void deleteAllTableMtdnaRegioni();
 	void deleteAllEutestPuri();
 	void deleteAllAutosomal();
 	void deleteAllAutosomalPuri();
@@ -26,6 +28,8 @@ public interface StatisticheService {
 	int countAploProv(String aplo, String prov);
 	int countRegio(String regio);
 	int countProv(String prov);
+	int countAploMtdnaRegio(String aplo, String regio);
+	int countRegioMtdna(String regio);
 	int countAploMtdnaMacroRegio(String aplo, String macroregio);
 	int countMacroRegio(String macroregio);
 	double countSumAdmixMacroregio(String admix, String macro);
@@ -34,11 +38,13 @@ public interface StatisticheService {
 	int countAutoRegio(String regione);
 	void save(TableYdna tableYdna);
 	void save(TableMtdna tableMtdna);
+	void save(TableMtdnaRegioni tableMtdnaRegioni);
 	void save(EutestPuri eutestPuri);
 	void save(Autosomal autosomal);
 	void save(AutosomalPuri autosomalPuri);
 	List<TableYdna> findAll();
 	List<TableMtdna> findAllMtdnaMacroreg();
+	List<TableMtdnaRegioni> findAllMtdnaReg();
 	List<Eutest> findAllEutest();
 	List<Autosomal> findAllAutosomal();
 	List<AutosomalPuri> findAllAutosomalPuri();
@@ -46,5 +52,4 @@ public interface StatisticheService {
 	int countSubcladeRegio(String subclade, String regio);
 	String calcolaClosestPop(EutestPlebe e);
 	String calcolaPureClosestPop(EutestPlebe e);
-	String regionePiccoCladeYdna(String clade);
 }

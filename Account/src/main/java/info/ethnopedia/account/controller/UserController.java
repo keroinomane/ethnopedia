@@ -1,10 +1,12 @@
 package info.ethnopedia.account.controller;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +38,7 @@ import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
 import info.ethnopedia.account.model.Mtdna;
 import info.ethnopedia.account.model.MtdnaBozza;
+import info.ethnopedia.account.model.TableMtdnaRegioni;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.model.UserDati;
 import info.ethnopedia.account.model.Ydna;
@@ -432,6 +435,7 @@ public class UserController {
     	UserDati userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	String infoaplo = null;
     	String infoclade = null;
+    	String infoMtdna = null;
     	String closestPop = "";
     	String pureClosestPop = "";
     	boolean nonniStessaRegione = false;
@@ -476,9 +480,18 @@ public class UserController {
     	    				tot + "%.";
     	    	}
     	    	
-    	    	if (infoclade != null)
-    	    		infoclade += " La regione dove abbiamo registrato la maggior frequenza di questo clade è: "+
-    	    				statService.regionePiccoCladeYdna(ydna.getClade()) + ".";
+    	    	if (mtdna != null) {
+    	    		String regionePiccoMtdna = piccoRegioneMtdna(mtdna.getMtdnaId().getAplogruppo());
+    	    		infoMtdna = "La regione dove abbiamo registrato la maggior frequenza di questo aplogruppo è: " + regionePiccoMtdna + ".";
+    	    		double tot = statService.countAploMtdnaRegio(mtdna.getMtdnaId().getAplogruppo(), mtdna.getRegione());
+    	    		int campioni = statService.countRegioMtdna(mtdna.getRegione());
+    	    		tot /= campioni;
+    	    		tot *= 10000;
+    				tot = (int) tot;
+    				tot /= 100;
+    	    		infoMtdna += " Nella tua regione abbiamo registrato una percentuale di "+mtdna.getMtdnaId().getAplogruppo() + " pari al "+
+    	    				tot + "%.";
+    	    	}
     	    	
     	    	if (eutest != null) {
     	    		closestPop = statService.calcolaClosestPop(eutest);
@@ -514,6 +527,7 @@ public class UserController {
     	model.addAttribute("mtdna", mtdna);
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
+    	model.addAttribute("infoMtdna", infoMtdna);
     	model.addAttribute("user", user);
     	model.addAttribute("userDati", userDati);
     	model.addAttribute("fasciaEtaOK", fasciaEtaOK);
@@ -524,6 +538,33 @@ public class UserController {
     	model.addAttribute("pureClosestPop", pureClosestPop);
     	model.addAttribute("regionalResult", regionalResult);
         return "welcome";
+    }
+    
+    private String piccoRegioneMtdna(String aplo) {
+    	List<TableMtdnaRegioni> mtdnaReg = statService.findAllMtdnaReg();
+    	Iterator<TableMtdnaRegioni> it = mtdnaReg.iterator();
+    	String regione = null;
+    	double max = 0;
+    	while (it.hasNext()) {
+    		TableMtdnaRegioni tm = it.next();
+    		if (tm.getCampioni() > 5) {
+	    		for(Field f : tm.getClass().getDeclaredFields()) {
+	    			if (f.getName().equals(aplo.toLowerCase())) {
+	    				double valore = 0;
+						try {
+							valore = (double) f.get(tm);
+						} catch (IllegalArgumentException | IllegalAccessException e) {
+							e.printStackTrace();
+						}
+	    				if (valore > max) {
+	    					max = valore;
+	    					regione = tm.getRegione();
+	    				}
+	    			}
+	    		}
+    		}
+    	}
+    	return regione;
     }
     
     @RequestMapping(value = "/inviaLinkEmail", method = RequestMethod.POST)

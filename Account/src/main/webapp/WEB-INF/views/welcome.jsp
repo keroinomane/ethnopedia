@@ -53,7 +53,7 @@
 	    	    defaultDate: new Date('1 January 1980')
 	    });
 	    
-	    $( "#baltic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Baltic è più presente tra gli estoni.<img width='400px' src='https://www.counter-currents.com/wp-content/uploads/2016/09/estonians.jpg'/>", position: {my: "center bottom", at: "center top"} });
+	    $( "#baltic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Baltic è più presente tra gli estoni.<img width='400px' src='https://nationalvanguard.org/wp-content/uploads/2016/09/estonians.jpg'/>", position: {my: "center bottom", at: "center top"} });
 	    $( "#nordic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Nordic è più presente tra i norvegesi.<img width='400px' src='http://www.ethnopedia.info/account_img/nordic.png'/>", position: {my: "center bottom", at: "center top"} });
 	    $( "#atlantic" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "Atlantic è più presente tra i baschi.<img width='400px' src='http://i.telegraph.co.uk/multimedia/archive/03320/basques_3320429k.jpg'/>", position: {my: "center bottom", at: "center top"} });
 	    $( "#westmed" ).tooltip({ tooltipClass: "custom-tooltip-styling", content: "West Med è più presente tra i sardi.<img width='400px' src='https://farm5.static.flickr.com/4120/4897681109_6f67793726_b.jpg'/>", position: {my: "center bottom", at: "center top"} });
@@ -187,7 +187,9 @@
 							<table>
 							<tr><td colspan=2 style="text-align:center"><b>mtDNA</b></td></tr>
 							<tr><td>Aplogruppo</td><td>
-							<c:out value="${mtdna.mtdnaId.aplogruppo}" />
+								<a data-balloon="${infoMtdna}" data-balloon-length="xlarge" data-balloon-pos="up">
+									<b><u><c:out value="${mtdna.mtdnaId.aplogruppo}" /></u></b>
+								</a>
 							</td></tr>
 							<tr><td>Aplogruppo completo</td><td><c:out value="${mtdna.clade}" /></td></tr>
 							<tr><td>Provincia</td><td><c:out value="${mtdna.mtdnaId.provincia}" /></td></tr>

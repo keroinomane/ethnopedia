@@ -24,6 +24,7 @@ import info.ethnopedia.account.model.Frequenza;
 import info.ethnopedia.account.model.FrequenzeMtdna;
 import info.ethnopedia.account.model.PieChartData;
 import info.ethnopedia.account.model.TableMtdna;
+import info.ethnopedia.account.model.TableMtdnaRegioni;
 import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.model.User;
 import info.ethnopedia.account.service.MtdnaService;
@@ -259,6 +260,38 @@ public class StatisticheController {
     	User user = userService.findByUsername(nome);
     	model.addAttribute("user",user);
         return "autosomalPuri";
+    }
+    
+    @RequestMapping(value = "/aggiornaAploMtdnaRegioni", method = RequestMethod.GET)
+    public String aggiornaAploMtdnaRegioni(Model model) throws IOException, IllegalArgumentException, IllegalAccessException {
+    	
+    	statService.deleteAllTableMtdnaRegioni();
+		List<String> aplog = mtdnaService.getAplogruppi();
+		List<String> regioni = mtdnaService.getRegioni();
+		Collections.sort(regioni);
+		double[] campi = new double[aplog.size()];
+		Iterator<String> iterReg = regioni.iterator();
+		while (iterReg.hasNext()) {
+			String reg = iterReg.next();
+			Iterator<String> iterAplo = aplog.iterator();
+			int ciclo = 0;
+			int campioni = 0;
+	    	while (iterAplo.hasNext()) {
+	    		int ap;
+	    		String apl = iterAplo.next();
+	    		ap = statService.countAploMtdnaRegio(apl, reg);
+	        	double tot = statService.countRegioMtdna(reg);
+	        	campioni = (int) tot;
+	        	tot = ap/tot*10000;
+	        	tot = (int)tot;
+	        	tot /= 100;
+	        	campi[ciclo] = tot;
+	        	ciclo++;
+	    	}
+	    	TableMtdnaRegioni all = new TableMtdnaRegioni(reg, campioni, campi);
+	    	statService.save(all);
+		}
+		return "welcome";
     }
     
     @RequestMapping(value = "/aggiornaAploMtdnaMacroregioni", method = RequestMethod.GET)

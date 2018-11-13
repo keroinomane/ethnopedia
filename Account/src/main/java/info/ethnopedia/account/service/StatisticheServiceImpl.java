@@ -13,12 +13,14 @@ import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
 import info.ethnopedia.account.model.TableMtdna;
+import info.ethnopedia.account.model.TableMtdnaRegioni;
 import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.repository.AutosomalPuriRepository;
 import info.ethnopedia.account.repository.AutosomalRepository;
 import info.ethnopedia.account.repository.EutestPuriRepository;
 import info.ethnopedia.account.repository.EutestRepository;
 import info.ethnopedia.account.repository.MtdnaRepository;
+import info.ethnopedia.account.repository.TableMtdnaRegioniRepository;
 import info.ethnopedia.account.repository.TableMtdnaRepository;
 import info.ethnopedia.account.repository.TableYdnaRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
@@ -31,6 +33,9 @@ public class StatisticheServiceImpl implements StatisticheService {
 	
 	@Autowired
 	private TableMtdnaRepository tmrep;
+	
+	@Autowired
+	private TableMtdnaRegioniRepository tmrrep;
 	
 	@Autowired
 	private AutosomalRepository arep;
@@ -58,6 +63,11 @@ public class StatisticheServiceImpl implements StatisticheService {
 	@Override
 	public void deleteAllTableMtdna() {
 		tmrep.deleteAll();
+	}
+	
+	@Override
+	public void deleteAllTableMtdnaRegioni() {
+		tmrrep.deleteAll();
 	}
 	
 	@Override
@@ -126,6 +136,16 @@ public class StatisticheServiceImpl implements StatisticheService {
 	}
 	
 	@Override
+	public int countAploMtdnaRegio(String aplo, String regio) {
+		return mrep.countAploMtdnaRegio(aplo, regio);
+	}
+
+	@Override
+	public int countRegioMtdna(String regio) {
+		return mrep.countRegioMtdna(regio);
+	}
+	
+	@Override
 	public int countAploMtdnaMacroRegio(String aplo, String macroregio) {
 		return mrep.countAploMtdnaMacroRegio(aplo, macroregio);
 	}
@@ -155,6 +175,11 @@ public class StatisticheServiceImpl implements StatisticheService {
 	}
 	
 	@Override
+	public void save(TableMtdnaRegioni tableMtdnaRegioni) {
+		tmrrep.save(tableMtdnaRegioni);
+	}
+	
+	@Override
 	public void save(EutestPuri eutestPuri) {
 		ePuriRep.save(eutestPuri);
 	}
@@ -180,6 +205,11 @@ public class StatisticheServiceImpl implements StatisticheService {
 	}
 	
 	@Override
+	public List<TableMtdnaRegioni> findAllMtdnaReg() {
+		return tmrrep.findAll();
+	}
+	
+	@Override
 	public List<Eutest> findAllEutest() {
 		return erep.findAll();
 	}
@@ -192,11 +222,6 @@ public class StatisticheServiceImpl implements StatisticheService {
 	@Override
 	public List<AutosomalPuri> findAllAutosomalPuri() {
 		return aPuriRep.findAll();
-	}
-	
-	@Override
-	public String regionePiccoCladeYdna(String clade) {
-		return yrep.getRegionePiccoCladeYdna(clade);
 	}
 	
 	@Override

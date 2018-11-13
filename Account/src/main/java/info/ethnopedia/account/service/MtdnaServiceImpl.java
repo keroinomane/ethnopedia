@@ -33,6 +33,11 @@ public class MtdnaServiceImpl implements MtdnaService {
 	public List<String> getMacroregioni() {
 		return mtdnaRepository.getMacroregioni();
 	}
+	
+	@Override
+	public List<String> getRegioni() {
+		return mtdnaRepository.getRegioni();
+	}
 
 	@Override
 	public List<Mtdna> getPersoneByClade(String clade, Long id) {

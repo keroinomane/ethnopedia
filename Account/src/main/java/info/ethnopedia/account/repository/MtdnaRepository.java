@@ -16,6 +16,9 @@ public interface MtdnaRepository extends JpaRepository<Mtdna, Long> {
     @Query(value = "SELECT distinct(macroregione) FROM mtdna ORDER BY macroregione", nativeQuery=true)
 	public List<String> getMacroregioni();
     
+    @Query(value = "SELECT distinct(regione) FROM mtdna ORDER BY regione", nativeQuery=true)
+	public List<String> getRegioni();
+    
     @Query(value = "select count(*) from mtdna where aplogruppo = ?1 and macroregione = ?2", 
     		nativeQuery=true
     )
@@ -25,6 +28,16 @@ public interface MtdnaRepository extends JpaRepository<Mtdna, Long> {
     		nativeQuery=true
     )
 	public int countMacroRegio(String macroregione);
+    
+    @Query(value = "select count(*) from mtdna where aplogruppo = ?1 and regione = ?2", 
+    		nativeQuery=true
+    )
+	public int countAploMtdnaRegio(String aplo, String regione);
+    
+    @Query(value = "select count(*) from mtdna where regione = ?1", 
+    		nativeQuery=true
+    )
+	public int countRegioMtdna(String regione);
     
     @Query(value = "SELECT m.* FROM mtdna m join usersito u on m.id=u.id WHERE m.clade = ?1 and m.id <> ?2 group by m.id", nativeQuery=true)
 	public List<Mtdna> getPersoneByClade(String clade, Long id);
