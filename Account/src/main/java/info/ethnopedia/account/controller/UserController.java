@@ -374,7 +374,7 @@ public class UserController {
 		userService.save(confirmEmail);
 		
 		String content = "Ciao " + userForm.getNome() + ",\n" + 
-				"Clicca qui per confermare la tua e-mail: https://www.ethnopedia.info/account/confermaEmail/"+link+"\n" +
+				"clicca qui per confermare la tua e-mail: https://www.ethnopedia.info/account/confermaEmail/"+link+"\n" +
 				"Saluti\nEthnopedia staff";
 		try {
 			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", userForm.getEmail(), "Conferma la tua e-mail", content);
@@ -525,7 +525,7 @@ public class UserController {
 			
 			String content = "Ciao " + user.getNome() + ",\n" + 
 					"il tuo username è " + user.getUsername() + ".\n" + 
-					"Clicca qui per cambiare la password: https://www.ethnopedia.info/account/insertPassword/"+link+"\n" +
+					"clicca qui per cambiare la password: https://www.ethnopedia.info/account/insertPassword/"+link+"\n" +
 					"Saluti\nEthnopedia staff";
 			try {
 				EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Cambia password", content);
