@@ -443,63 +443,65 @@ public class UserController {
     	boolean regionalResult = false;
     	
     	if (userDati != null) {
-    		// se non ha inserito Y-DNA o mtDNA o autosomal
+    		ydna = userService.findById(userDati.getId());
+	    	mtdna = mtdnaService.findById(userDati.getId());
+	    	
+    		// se l'utenza non aveva già inserito Y-DNA o mtDNA o autosomal
     		if (user.getId() == null) {
+    			// se i dati già presenti nel db avevano cognome ma non avevano nome
+    			// li aggiorna col nome dell'utente
     			if (userDati.getNome() == null) {
     	    		userDati.setNome(user.getNome());
     	    		userDatiService.save(userDati);
     	    	}
-    			ydna = userService.findById(userDati.getId());
-	    		mtdna = mtdnaService.findById(userDati.getId());
+    			// assegna id dati all'utenza
 	    		user.setId(userDati.getId());
 	    		userService.update(user);
+	    		// salva l'Y-DNA col nome dell'utenza
 	    		if (ydna != null) {
 		    		ydna.setNome(user.getNome());
 		    		ydnaService.save(ydna);
 	    		}
-	    	// se ha inserito Y-DNA o mtDNA o autosomal
-    		} else {
-    	    	ydna = userService.findById(user.getId());
-    	    	mtdna = mtdnaService.findById(user.getId());
-    	    	userDati = userDatiService.findById(user.getId());
-    	    	eutest = eutestService.findById(user.getId());
-    	    	if (ydna != null) {
-    	    		if (ydna.getClade() != null)
-    	    			infoclade = infoAploRepository.getContent(ydna.getClade());
-    	    		infoaplo = infoAploRepository.getContent(ydna.getYdnaId().getAplogruppo());
-    	    	}
-    	    	
-    	    	if (infoaplo != null) {
-    	    		double tot = statService.countAploRegio(ydna.getYdnaId().getAplogruppo(), ydna.getRegione());
-    	    		int campioni = statService.countRegio(ydna.getRegione());
-    	    		tot /= campioni;
-    	    		tot *= 10000;
-    				tot = (int) tot;
-    				tot /= 100;
-    				infoaplo += " Nella tua regione abbiamo registrato una percentuale di "+ydna.getYdnaId().getAplogruppo() + " pari al "+
-    	    				tot + "%.";
-    	    	}
-    	    	
-    	    	if (mtdna != null) {
-    	    		String regionePiccoMtdna = piccoRegioneMtdna(mtdna.getMtdnaId().getAplogruppo());
-    	    		infoMtdna = "La regione dove abbiamo registrato la maggior frequenza di questo aplogruppo è: " + regionePiccoMtdna + ".";
-    	    		double tot = statService.countAploMtdnaRegio(mtdna.getMtdnaId().getAplogruppo(), mtdna.getRegione());
-    	    		int campioni = statService.countRegioMtdna(mtdna.getRegione());
-    	    		tot /= campioni;
-    	    		tot *= 10000;
-    				tot = (int) tot;
-    				tot /= 100;
-    	    		infoMtdna += " Nella tua regione abbiamo registrato una percentuale di "+mtdna.getMtdnaId().getAplogruppo() + " pari al "+
-    	    				tot + "%.";
-    	    	}
-    	    	
-    	    	if (eutest != null) {
-    	    		closestPop = statService.calcolaClosestPop(eutest);
-    	    		pureClosestPop = statService.calcolaPureClosestPop(eutest);
-    	    		if (!closestPop.equals(pureClosestPop))
-    	    			regionalResult = true;
-    	    	}
-        	}
+    		}
+    		
+    	    userDati = userDatiService.findById(user.getId());
+    	    eutest = eutestService.findById(user.getId());
+    	    if (ydna != null) {
+    	    	if (ydna.getClade() != null)
+    	    		infoclade = infoAploRepository.getContent(ydna.getClade());
+    	    	infoaplo = infoAploRepository.getContent(ydna.getYdnaId().getAplogruppo());
+    	    }
+    	    
+    	    if (infoaplo != null) {
+    	    	double tot = statService.countAploRegio(ydna.getYdnaId().getAplogruppo(), ydna.getRegione());
+    	    	int campioni = statService.countRegio(ydna.getRegione());
+    	    	tot /= campioni;
+    	    	tot *= 10000;
+    			tot = (int) tot;
+    			tot /= 100;
+    			infoaplo += " Nella tua regione abbiamo registrato una percentuale di "+ydna.getYdnaId().getAplogruppo() + " pari al "+
+    	    			tot + "%.";
+    	    }
+    	    
+    	    if (mtdna != null) {
+    	    	String regionePiccoMtdna = piccoRegioneMtdna(mtdna.getMtdnaId().getAplogruppo());
+    	    	infoMtdna = "La regione dove abbiamo registrato la maggior frequenza di questo aplogruppo è: " + regionePiccoMtdna + ".";
+    	    	double tot = statService.countAploMtdnaRegio(mtdna.getMtdnaId().getAplogruppo(), mtdna.getRegione());
+    	    	int campioni = statService.countRegioMtdna(mtdna.getRegione());
+    	    	tot /= campioni;
+    	    	tot *= 10000;
+    			tot = (int) tot;
+    			tot /= 100;
+    	    	infoMtdna += " Nella tua regione abbiamo registrato una percentuale di "+mtdna.getMtdnaId().getAplogruppo() + " pari al "+
+    	    			tot + "%.";
+    	    }
+    	    
+    	    if (eutest != null) {
+    	    	closestPop = statService.calcolaClosestPop(eutest);
+    	    	pureClosestPop = statService.calcolaPureClosestPop(eutest);
+    	    	if (!closestPop.equals(pureClosestPop))
+    	    		regionalResult = true;
+    	    }
     		
     		EutestPuri tizio = eutestService.findPuroById(user.getId());
     		
