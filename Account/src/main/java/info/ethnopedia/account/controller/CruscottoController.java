@@ -1,7 +1,6 @@
 package info.ethnopedia.account.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -31,6 +30,7 @@ import info.ethnopedia.account.model.YdnaBozza;
 import info.ethnopedia.account.model.YdnaId;
 import info.ethnopedia.account.service.BozzaService;
 import info.ethnopedia.account.service.MtdnaService;
+import info.ethnopedia.account.service.StatisticheService;
 import info.ethnopedia.account.service.UserDatiService;
 import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
@@ -53,6 +53,9 @@ public class CruscottoController {
 	
 	@Autowired
     private BozzaService bozzaService;
+	
+	@Autowired
+    private StatisticheService statService;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
@@ -170,6 +173,8 @@ public class CruscottoController {
         	content = aggiungiLinkGruppoFB (ydna.getYdnaId().getAplogruppo(), content);
         	content+= "\n\nSaluti\nEthnopedia staff";
         	
+        	statService.aggiornaMedieYdnaRegionali();
+        	
         	try {
     			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Registrazione Ethnopedia", content);
     		} catch (AddressException e) {
@@ -286,6 +291,8 @@ public class CruscottoController {
         	ydna.setId(ud.getId());
         	ydnaService.save(ydna);    	
         	
+        	statService.aggiornaMedieYdnaRegionali();
+        	
         	List<YdnaBozza> lyb = bozzaService.findAllYdna();
         	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
         	model.addAttribute("ydnaBozza", lyb);
@@ -316,6 +323,10 @@ public class CruscottoController {
     	}
     	mtdna.setId(ud.getId());
     	mtdnaService.save(mtdna);
+    	
+    	statService.aggiornaMedieMtdnaRegionali();
+        statService.aggiornaMedieMtdnaMacroregionali();
+		statService.aggiornaGraficoTortaMtdna();
     	
     	bozzaService.deleteMtdna(idBozza);
     	List<YdnaBozza> lyb = bozzaService.findAllYdna();
@@ -362,6 +373,10 @@ public class CruscottoController {
     	}
     	mtdna.setId(ud.getId());
     	mtdnaService.save(mtdna);   	
+    	
+    	statService.aggiornaMedieMtdnaRegionali();
+        statService.aggiornaMedieMtdnaMacroregionali();
+		statService.aggiornaGraficoTortaMtdna();
     	
     	List<YdnaBozza> lyb = bozzaService.findAllYdna();
     	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();

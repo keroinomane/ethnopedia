@@ -1,7 +1,6 @@
 package info.ethnopedia.account.controller;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,17 +20,11 @@ import info.ethnopedia.account.model.Autosomal;
 import info.ethnopedia.account.model.AutosomalPuri;
 import info.ethnopedia.account.model.CladeFreqRegionali;
 import info.ethnopedia.account.model.Frequenza;
-import info.ethnopedia.account.model.FrequenzeMtdna;
-import info.ethnopedia.account.model.PieChartData;
-import info.ethnopedia.account.model.TableMtdna;
-import info.ethnopedia.account.model.TableMtdnaRegioni;
 import info.ethnopedia.account.model.TableYdna;
 import info.ethnopedia.account.model.User;
-import info.ethnopedia.account.service.MtdnaService;
 import info.ethnopedia.account.service.StatisticheService;
 import info.ethnopedia.account.service.UserService;
 import info.ethnopedia.account.service.YdnaService;
-import info.ethnopedia.account.utility.Grafico;
 
 @Controller
 public class StatisticheController {
@@ -41,9 +34,6 @@ public class StatisticheController {
     
     @Autowired
     private YdnaService ydnaService;
-    
-    @Autowired
-    private MtdnaService mtdnaService;
     
     @Autowired
     private UserService userService;
@@ -130,34 +120,9 @@ public class StatisticheController {
     
     @RequestMapping(value = "/calcMediaAploRegioni", method=RequestMethod.GET)
     public String calcMediaAploRegioni(Model model) {
-		statService.deleteAllTableYdna();
-		List<String> aplog = Arrays.asList("E1b1b", "G2a", "I1", "I2", "J1", "J2", "R1a", "R1b", "T");
-		List<String> regioni = statService.getRegioni();
-		Collections.sort(regioni);
-		double[] campi = new double[9];
-		Iterator<String> iterReg = regioni.iterator();
-		while (iterReg.hasNext()) {
-			String reg = iterReg.next();
-			int campioni = statService.countRegio(reg);
-			Iterator<String> iterAplo = aplog.iterator();
-			int ciclo = 0;
-	    	while (iterAplo.hasNext()) {
-	    		int ap;
-	    		String apl = iterAplo.next();
-	    		if (apl.equals("G2a"))
-	    			ap = statService.countAploG(reg);
-	    		else
-	    			ap = statService.countAploRegio(apl,reg);
-	        	double tot = campioni;
-	        	tot = ap/tot*10000;
-	        	tot = (int)tot;
-	        	tot /= 100;
-	        	campi[ciclo] = tot;
-	        	ciclo++;
-	    	}
-	    	TableYdna all = new TableYdna(reg, campioni, campi);
-	    	statService.save(all);
-		}	
+		
+    	statService.aggiornaMedieYdnaRegionali();
+
 		List<TableYdna> ydnaReg = statService.findAll();
 		model.addAttribute("ydnaReg",ydnaReg);
 		model.addAttribute("provincia",false);
@@ -262,89 +227,18 @@ public class StatisticheController {
         return "autosomalPuri";
     }
     
-    @RequestMapping(value = "/aggiornaAploMtdnaRegioni", method = RequestMethod.GET)
-    public String aggiornaAploMtdnaRegioni(Model model) throws IOException, IllegalArgumentException, IllegalAccessException {
-    	
-    	statService.deleteAllTableMtdnaRegioni();
-		List<String> aplog = mtdnaService.getAplogruppi();
-		List<String> regioni = mtdnaService.getRegioni();
-		Collections.sort(regioni);
-		double[] campi = new double[aplog.size()];
-		Iterator<String> iterReg = regioni.iterator();
-		while (iterReg.hasNext()) {
-			String reg = iterReg.next();
-			Iterator<String> iterAplo = aplog.iterator();
-			int ciclo = 0;
-			int campioni = 0;
-	    	while (iterAplo.hasNext()) {
-	    		int ap;
-	    		String apl = iterAplo.next();
-	    		ap = statService.countAploMtdnaRegio(apl, reg);
-	        	double tot = statService.countRegioMtdna(reg);
-	        	campioni = (int) tot;
-	        	tot = ap/tot*10000;
-	        	tot = (int)tot;
-	        	tot /= 100;
-	        	campi[ciclo] = tot;
-	        	ciclo++;
-	    	}
-	    	TableMtdnaRegioni all = new TableMtdnaRegioni(reg, campioni, campi);
-	    	statService.save(all);
-		}
-		return "welcome";
-    }
+    /* 
+     * il metodo sottostante è da rimuovere se non ci sono stati problemi finora 
+     * riguardo l'aggiornamento delle medie mtDNA e dei grafici
+     * a seguito di ogni inserimento di aplogruppo mtDNA
+    */
     
     @RequestMapping(value = "/aggiornaAploMtdnaMacroregioni", method = RequestMethod.GET)
     public String aggiornaAploMtdnaMacroregioni(Model model) throws IOException, IllegalArgumentException, IllegalAccessException {
     	
-    	statService.deleteAllTableMtdna();
-		List<String> aplog = mtdnaService.getAplogruppi();
-		List<String> macroregioni = mtdnaService.getMacroregioni();
-		Collections.sort(macroregioni);
-		double[] campi = new double[aplog.size()];
-		Iterator<String> iterReg = macroregioni.iterator();
-		while (iterReg.hasNext()) {
-			String macroreg = iterReg.next();
-			Iterator<String> iterAplo = aplog.iterator();
-			int ciclo = 0;
-			int campioni = 0;
-	    	while (iterAplo.hasNext()) {
-	    		int ap;
-	    		String apl = iterAplo.next();
-	    		
-	    		ap = statService.countAploMtdnaMacroRegio(apl, macroreg);
-	        	double tot = statService.countMacroRegio(macroreg);
-	        	campioni = (int) tot;
-	        	tot = ap/tot*10000;
-	        	tot = (int)tot;
-	        	tot /= 100;
-	        	campi[ciclo] = tot;
-	        	ciclo++;
-	    	}
-	    	TableMtdna all = new TableMtdna(macroreg, campioni, campi);
-	    	statService.save(all);
-		}		
+    	statService.aggiornaMedieMtdnaMacroregionali();
 		
-    	List<TableMtdna> mtdnaMacroreg = statService.findAllMtdnaMacroreg();
-    	
-    	Iterator<TableMtdna> it = mtdnaMacroreg.iterator();
-    	
-    	List<PieChartData> listPcd = new ArrayList<PieChartData>();
-    	while (it.hasNext()) {
-    		TableMtdna tm = it.next();
-    		if (tm.getCampioni() > 5) {
-	    		List<FrequenzeMtdna> listFm = new ArrayList<FrequenzeMtdna>();
-	    		for(Field f : tm.getClass().getDeclaredFields()) {
-	    			if (!f.getName().equals("macroregione") && !f.getName().equals("campioni"))
-	    				listFm.add(new FrequenzeMtdna(f.getName(),(double) f.get(tm)));
-	    		}
-	    		listPcd.add(new PieChartData(tm.getMacroregione(), tm.getCampioni(), listFm));
-    		}
-    	}
-    	Iterator<PieChartData> itPie = listPcd.iterator();
-    	while (itPie.hasNext()) {
-    		Grafico.create(itPie.next());
-    	}
+    	statService.aggiornaGraficoTortaMtdna();
     	
     	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
     	User user = userService.findByUsername(nome);

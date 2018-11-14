@@ -1,6 +1,10 @@
 package info.ethnopedia.account.service;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +16,8 @@ import info.ethnopedia.account.model.AutosomalPuri;
 import info.ethnopedia.account.model.Eutest;
 import info.ethnopedia.account.model.EutestPlebe;
 import info.ethnopedia.account.model.EutestPuri;
+import info.ethnopedia.account.model.FrequenzeMtdna;
+import info.ethnopedia.account.model.PieChartData;
 import info.ethnopedia.account.model.TableMtdna;
 import info.ethnopedia.account.model.TableMtdnaRegioni;
 import info.ethnopedia.account.model.TableYdna;
@@ -24,6 +30,7 @@ import info.ethnopedia.account.repository.TableMtdnaRegioniRepository;
 import info.ethnopedia.account.repository.TableMtdnaRepository;
 import info.ethnopedia.account.repository.TableYdnaRepository;
 import info.ethnopedia.account.repository.YdnaRepository;
+import info.ethnopedia.account.utility.Grafico;
 
 @Service
 public class StatisticheServiceImpl implements StatisticheService {
@@ -308,6 +315,130 @@ public class StatisticheServiceImpl implements StatisticheService {
 	@Override
 	public int countAutoRegio(String regione) {
 		return ePuriRep.countAutoRegio(regione);
+	}
+	
+	@Override
+	public void aggiornaMedieYdnaRegionali() {
+		this.deleteAllTableYdna();
+		List<String> aplog = Arrays.asList("E1b1b", "G2a", "I1", "I2", "J1", "J2", "R1a", "R1b", "T");
+		List<String> regioni = this.getRegioni();
+		Collections.sort(regioni);
+		double[] campi = new double[9];
+		Iterator<String> iterReg = regioni.iterator();
+		while (iterReg.hasNext()) {
+			String reg = iterReg.next();
+			int campioni = this.countRegio(reg);
+			Iterator<String> iterAplo = aplog.iterator();
+			int ciclo = 0;
+	    	while (iterAplo.hasNext()) {
+	    		int ap;
+	    		String apl = iterAplo.next();
+	    		if (apl.equals("G2a"))
+	    			ap = this.countAploG(reg);
+	    		else
+	    			ap = this.countAploRegio(apl,reg);
+	        	double tot = campioni;
+	        	tot = ap/tot*10000;
+	        	tot = (int)tot;
+	        	tot /= 100;
+	        	campi[ciclo] = tot;
+	        	ciclo++;
+	    	}
+	    	TableYdna all = new TableYdna(reg, campioni, campi);
+	    	this.save(all);
+		}	
+	}
+	
+	@Override
+	public void aggiornaMedieMtdnaRegionali() {
+		this.deleteAllTableMtdnaRegioni();
+		List<String> aplog = mrep.getAplogruppi();
+		List<String> regioni = mrep.getRegioni();
+		Collections.sort(regioni);
+		double[] campi = new double[aplog.size()];
+		Iterator<String> iterReg = regioni.iterator();
+		while (iterReg.hasNext()) {
+			String reg = iterReg.next();
+			Iterator<String> iterAplo = aplog.iterator();
+			int ciclo = 0;
+			int campioni = 0;
+	    	while (iterAplo.hasNext()) {
+	    		int ap;
+	    		String apl = iterAplo.next();
+	    		ap = this.countAploMtdnaRegio(apl, reg);
+	        	double tot = this.countRegioMtdna(reg);
+	        	campioni = (int) tot;
+	        	tot = ap/tot*10000;
+	        	tot = (int)tot;
+	        	tot /= 100;
+	        	campi[ciclo] = tot;
+	        	ciclo++;
+	    	}
+	    	TableMtdnaRegioni all = new TableMtdnaRegioni(reg, campioni, campi);
+	    	this.save(all);
+		}
+	}
+	
+	@Override
+	public void aggiornaMedieMtdnaMacroregionali() {
+		this.deleteAllTableMtdna();
+		List<String> aplog = mrep.getAplogruppi();
+		List<String> macroregioni = mrep.getMacroregioni();
+		Collections.sort(macroregioni);
+		double[] campi = new double[aplog.size()];
+		Iterator<String> iterReg = macroregioni.iterator();
+		while (iterReg.hasNext()) {
+			String macroreg = iterReg.next();
+			Iterator<String> iterAplo = aplog.iterator();
+			int ciclo = 0;
+			int campioni = 0;
+	    	while (iterAplo.hasNext()) {
+	    		int ap;
+	    		String apl = iterAplo.next();
+	    		ap = this.countAploMtdnaMacroRegio(apl, macroreg);
+	        	double tot = this.countMacroRegio(macroreg);
+	        	campioni = (int) tot;
+	        	tot = ap/tot*10000;
+	        	tot = (int)tot;
+	        	tot /= 100;
+	        	campi[ciclo] = tot;
+	        	ciclo++;
+	    	}
+	    	TableMtdna all = new TableMtdna(macroreg, campioni, campi);
+	    	this.save(all);
+		}		
+	}
+	
+	@Override
+	public void aggiornaGraficoTortaMtdna() {
+		List<TableMtdna> mtdnaMacroreg = this.findAllMtdnaMacroreg();
+    	
+    	Iterator<TableMtdna> it = mtdnaMacroreg.iterator();
+    	
+    	List<PieChartData> listPcd = new ArrayList<PieChartData>();
+    	while (it.hasNext()) {
+    		TableMtdna tm = it.next();
+    		if (tm.getCampioni() > 5) {
+	    		List<FrequenzeMtdna> listFm = new ArrayList<FrequenzeMtdna>();
+	    		for(Field f : tm.getClass().getDeclaredFields()) {
+	    			if (!f.getName().equals("macroregione") && !f.getName().equals("campioni"))
+						try {
+							listFm.add(new FrequenzeMtdna(f.getName(),(double) f.get(tm)));
+						} catch (IllegalArgumentException | IllegalAccessException e) {
+							e.printStackTrace();
+						}
+	    		}
+	    		listPcd.add(new PieChartData(tm.getMacroregione(), tm.getCampioni(), listFm));
+    		}
+    	}
+    	Iterator<PieChartData> itPie = listPcd.iterator();
+    	while (itPie.hasNext()) {
+    		try {
+				Grafico.create(itPie.next());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
 	}
 	
 	@Override

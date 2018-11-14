@@ -65,19 +65,6 @@
 			    </c:if>
 			    <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
 				<br>
-				<c:if test="${user.ruolo eq 'admin'}">
-					<div>
-				   		<h4>
-				   		<a style="text-decoration: none" href="<c:url value='aggiornaAploMtdnaMacroregioni' />" >
-						<button type="button" class="btn btn-success">
-							<span class="glyphicon glyphicon-stats"></span>
-						</button>
-						</a>
-				   		Aggiorna
-				   		</h4>
-				    </div>
-				    <br>
-			    </c:if>
 			    <b>N.B.</b><br>
 			    Con H* si intendono tutti gli aplogruppi discendenti da H ma negativi a H1, H2, H3, H4 e H5.
 			    <br><br>

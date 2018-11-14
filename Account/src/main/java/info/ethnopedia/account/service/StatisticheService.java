@@ -1,5 +1,6 @@
 package info.ethnopedia.account.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import info.ethnopedia.account.model.Autosomal;
@@ -50,6 +51,10 @@ public interface StatisticheService {
 	List<AutosomalPuri> findAllAutosomalPuri();
 	int countCladeRegio(String clade, String regio);
 	int countSubcladeRegio(String subclade, String regio);
+	void aggiornaMedieYdnaRegionali();
+	void aggiornaMedieMtdnaRegionali();
+	void aggiornaMedieMtdnaMacroregionali();
+	void aggiornaGraficoTortaMtdna();
 	String calcolaClosestPop(EutestPlebe e);
 	String calcolaPureClosestPop(EutestPlebe e);
 }
