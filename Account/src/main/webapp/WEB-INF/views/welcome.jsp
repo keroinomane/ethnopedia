@@ -161,6 +161,10 @@
 							</tr>
 							<tr><td>Provincia</td><td><c:out value="${ydna.ydnaId.provincia}" /></td></tr>
 						</table>
+						<br>
+						Hai fatto qualche altro test di approfondimento e<br>
+						vuoi aggiornare i risultati nel tuo profilo?<br>
+						<a href="http://www.ethnopedia.info/contatti.html">Scrivici.</a>
 					</td>
 					<td style="border: none;" width=35% rowspan="2">
 						<c:if test="${mtdna == null}">
