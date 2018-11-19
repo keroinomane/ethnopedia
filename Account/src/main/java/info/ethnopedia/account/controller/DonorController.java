@@ -94,7 +94,7 @@ public class DonorController {
     	testo += "Questo è il testo del messaggio: \n----------------------------------------------------------------------------------------\n";
     	testo += messaggio.getTesto();
     	try {
-			EmailUtility.sendMultipleEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", destinatari, oggetto, testo);
+			EmailUtility.sendMultipleEmail(destinatari, oggetto, testo);
 			model.addAttribute("feedback","Il messaggio è stato inviato correttamente!");
     	} catch (AddressException e) {
     		model.addAttribute("feedback","Qualcosa è andato storto!");

@@ -176,7 +176,7 @@ public class CruscottoController {
         	statService.aggiornaMedieYdnaRegionali();
         	
         	try {
-    			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Registrazione Ethnopedia", content);
+    			EmailUtility.sendEmail(user.getEmail(), "Registrazione Ethnopedia", content);
     		} catch (AddressException e) {
     			e.printStackTrace();
     		} catch (MessagingException e) {
@@ -342,7 +342,7 @@ public class CruscottoController {
     	if (ud.getSesso().equals("femmina")) {
     		String content = "Ciao " + user.getNome() + ",\nil tuo aplogruppo mtDNA è stato approvato. Ora potrai accedere al tuo profilo e completarlo.\nSaluti\nEthnopedia staff";
         	try {
-    			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Registrazione Ethnopedia", content);
+    			EmailUtility.sendEmail(user.getEmail(), "Registrazione Ethnopedia", content);
     		} catch (AddressException e) {
     			e.printStackTrace();
     		} catch (MessagingException e) {

@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -92,7 +93,7 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;    
-    
+     
     @RequestMapping(value = " /insertAltezza", method=RequestMethod.POST)
     public String insertAltezza(String centimetri, Model model) {
     	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -131,6 +132,14 @@ public class UserController {
     
     @RequestMapping(value = "/UploadDownloadFile", method = RequestMethod.POST)
     public ModelAndView aplogruppi (HttpServletRequest request) throws Exception{
+    	Properties prop = new Properties();
+    	String emailParameters = "emailParameters.properties";
+    	prop.load(getClass().getClassLoader().getResourceAsStream(emailParameters));
+    	String host = prop.getProperty("host");
+    	String port = prop.getProperty("port");
+    	String emailUser = prop.getProperty("user");
+    	String password = prop.getProperty("password");
+    	
     	String name = SecurityContextHolder.getContext().getAuthentication().getName();
     	User user = userService.findByUsername(name);
     	String email = user.getEmail();
@@ -202,8 +211,8 @@ public class UserController {
 				resultMessage = "Hai inserito dati errati oppure il file da te inserito non è corretto.<br><a href=\"javascript:history.back()\"><b>Riprova!</b></a>"
 						+ "<br><br>You have entered wrong data or the uploaded file is not correct.<br><a href=\"javascript:history.back()\"><b>Try again!</b></a>";
 			}
-			
-			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", "admin@ethnopedia.info", "Aplogruppi", content);
+
+			EmailUtility.sendEmail("admin@ethnopedia.info", "Aplogruppi", content);
 			
 		} catch (Exception e) {
 			resultMessage = "Qualcosa è andato storto.<br>Hai inserito la data di nascita?<br>Hai scompattato il file zip?<br><br><a href=\"javascript:history.back()\"><b>Prova ancora!</b></a>"
@@ -249,7 +258,7 @@ public class UserController {
 
     	String content = "Id: " + user.getId() + "\nCognome: " + user.getCognome() + "\nNome: " + user.getNome() + "\nCodice GedMatch: " + gedmatch;
     	try {
-			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", "admin@ethnopedia.info", "autosomal", content);
+			EmailUtility.sendEmail("admin@ethnopedia.info", "autosomal", content);
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
@@ -343,7 +352,7 @@ public class UserController {
 			String content = "Id: " + user.getId() + "\nCognome: " + user.getCognome() + "\nNome: " + user.getNome() + "\nEmail: " + user.getEmail() + "\n"
 					+ "Ha dichiarato di avere 4 nonni della stessa macroregione.";
 			try {
-				EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", "admin@ethnopedia.info", "Dichiarazione dei nonni", content);
+				EmailUtility.sendEmail("admin@ethnopedia.info", "Dichiarazione dei nonni", content);
 			} catch (AddressException e) {
 				e.printStackTrace();
 			} catch (MessagingException e) {
@@ -380,7 +389,7 @@ public class UserController {
 				"clicca qui per confermare la tua e-mail: https://www.ethnopedia.info/account/confermaEmail/"+link+"\n" +
 				"Saluti\nEthnopedia staff";
 		try {
-			EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", userForm.getEmail(), "Conferma la tua e-mail", content);
+			EmailUtility.sendEmail(userForm.getEmail(), "Conferma la tua e-mail", content);
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
@@ -587,7 +596,7 @@ public class UserController {
 					"clicca qui per cambiare la password: https://www.ethnopedia.info/account/insertPassword/"+link+"\n" +
 					"Saluti\nEthnopedia staff";
 			try {
-				EmailUtility.sendEmail("smtp.ethnopedia.info", "587", "admin@ethnopedia.info", "C4p1d31c4p1", user.getEmail(), "Cambia password", content);
+				EmailUtility.sendEmail(user.getEmail(), "Cambia password", content);
 			} catch (AddressException e) {
 				e.printStackTrace();
 			} catch (MessagingException e) {
