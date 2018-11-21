@@ -29,7 +29,7 @@ public class VerifyAplo {
 					(aplo.equals("g") && StringUtils.contains(rawdata, "M201") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("i") && StringUtils.contains(rawdata, "M170/PF3715") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("j") && StringUtils.contains(rawdata, "M304") && StringUtils.contains(rawdata, clade)) ||
-					(aplo.equals("r") && StringUtils.contains(rawdata, "M207/Page37/UTY2") && StringUtils.contains(rawdata, clade)) ||
+					(aplo.equals("r") && StringUtils.contains(rawdata, "F82") && StringUtils.contains(rawdata, clade)) ||
 					(aplo.equals("t") && StringUtils.contains(rawdata, "M184") && StringUtils.contains(rawdata, clade)) 
 			);
 		} else {
