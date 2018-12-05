@@ -39,6 +39,9 @@
 			text-align:center;
 		}
 		.custom-tooltip-styling { max-width: 420px;}
+		.askDonations {
+			border: 2px red solid;
+		}
 	</style>
 	<script type="text/javascript">
 	$( function() {
@@ -348,10 +351,10 @@
 				    </tr>
 		    	</table>
 		    	<br>
-		    	<div align="right">La popolazione a te più vicina geneticamente sono <b>${closestPop}.</b>
+		    	<div align="right">La popolazione a te più vicina geneticamente sono <b><u>${closestPop}.</u></b>
 		    	<c:if test="${regionalResult == true}">
 		    	<br>
-		    	Popolazioni regionali (stima sperimentale!): <b>${pureClosestPop}.</b>
+		    	Popolazioni regionali (stima sperimentale!): <b><u>${pureClosestPop}.</u></b>
 		    	</c:if>
 		    	</div>	
 		    	
@@ -405,12 +408,13 @@
 					</a>
 				</c:when>
 				<c:otherwise>
-					<div>Sostieni il nostro lavoro e aiutaci a mandare avanti il sito con una 
+					<br>
+					<div class="askDonations">Sostieni il nostro lavoro e aiutaci a mandare avanti il sito con una 
 				    	<a href="http://www.ethnopedia.info/donazioni.html">
 				    		donazione!
 				    	</a>
 				    	<br>
-					    Se doni almeno 1 euro tramite donazione mensile ricorrente (occorre avere un account PayPal), ti sarà abilitata la sezione "donatori" con altre nuove funzionalità utili.
+					    Se doni almeno <b><u>1 euro</u></b> tramite <b>donazione mensile ricorrente</b> (occorre avere un account PayPal), ti sarà abilitata la sezione "donatori" con altre nuove funzionalità utili.
 				    </div>
 			    </c:otherwise>
 			</c:choose>
