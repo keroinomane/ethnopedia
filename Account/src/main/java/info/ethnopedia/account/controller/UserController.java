@@ -212,7 +212,7 @@ public class UserController {
 						+ "<br><br>You have entered wrong data or the uploaded file is not correct.<br><a href=\"javascript:history.back()\"><b>Try again!</b></a>";
 			}
 
-			EmailUtility.sendEmail("admin@ethnopedia.info", "Aplogruppi", content);
+			EmailUtility.sendEmail("amministrazione@ethnopedia.info", "Aplogruppi", content);
 			
 		} catch (Exception e) {
 			resultMessage = "Qualcosa è andato storto.<br>Hai inserito la data di nascita?<br>Hai scompattato il file zip?<br><br><a href=\"javascript:history.back()\"><b>Prova ancora!</b></a>"
@@ -258,7 +258,7 @@ public class UserController {
 
     	String content = "Id: " + user.getId() + "\nCognome: " + user.getCognome() + "\nNome: " + user.getNome() + "\nCodice GedMatch: " + gedmatch;
     	try {
-			EmailUtility.sendEmail("admin@ethnopedia.info", "autosomal", content);
+			EmailUtility.sendEmail("amministrazione@ethnopedia.info", "autosomal", content);
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
@@ -352,7 +352,7 @@ public class UserController {
 			String content = "Id: " + user.getId() + "\nCognome: " + user.getCognome() + "\nNome: " + user.getNome() + "\nEmail: " + user.getEmail() + "\n"
 					+ "Ha dichiarato di avere 4 nonni della stessa macroregione.";
 			try {
-				EmailUtility.sendEmail("admin@ethnopedia.info", "Dichiarazione dei nonni", content);
+				EmailUtility.sendEmail("amministrazione@ethnopedia.info", "Dichiarazione dei nonni", content);
 			} catch (AddressException e) {
 				e.printStackTrace();
 			} catch (MessagingException e) {
