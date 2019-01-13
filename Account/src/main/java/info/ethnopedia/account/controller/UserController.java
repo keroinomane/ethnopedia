@@ -441,7 +441,11 @@ public class UserController {
     	Mtdna mtdna = new Mtdna();
     	EutestPlebe eutest = new EutestPlebe();
     	Altezza altezza = new Altezza();
-    	UserDati userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
+    	UserDati userDati = new UserDati();
+    	if (user.getId() != null)
+    		userDati = userDatiService.findById(user.getId());
+    	else
+    		userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	String infoaplo = null;
     	String infoclade = null;
     	String infoMtdna = null;
