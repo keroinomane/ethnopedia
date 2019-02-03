@@ -144,7 +144,12 @@
 								<td>Subclade</td>
 								<td>
 									<c:if test="${ydna.subclade != null}">
-										<c:out value="${ydna.subclade}" />
+										<c:if test="${infosubclade != null}">
+											<a data-balloon="${infosubclade}" data-balloon-length="xlarge" data-balloon-pos="up"><b><u><c:out value="${ydna.subclade}" /></u></b></a>
+										</c:if>
+										<c:if test="${infosubclade == null}">
+											<c:out value="${ydna.subclade}" />
+										</c:if>
 									</c:if>
 									<c:if test="${ydna != null && ydna.subclade == null}">
 										<a href="http://www.ethnopedia.info/contatti.html">Scrivici per maggiori informazioni</a>

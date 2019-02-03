@@ -448,6 +448,7 @@ public class UserController {
     		userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
     	String infoaplo = null;
     	String infoclade = null;
+    	String infosubclade = null;
     	String infoMtdna = null;
     	String closestPop = "";
     	String pureClosestPop = "";
@@ -480,8 +481,11 @@ public class UserController {
     	    userDati = userDatiService.findById(user.getId());
     	    eutest = eutestService.findById(user.getId());
     	    if (ydna != null) {
-    	    	if (ydna.getClade() != null)
+    	    	if (ydna.getClade() != null) {
     	    		infoclade = infoAploRepository.getContent(ydna.getClade());
+	    	    	if (ydna.getSubclade() != null)
+	    	    		infosubclade = infoAploRepository.getContent(ydna.getSubclade());
+    	    	}
     	    	infoaplo = infoAploRepository.getContent(ydna.getYdnaId().getAplogruppo());
     	    }
     	    
@@ -542,6 +546,7 @@ public class UserController {
     	model.addAttribute("mtdna", mtdna);
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
+    	model.addAttribute("infosubclade", infosubclade);
     	model.addAttribute("infoMtdna", infoMtdna);
     	model.addAttribute("user", user);
     	model.addAttribute("userDati", userDati);
