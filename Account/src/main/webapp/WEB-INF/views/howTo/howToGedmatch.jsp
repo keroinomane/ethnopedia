@@ -335,7 +335,7 @@ td {
 								</tr>
 								<tr style="border: none;">
 									<td style="border: none;"><img
-										src="${contextPath}/resources/img/howto/gedmatch/4.png"
+										src="${contextPath}/resources/img/howto/gedmatch/6.png"
 										width=100% /></td>
 									<td style="border: none;">Finito di scaricare i raw data,
 										potrai ora registrarti su <a
