@@ -42,6 +42,19 @@ td {
 	width: 50%;
 }
 </style>
+<script type="text/javascript">
+	$(function() {
+		$('.tutorial23').hide();
+		$('.tutorial23gedmatch').hide();
+		$("input[name='rawDataConservati']").change(function(){
+			$('.tutorial23gedmatch').show();
+			if ($(this).val() === 'no')
+			    $('.tutorial23').show();
+			else
+				$('.tutorial23').hide();
+		});
+	});
+</script>
 </head>
 
 <body>
@@ -75,32 +88,97 @@ td {
 						<div style="display: none;" id="23" class="tab_content">
 							<table style="border: none;">
 								<tr style="border: none;">
+									<td style="border: none;" colspan=2>
+										Hai ancora conservato da qualche parte i raw data di 23andMe che hai scaricato 
+										precedentemente?
+									</td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none; text-align:right">
+										<input type="radio" name="rawDataConservati" value="sì" checked />Sì
+									</td>
+									<td style="border: none; text-align:left">
+										<input type="radio" name="rawDataConservati" value="no" />No
+									</td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none;" colspan=2>
+										<br>
+									</td>
+								</tr>
+								<tr style="border: none;" class="tutorial23">
+									<td style="border: none;">Accedi su <a
+										href="https://you.23andme.com/"
+										onclick="window.open(this.href);return false"><b>23andMe.</b></a><br>
+									<br> Una volta entrato nel tuo profilo, clicca in alto a destra
+										sul tuo nome e seleziona dal menu a tendina <b>Browse Raw Data.</b>
+									</td>
+									<td style="border: none;"><img
+										src="${contextPath}/resources/img/howto/23/1.png"
+										width=100% />
+									</td>
+								</tr>
+								<tr style="border:none;" class="tutorial23">
+									<td style="border:none;">
+										<img src="${contextPath}/resources/img/howto/23/2.png" width=75%/>
+									</td>
+						    		<td style="border:none; text-align:left; vertical-align:middle;">
+										Tornando in alto, clicca su <strong>download</strong>.
+									</td>
+								</tr>
+								<tr style="border:none;" class="tutorial23">
+									<td style="border:none; text-align:right; vertical-align:middle;">
+										Apparirà una nuova pagina, vai in basso e clicca <strong>Submit request</strong>.<br><br>
+										Ti arriverà dopo qualche minuto un'email, aprila e clicca su <strong>Download raw data</strong>.<br><br>
+										Una volta che hai scaricato il file, <strong>devi decomprimerlo</strong> (unzipparlo) e caricarlo nel form del nostro sito che hai visto prima.
+									</td>
+									<td style="border:none;">
+										<img src="${contextPath}/resources/img/howto/23/3.png" width=75%/>
+									</td>
+								</tr>
+								<tr style="border: none;" class="tutorial23gedmatch">
 									<td style="border: none;"><img
 										src="${contextPath}/resources/img/howto/gedmatch/6.png"
 										width=100% /></td>
 									<td style="border: none;">Registrati su <a
-										href="https://www.gedmatch.com/login1.php"
+										href="https://genesis.gedmatch.com/login1.php"
 										onclick="window.open(this.href);return false"><b>GEDmatch.</b></a><br>
 									<br> Completata la registrazione, carichi i raw data
-										andando nella sezione in alto a destra (File Uploads)
-										cliccando su <b>23andMe fast & easy.</b><br>
-									<br> Dai il consenso e ti scegli un alias (soprannome).
-									</td>
-								</tr>
-								<tr style="border: none;">
-									<td style="border: none;">Ultimato il caricamento dei raw
+										andando nella sezione a destra <b>(Upload your DNA files)</b> e 
+										cliccando su <b>Generic Uploads (23andme, FTDNA, AncestryDNA, most others).</b><br>
+									<br> Dai il consenso e ti scegli un alias (soprannome).<br>
+									Inserisci tutti i tuoi dati personali, aplogruppi compresi
+										(inserisci i subcladi se presenti!).
+									<br>Ultimato il caricamento dei raw
 										data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
 											da qualche parte.</b><br>
-									<br> Ora puoi finalmente usufruire dei vari calcolatori
+									</td>
+								</tr>
+								<tr style="border: none;" class="tutorial23gedmatch">
+									<td style="border: none;" colspan="2">
+										<br>
+										Ora devi aspettare che finiscano di processare il tuo kit. Potrebbero volerci 
+										24 ore o più.<br>
+										Quando l'elaborazione è finita, troverai nell'homepage di GEDmatch il tuo kit 
+										number contrassegnato da una spunta blu di fianco.<br><br>
+										Torna qui quando apparirà questa spunta blu.
+									<br><br><b>.....</b><br><br><br>
+									</td>
+								</tr>
+								<tr style="border: none;" class="tutorial23gedmatch">
+									<td style="border: none;">
+										Ora puoi finalmente usufruire dei vari calcolatori
 										gratuiti di GEDmatch.<br>
-									<br> Nella sezione a destra (Analyze Your Data), clicca su
+									<br>Sotto la sezione a destra <b>DNA Applications</b>, clicca su
 										<b>Admixture (heritage).</b>
 									</td>
-									<td style="border: none;"><img
+									<td style="border: none;">
+										<img
 										src="${contextPath}/resources/img/howto/gedmatch/5.png"
-										width=100% /></td>
+										width=100% />
+									</td>
 								</tr>
-								<tr style="border: none;">
+								<tr style="border: none;" class="tutorial23gedmatch">
 									<td style="border: none;" colspan="2">Seleziona dalla
 										lista il progetto <b>Eurogenes,</b> lasci selezionato il primo
 										pallino e clicca <b>Continue.</b><br>
@@ -182,30 +260,46 @@ td {
 								</tr>
 								<tr style="border: none;">
 									<td style="border: none;"><img
-										src="${contextPath}/resources/img/howto/gedmatch/4.png"
+										src="${contextPath}/resources/img/howto/gedmatch/6.png"
 										width=100% /></td>
 									<td style="border: none;">Finito di scaricare i raw data,
 										potrai ora registrarti su <a
-										href="https://www.gedmatch.com/login1.php"
+										href="https://genesis.gedmatch.com/login1.php"
 										onclick="window.open(this.href);return false"><b>GEDmatch.</b></a><br>
-									<br> Completata la registrazione, carichi i raw data
-										andando nella sezione in alto a destra (File Uploads)
-										cliccando su <b>Generic Upload FAST.</b> Inserisci tutti i
-										tuoi dati personali, aplogruppi compresi.
+									<br>Completata la registrazione, carichi i raw data
+										andando nella sezione a destra <b>(Upload your DNA files)</b> e 
+										cliccando su <b>Generic Uploads (23andme, FTDNA, AncestryDNA, most others).</b><br>
+									<br> Dai il consenso e ti scegli un alias (soprannome).<br>
+									Inserisci tutti i tuoi dati personali, aplogruppi compresi
+										(inserisci i subcladi se presenti!).
+									<br>Ultimato il caricamento dei raw
+										data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
+											da qualche parte.</b><br>
 									</td>
 								</tr>
 								<tr style="border: none;">
-									<td style="border: none;">Ultimato il caricamento dei raw
-										data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
-											da qualche parte.</b><br>
-									<br> Ora puoi finalmente usufruire dei vari calcolatori
+									<td style="border: none;" colspan="2">
+										<br>
+										Ora devi aspettare che finiscano di processare il tuo kit. Potrebbero volerci 
+										24 ore o più.<br>
+										Quando l'elaborazione è finita, troverai nell'homepage di GEDmatch il tuo kit 
+										number contrassegnato da una spunta blu di fianco.<br><br>
+										Torna qui quando apparirà questa spunta blu.
+									<br><br><b>.....</b><br><br><br>
+									</td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none;">
+										Ora puoi finalmente usufruire dei vari calcolatori
 										gratuiti di GEDmatch.<br>
-									<br> Nella sezione a destra (Analyze Your Data), clicca su
+									<br>Sotto la sezione a destra <b>DNA Applications</b>, clicca su
 										<b>Admixture (heritage).</b>
 									</td>
-									<td style="border: none;"><img
+									<td style="border: none;">
+										<img
 										src="${contextPath}/resources/img/howto/gedmatch/5.png"
-										width=100% /></td>
+										width=100% />
+									</td>
 								</tr>
 								<tr style="border: none;">
 									<td style="border: none;" colspan="2">Seleziona dalla
@@ -245,28 +339,42 @@ td {
 										width=100% /></td>
 									<td style="border: none;">Finito di scaricare i raw data,
 										potrai ora registrarti su <a
-										href="https://www.gedmatch.com/login1.php"
+										href="https://genesis.gedmatch.com/login1.php"
 										onclick="window.open(this.href);return false"><b>GEDmatch.</b></a><br>
-									<br> Completata la registrazione, carichi i raw data
-										andando nella sezione in alto a destra (File Uploads)
-										cliccando su <b>Generic Upload FAST.</b><br>
+									<br>Completata la registrazione, carichi i raw data
+										andando nella sezione a destra <b>(Upload your DNA files)</b> e 
+										cliccando su <b>Generic Uploads (23andme, FTDNA, AncestryDNA, most others).</b><br>
 									<br> Dai il consenso e ti scegli un alias (soprannome).<br>
-										Inserisci tutti i tuoi dati personali, aplogruppi compresi
+									Inserisci tutti i tuoi dati personali, aplogruppi compresi
 										(inserisci i subcladi se presenti!).
+									<br>Ultimato il caricamento dei raw
+										data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
+											da qualche parte.</b><br>
 									</td>
 								</tr>
 								<tr style="border: none;">
-									<td style="border: none;">Ultimato il caricamento dei raw
-										data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
-											da qualche parte.</b><br>
-									<br> Ora puoi finalmente usufruire dei vari calcolatori
+									<td style="border: none;" colspan="2">
+										<br>
+										Ora devi aspettare che finiscano di processare il tuo kit. Potrebbero volerci 
+										24 ore o più.<br>
+										Quando l'elaborazione è finita, troverai nell'homepage di GEDmatch il tuo kit 
+										number contrassegnato da una spunta blu di fianco.<br><br>
+										Torna qui quando apparirà questa spunta blu.
+									<br><br><b>.....</b><br><br><br>
+									</td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none;">
+										Ora puoi finalmente usufruire dei vari calcolatori
 										gratuiti di GEDmatch.<br>
-									<br> Nella sezione a destra (Analyze Your Data), clicca su
+									<br>Sotto la sezione a destra <b>DNA Applications</b>, clicca su
 										<b>Admixture (heritage).</b>
 									</td>
-									<td style="border: none;"><img
+									<td style="border: none;">
+										<img
 										src="${contextPath}/resources/img/howto/gedmatch/5.png"
-										width=100% /></td>
+										width=100% />
+									</td>
 								</tr>
 								<tr style="border: none;">
 									<td style="border: none;" colspan="2">Seleziona dalla

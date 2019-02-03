@@ -50,7 +50,7 @@
   <div id="wrapper"> 
     <!-- Begin Intro -->
     <div class="intro">
-      <h1>Come scaricare i raw data del cromosoma Y dal sito di 23andMe</h1>
+      <h1>Come scaricare i raw data dal sito di 23andMe</h1>
 	</div>
     <!-- End Intro --> 
     <!-- Begin About -->
@@ -59,8 +59,8 @@
     	<tr style="border:none;">
     		<td style="border:none; text-align:right; vertical-align:middle;">
 				Accedi su <a href="https://www.23andme.com/cas/signin/" onclick="window.open(this.href);return false">23andMe.</a><br><br>
-				Una volta effettuato l'accesso, clicca su <strong>TOOLS</strong> in alto.<br><br>
-				Dovrebbe apparirti questo menu a tendina, clicca su <strong>Browse Raw Data</strong>.<br><br>
+				Una volta entrato nel tuo profilo, clicca in alto a destra
+				sul tuo nome e seleziona dal menu a tendina <b>Browse Raw Data.</b><br>
 				Uscirà una nuova schermata in cui dovrai cliccare su <strong>I understand</strong>.
 			</td>
 			<td style="border:none;">
