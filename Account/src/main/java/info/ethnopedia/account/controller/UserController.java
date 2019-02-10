@@ -135,10 +135,6 @@ public class UserController {
     	Properties prop = new Properties();
     	String emailParameters = "emailParameters.properties";
     	prop.load(getClass().getClassLoader().getResourceAsStream(emailParameters));
-    	String host = prop.getProperty("host");
-    	String port = prop.getProperty("port");
-    	String emailUser = prop.getProperty("user");
-    	String password = prop.getProperty("password");
     	
     	String name = SecurityContextHolder.getContext().getAuthentication().getName();
     	User user = userService.findByUsername(name);
@@ -630,6 +626,14 @@ public class UserController {
     	
 		return "changePassword/insertPassword";
     }
+    
+    @RequestMapping(value = " /insertPasswordFromImpostazioni", method=RequestMethod.GET)
+    public String insertPasswordFromImpostazioni(Model model) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User user = userService.findByUsername(username);
+    	model.addAttribute("cambioPassword", new CambioPassword(username, "aaa", user.getEmail()));
+		return "changePassword/insertPassword";
+    }
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(@ModelAttribute("cambioPassword") CambioPassword cambioPassword, BindingResult bindingResult, Model model) {
@@ -645,5 +649,14 @@ public class UserController {
         model.addAttribute("message", resultMessage);
         
 		return "changePassword/insertEmail";
+    }
+    
+    @RequestMapping(value = "/eliminaAccount/{nick}", method = RequestMethod.GET)
+    public String eliminaAccount(@PathVariable("nick")String username, Model model) {
+            
+    	User user = userService.findByUsername(username);
+        userService.delete(user);
+        
+		return "login";
     }
 }

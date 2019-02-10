@@ -92,6 +92,10 @@
 			<spring:bind path="link">
 				<form:input type="hidden" path="link" id="link"></form:input>
 			</spring:bind>
+			
+			<spring:bind path="email">
+				<form:input type="hidden" path="email" id="email"></form:input>
+			</spring:bind>
 		
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Change</button>
 			<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>

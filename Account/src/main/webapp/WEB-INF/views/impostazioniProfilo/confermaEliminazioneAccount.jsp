@@ -9,7 +9,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Impostazioni</title>
+		<title>Eliminazione account</title>
 		<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
 		<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
 		<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -30,8 +30,8 @@
 				border:none !important;
 			}
 			button {
-				height:75px;
-				width:160px;
+				height:40px;
+				width:120px;
 			}
 		</style>
 		
@@ -52,7 +52,7 @@
 		    
 		    <!-- Begin Intro -->
 		    <div class="intro">
-		      <h1>Impostazioni</h1>
+		      <h1>Eliminazione account</h1>
 			</div>
 		    <!-- End Intro --> 
 		    <!-- Begin container -->
@@ -71,26 +71,33 @@
 			        <br><br>
 			        
 			        <div align=center>
+			        
+						<h2>Sei sicuro di voler eliminare il tuo account?</h2>
+						
+						Proseguendo con questa tua decisione, non potrai più tornare indietro.
+						
+						<br><br>
+						
 						<table>
 							<tr>
 								<td align="center">
-									<a href="${contextPath}/insertPasswordFromImpostazioni">
-									<button type="button" class="btn btn-warning">
-										Cambia<br>password
+									<a href="${contextPath}/impostazioni">
+									<button type="button" class="btn btn-default">
+										Indietro
 									</button>
 									</a>
 								</td>
 								<td align="center">
-									<a href="${contextPath}/confermaEliminazioneAccount">
-									<button type="button" class="btn btn-warning">
-										Elimina<br>account
+									<a href="${contextPath}/eliminaAccount/${nick}">
+									<button type="button" class="btn btn-danger">
+										Elimina
 									</button>
 									</a>
 								</td>
 							</tr>
 						</table> 
-					</div>
 					
+					</div>
 				</c:if> 
 			</div>
 		

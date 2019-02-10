@@ -122,7 +122,11 @@ public class OnlyViewController {
     
     @RequestMapping(value = "/impostazioni", method = RequestMethod.GET)
     public String impostazioni(Model model) {
-		return "impostazioni";
+		return "impostazioniProfilo/impostazioni";
     }
     
+    @RequestMapping(value = "/confermaEliminazioneAccount", method = RequestMethod.GET)
+    public String confermaEliminazioneAccount(Model model) {
+		return "impostazioniProfilo/confermaEliminazioneAccount";
+    }
 }

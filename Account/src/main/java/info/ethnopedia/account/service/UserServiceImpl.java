@@ -112,4 +112,9 @@ public class UserServiceImpl implements UserService {
 		cambioPasswordRepository.delete(cambioPassword);
 	}
 	
+	@Override
+	public void delete(User user) {
+		userRepository.delete(user);
+	}
+	
 }
