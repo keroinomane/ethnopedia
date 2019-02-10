@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Inserisci email</title>
+	<title>Impostazioni</title>
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/style/style.css" media="all" />
 	<link rel="stylesheet" media="all" href="${contextPath}/resources/style/type/folks.css" />
 	<script type="text/javascript" src="${contextPath}/resources/style/js/jquery-1.5.min.js"></script>
@@ -37,7 +37,7 @@
     
     <!-- Begin Intro -->
     <div class="intro">
-      <h1>Cambia password</h1>
+      <h1>Impostazioni</h1>
 	</div>
     <!-- End Intro --> 
     <!-- Begin About -->
@@ -45,17 +45,6 @@
     	<c:if test="${message != null}">
     		<br><br>
     		${message}
-		</c:if>
-		<c:if test="${message == null}">
-			<form action="${contextPath}/inviaLinkEmail" method="post">
-				<br><br><br>
-				
-				Inserisci la tua email:<br><br>
-				<input type="text" placeholder="Insert your e-mail" name="email" style="width: 180px;" />
-				<br><br>
-				<input type="submit" value="Invia"/>
-				<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-			</form>	 
 		</c:if>
 	
 <br><br><br>

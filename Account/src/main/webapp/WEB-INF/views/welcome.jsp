@@ -109,6 +109,7 @@
         <c:if test="${user.ruolo eq 'admin'}">
         	<a href="${contextPath}/admin">Pannello di amministrazione</a> | 
         </c:if>
+        <a href="${contextPath}/impostazioni">Impostazioni</a> | 
         <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
         <c:if test="${userDati != null && userDati.genproject != null}">
         	<br>
@@ -623,7 +624,7 @@
       
       <!-- Begin Copyright -->
       <div id="copyright">
-        <p>© Copyright 2018 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
+        <p>© Copyright 2019 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
 		<img src="https://www.ethnopedia.info/account/resources/style/images/icon-facebook.png" alt="" /></a>
 		</p>
       </div>

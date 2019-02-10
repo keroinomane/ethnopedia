@@ -120,4 +120,9 @@ public class OnlyViewController {
 		return "haiFattoIlTest";
     }
     
+    @RequestMapping(value = "/impostazioni", method = RequestMethod.GET)
+    public String impostazioni(Model model) {
+		return "impostazioni";
+    }
+    
 }

@@ -111,7 +111,7 @@
       
       <!-- Begin Copyright -->
       <div id="copyright">
-        <p>© Copyright 2018 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
+        <p>© Copyright 2019 Ethnopedia| <a href="https://www.facebook.com/ethnopedia/">
 		<img src="${contextPath}/resources/style/images/icon-facebook.png" alt="" /></a>
 		</p>
       </div>
