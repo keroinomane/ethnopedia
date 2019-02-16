@@ -408,6 +408,7 @@ public class UserController {
     		user.setEmail(ce.getEmail());
     		user.setPassword(ce.getPassword());
     		user.setUsername(ce.getUsername());
+    		user.setGdpr(true);
     		userService.save(user);
             
             securityService.autologin(ce.getUsername(), ce.getPassword());
@@ -456,6 +457,9 @@ public class UserController {
     		ydna = userService.findById(userDati.getId());
 	    	mtdna = mtdnaService.findById(userDati.getId());
 	    	
+	    	/*
+	    	 * 	RIMOSSO PER GDPR
+	    	 * 
     		// se l'utenza non aveva già inserito Y-DNA o mtDNA o autosomal
     		if (user.getId() == null) {
     			// se i dati già presenti nel db avevano cognome ma non avevano nome
@@ -473,7 +477,8 @@ public class UserController {
 		    		ydnaService.save(ydna);
 	    		}
     		}
-    		
+    		*/
+	    	
     	    userDati = userDatiService.findById(user.getId());
     	    eutest = eutestService.findById(user.getId());
     	    if (ydna != null) {

@@ -129,4 +129,9 @@ public class OnlyViewController {
     public String confermaEliminazioneAccount(Model model) {
 		return "impostazioniProfilo/confermaEliminazioneAccount";
     }
+    
+    @RequestMapping(value = "/gdpr", method = RequestMethod.GET)
+    public String gdpr(Model model) {
+		return "impostazioniProfilo/gdpr";
+    }
 }

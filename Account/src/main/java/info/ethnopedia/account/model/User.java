@@ -18,6 +18,7 @@ public class User {
     private String cognome;
     private Boolean donatore;
     private String ruolo;
+    private Boolean gdpr;
     
     @NotNull
     public String getNome() {
@@ -94,6 +95,14 @@ public class User {
 
 	public void setRuolo(String ruolo) {
 		this.ruolo = ruolo;
+	}
+
+	public Boolean getGdpr() {
+		return gdpr;
+	}
+
+	public void setGdpr(Boolean gdpr) {
+		this.gdpr = gdpr;
 	}
    
 }

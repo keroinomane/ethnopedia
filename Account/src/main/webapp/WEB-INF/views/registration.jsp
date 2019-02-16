@@ -37,6 +37,18 @@
 			height: 100%;
 			vertical-align: middle;
 		}
+		.form-signin {
+	    	max-width: 750px;
+	    }
+		.form-control {
+		    width: 50%;
+	    }
+	    .btn-block {
+		    width: 50%;
+		}
+		ul {
+			margin-left: 120px;
+		}
 	</style>
 	<script>
 		function checkPass() {
@@ -82,59 +94,6 @@
 				<form:form method="POST" modelAttribute="userForm" class="form-signin">
 					<h2 class="form-signin-heading" align=center>Crea il tuo account</h2>
 					<br>
-					<spring:bind path="username">
-						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" path="username" class="form-control"
-								placeholder="Username" autofocus="true"></form:input>
-							<form:errors path="username"></form:errors>
-						</div>
-					</spring:bind>
-		
-					<spring:bind path="nome">
-						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" path="nome" class="form-control"
-								placeholder="Nome / First name"></form:input>
-							<form:errors path="nome"></form:errors>
-						</div>
-					</spring:bind>
-		
-					<spring:bind path="cognome">
-						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" path="cognome" class="form-control"
-								placeholder="Cognome / Last name"></form:input>
-							<form:errors path="cognome"></form:errors>
-						</div>
-					</spring:bind>
-		
-					<spring:bind path="email">
-						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="text" path="email" class="form-control"
-								placeholder="Email" id="email" onkeyup="checkEmail();"></form:input>
-							<form:errors path="email"></form:errors>
-							<span id="emailMessage" class="emailMessage"></span>
-						</div>
-					</spring:bind>
-		
-					<spring:bind path="password">
-						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="password" path="password" class="form-control"
-								placeholder="Password" id="pass1"></form:input>
-							<form:errors path="password"></form:errors>
-						</div>
-					</spring:bind>
-		
-					<spring:bind path="passwordConfirm">
-						<div class="form-group ${status.error ? 'has-error' : ''}">
-							<form:input type="password" path="passwordConfirm"
-								class="form-control" placeholder="Confirm password" id="pass2"
-								onkeyup="checkPass(); return false;"></form:input>
-							<form:errors path="passwordConfirm"></form:errors>
-							<span id="confirmMessage" class="confirmMessage"></span>
-						</div>
-					</spring:bind>
-		
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-					<br>
 					<div align=center>
 						Il nome e il cognome devono essere veri.<br> Non verranno
 						visualizzati pubblicamente.
@@ -147,6 +106,81 @@
 							<li><small>please insert your original italian last
 									name, if it has been changed in Ellis Island</small></li>
 						</ul>
+					</div>
+					<br>
+					<spring:bind path="username">
+						<div class="form-group ${status.error ? 'has-error' : ''}" align=center>
+							<form:input type="text" path="username" class="form-control"
+								placeholder="Username" autofocus="true"></form:input>
+							<form:errors path="username"></form:errors>
+						</div>
+					</spring:bind>
+		
+					<spring:bind path="nome">
+						<div class="form-group ${status.error ? 'has-error' : ''}" align=center>
+							<form:input type="text" path="nome" class="form-control"
+								placeholder="Nome / First name"></form:input>
+							<form:errors path="nome"></form:errors>
+						</div>
+					</spring:bind>
+		
+					<spring:bind path="cognome">
+						<div class="form-group ${status.error ? 'has-error' : ''}" align=center>
+							<form:input type="text" path="cognome" class="form-control"
+								placeholder="Cognome / Last name"></form:input>
+							<form:errors path="cognome"></form:errors>
+						</div>
+					</spring:bind>
+		
+					<spring:bind path="email">
+						<div class="form-group ${status.error ? 'has-error' : ''}" align=center>
+							<form:input type="text" path="email" class="form-control"
+								placeholder="Email" id="email" onkeyup="checkEmail();"></form:input>
+							<form:errors path="email"></form:errors>
+							<span id="emailMessage" class="emailMessage"></span>
+						</div>
+					</spring:bind>
+		
+					<spring:bind path="password">
+						<div class="form-group ${status.error ? 'has-error' : ''}" align=center>
+							<form:input type="password" path="password" class="form-control"
+								placeholder="Password" id="pass1"></form:input>
+							<form:errors path="password"></form:errors>
+						</div>
+					</spring:bind>
+		
+					<spring:bind path="passwordConfirm">
+						<div class="form-group ${status.error ? 'has-error' : ''}" align=center>
+							<form:input type="password" path="passwordConfirm"
+								class="form-control" placeholder="Confirm password" id="pass2"
+								onkeyup="checkPass(); return false;"></form:input>
+							<form:errors path="passwordConfirm"></form:errors>
+							<span id="confirmMessage" class="confirmMessage"></span>
+						</div>
+					</spring:bind>
+					
+					<spring:bind path="gdpr">
+						
+						<div class="form-group ${status.error ? 'has-error' : ''}">
+							<table>
+								<tr>
+									<td width="5%">
+										<form:checkbox path="gdpr" class="form-control" id="gdpr" />
+									</td>
+									<td>
+										<small>Acconsento al trattamento dei miei dati secondo le disposizioni ai sensi degli artt. 6, 7, 8 e 9 
+										del Regolamento Generale per la Protezione dei Dati personali (GDPR UE n. 679/2016), 
+										presa visione dell'<a href="${contextPath}/gdpr">informativa sul trattamento</a> 
+										che dichiaro aver letto</small>
+									</td>
+								</tr>
+							</table>
+							<form:errors path="gdpr"></form:errors>
+						</div>
+					</spring:bind>
+					
+					<div align=center>
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 					</div>
 				</form:form>
 			</div>
