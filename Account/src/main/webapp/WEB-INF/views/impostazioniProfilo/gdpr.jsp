@@ -77,9 +77,6 @@ I dati vengono conferiti a scopo di ricerca statistica e catalogazione. I tratta
 
 <h3>Modalità di trattamento</h3>
 Il trattamento sarà svolto in forma automatizzata e/o manuale, da parte del Titolare o di collaboratori dallo stesso incaricati, istruiti e controllati, secondo modalità di gestione e misure di sicurezza individuate in base alle previsioni dell'art. 32 del GDPR UE 679/2016.
-<br>Se non diversamente specificato, tutti i Dati richiesti da questa Applicazione sono obbligatori. Se l'Utente rifiuta di comunicarli, potrebbe essere impossibile per questa Applicazione fornire il Servizio.
-<br>Nei casi in cui questa Applicazione indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.
-
 
 <h3>Trasferimento dati a paese terzo</h3>
 Si informa che il Titolare non intende trasferire i dati ad un paese terzo.
@@ -98,6 +95,8 @@ Si informa l'interessato che ha diritto di proporre all'autorità di controllo e 
 
 <h3>Comunicazione di dati</h3>
 Si informa che la comunicazione di dati personali è d'obbligo per le finalità sopra riportate. 
+<br>Se non diversamente specificato, tutti i Dati richiesti da questa Applicazione sono obbligatori. Se l'Utente rifiuta di comunicarli, potrebbe essere impossibile per questa Applicazione fornire il Servizio.
+<br>Nei casi in cui questa Applicazione indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.
 
 <h3>Conservazione dei dati</h3>
 Le segnaliamo che, nel rispetto dei principi di liceità, limitazione delle finalità e minimizzazione, ai sensi dell'art. 5 del GDPR UE 679/2016, tutti i dati a Lei riferiti verranno conservati per un periodo opportuno a rispondere a eventuali controlli e verifiche da parte delle autorità competenti.

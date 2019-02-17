@@ -79,4 +79,11 @@ public class YdnaServiceImpl implements YdnaService {
 	public List<Ydna> getPersoneBySubClade(String subclade, Long id) {
 		return ydnaRepository.getPersoneBySubClade(subclade, id);
 	}
+
+	@Override
+	public List<Ydna> getPersoneByCognome(String cognome) {
+		if (ydnaRepository.getPersoneByCognome(cognome).isEmpty())
+			return null;
+		return ydnaRepository.getPersoneByCognome(cognome);
+	}
 }
