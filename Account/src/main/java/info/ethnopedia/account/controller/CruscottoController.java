@@ -113,8 +113,14 @@ public class CruscottoController {
 		ydna.setYdnaId(ydnaId);
 		ydna.setNome(yb.getNome());
 		ydna.setClade(yb.getClade());
+		
+		// per mostrare gli utenti giù presenti con quel cognome, se ci sono
+		List<Ydna> utentiYdnaConQuelCognome = ydnaService.getPersoneByCognome(yb.getCognome());
+		
 		model.addAttribute("ydna",ydna);
 		model.addAttribute("idOld",yb.getId());
+		model.addAttribute("username",yb.getUsername());
+		model.addAttribute("utentiYdna",utentiYdnaConQuelCognome);
 		return "cruscotto";
     }
     
@@ -399,6 +405,23 @@ public class CruscottoController {
 	public String deleteMtdna (Long id) throws IOException {
 		bozzaService.deleteMtdna(id);
 		return "admin";
+	}
+    
+    @RequestMapping(value = " /assegnaIDaUtente/{id}/{idBozza}/{username}", method=RequestMethod.GET)
+    public String assegnaIDaUtente(@PathVariable("id")Long id,@PathVariable("idBozza")Long idBozza,@PathVariable("username")String username,Model model) {
+    	User user = userService.findByUsername(username);
+    	user.setId(id);
+    	userService.update(user);
+    	bozzaService.deleteYdna(idBozza);
+    	
+    	List<YdnaBozza> lyb = bozzaService.findAllYdna();
+    	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User admin = userService.findByUsername(nome);
+    	model.addAttribute("ydnaBozza", lyb);
+    	model.addAttribute("mtdnaBozza", lmb);
+    	model.addAttribute("user",admin);
+    	return "admin";
 	}
 	
 }

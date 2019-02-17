@@ -143,10 +143,59 @@
 		            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		        </form>
 		        <h4>Ciao ${pageContext.request.userPrincipal.name} | <a href="${contextPath}/welcome">Profilo</a> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
-		        <br>
-				<div align=center width=100%>
+		        <div align=center width=100%>
 				
 					<c:if test="${ydna != null}">
+					
+						<div id="utentiConQuelCognome">
+							<c:if test="${utentiYdna != null}">
+								<h3>Ci sono i seguenti utenti con quel cognome:</h3>
+								<table style="width: 85%">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Cognome</th>
+											<th>Nome</th>
+											<th>Aplogruppo</th>
+											<th>Clade</th>
+											<th>Subclade</th>
+											<th>Downstream</th>
+											<th>Provincia</th>
+											<th>Regione</th>
+											<td></td>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${utentiYdna}" var="utente">
+											<tr>
+												<td>${utente.id}</td>
+												<td>${utente.ydnaId.cognome}</td>
+												<td>${utente.nome}</td>
+												<td>${utente.ydnaId.aplogruppo}</td>
+												<td>${utente.clade}</td>
+												<td>${utente.subclade}</td>
+												<td>${utente.downstream}</td>
+												<td>${utente.ydnaId.provincia}</td>
+												<td>${utente.regione}</td>
+												<td>
+								        			<a style="text-decoration: none" href="<c:url value="/assegnaIDaUtente/${utente.id}/${idOld}/${username}" />" >
+												        <button type="button" class="btn btn-success btn-sm">
+															<span class="glyphicon glyphicon-link"></span>
+														</button>
+													</a>&nbsp
+											        Assegna ID
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<br>
+							</c:if>
+							<c:if test="${utentiYdna == null}">
+								<h3>Non ci sono utenti con quel cognome.</h3>
+							</c:if>
+						</div>
+						
 				       	<form:form action="${contextPath}/saveYdna" method="post" modelAttribute="ydna">
 							<table>
 								<tr>
@@ -171,9 +220,6 @@
 											<form:option value="R1b">R1b</form:option>
 											<form:option value="T">T</form:option>
 										</form:select>
-										<c:if test="${(ydna.ydnaId.aplogruppo eq 'I') || (ydna.ydnaId.aplogruppo eq 'E') || (ydna.ydnaId.aplogruppo eq 'G') || (ydna.ydnaId.aplogruppo eq 'J') || (ydna.ydnaId.aplogruppo eq 'R')}">
-											ha inserito <b>${ydna.ydnaId.aplogruppo}</b> con <b>Geno 2.0</b>
-										</c:if>
 									</td>
 								</tr>
 								<tr><td align="right">Clade: </td><td>

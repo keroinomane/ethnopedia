@@ -20,4 +20,5 @@ public interface YdnaService {
 	AncientYdna findAncientYdnaById(String id);
 	List<Ydna> getPersoneByClade(String clade, Long id);
 	List<Ydna> getPersoneBySubClade(String subclade, Long id);
+	List<Ydna> getPersoneByCognome(String cognome);
 }

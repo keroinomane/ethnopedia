@@ -441,8 +441,11 @@ public class UserController {
     	UserDati userDati = new UserDati();
     	if (user.getId() != null)
     		userDati = userDatiService.findById(user.getId());
+    	/*
+    	 *  RIMOSSO PER GDPR
     	else
     		userDati = userDatiService.findByCognomeAndNome(user.getCognome(), user.getNome());
+    	 */
     	String infoaplo = null;
     	String infoclade = null;
     	String infosubclade = null;
@@ -453,7 +456,9 @@ public class UserController {
     	boolean fasciaEtaOK = false;
     	boolean regionalResult = false;
     	
-    	if (userDati != null) {
+    	if (user.getId() != null) {
+    		userDati = userDatiService.findById(user.getId());
+    	    eutest = eutestService.findById(user.getId());
     		ydna = userService.findById(userDati.getId());
 	    	mtdna = mtdnaService.findById(userDati.getId());
 	    	
@@ -478,9 +483,7 @@ public class UserController {
 	    		}
     		}
     		*/
-	    	
-    	    userDati = userDatiService.findById(user.getId());
-    	    eutest = eutestService.findById(user.getId());
+    	    
     	    if (ydna != null) {
     	    	if (ydna.getClade() != null) {
     	    		infoclade = infoAploRepository.getContent(ydna.getClade());
