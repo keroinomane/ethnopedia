@@ -220,6 +220,7 @@
 											<form:option value="R1b">R1b</form:option>
 											<form:option value="T">T</form:option>
 										</form:select>
+										ha inserito <b>${ydna.ydnaId.aplogruppo}</b>
 									</td>
 								</tr>
 								<tr><td align="right">Clade: </td><td>
