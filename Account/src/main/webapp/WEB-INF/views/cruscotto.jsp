@@ -298,8 +298,6 @@
 											<th>Nome</th>
 											<th>Aplogruppo</th>
 											<th>Clade</th>
-											<th>Subclade</th>
-											<th>Downstream</th>
 											<th>Provincia</th>
 											<th>Regione</th>
 											<td></td>
