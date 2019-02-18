@@ -455,6 +455,7 @@ public class UserController {
     	boolean nonniStessaRegione = false;
     	boolean fasciaEtaOK = false;
     	boolean regionalResult = false;
+    	boolean hasBozza = false;
     	
     	if (user.getId() != null) {
     		userDati = userDatiService.findById(user.getId());
@@ -543,11 +544,18 @@ public class UserController {
     			nonniStessaRegione = true;
     			altezza = altezzaService.findById(user.getId());
     		}
-    		
+    	
+    	// se l'user non ha ID
+    	} else {
+    		List<YdnaBozza> ydnaBozza = bozzaService.findByUsername(user.getUsername());
+    		List<MtdnaBozza> mtdnaBozza = bozzaService.findMtdnaBozzaByUsername(user.getUsername());
+    		if (!ydnaBozza.isEmpty() || !mtdnaBozza.isEmpty())
+    			hasBozza = true;
     	}
     	
     	model.addAttribute("ydna", ydna);
     	model.addAttribute("mtdna", mtdna);
+    	model.addAttribute("hasBozza", hasBozza);
     	model.addAttribute("infoaplo", infoaplo);
     	model.addAttribute("infoclade", infoclade);
     	model.addAttribute("infosubclade", infosubclade);
@@ -561,6 +569,7 @@ public class UserController {
     	model.addAttribute("closestPop", closestPop);
     	model.addAttribute("pureClosestPop", pureClosestPop);
     	model.addAttribute("regionalResult", regionalResult);
+    	
         return "welcome";
     }
     

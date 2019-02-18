@@ -570,38 +570,54 @@
 			</c:if>	
 			
 			<!-- SE NON SONO STATI INSERITI I DATI -->
-				
-			<div align=center>	
-				<br>
-				<table style="width:60%; border:none">
-					<tr style="border:none">
-						<td width="50%" style="border:none">
-							<h5>
-							Non hai inserito i tuoi dati genetici.<br>
-							<a href="/account/inserisci">Inseriscili!</a>
-							<br>
-							Se li hai già inseriti, li stiamo elaborando.<br>
-							Torna più tardi!
-							</h5>
-						</td>
-						<td style="border:none">
-							You haven't inserted your genetic data yet.<br>
-							<a href="/account/inserisci">Insert them!</a>
-							<br>
-							If you already inserted them, we're elaborating them.<br>
-							Come back later!
-						</td>
-					</tr>
-					<tr style="border:none">
-						<td colspan="2" style="border:none">
-							<h5>
-							Stai riscontrando dei problemi?<br>
-							<a href="https://www.ethnopedia.info/contatti.html">Contattaci!</a>
-							</h5>
-						</td>
-					</tr>
-				</table>
-			</div>
+			
+			<c:if test="${hasBozza}">
+				<div align=center>	
+					<br>
+					<table style="width:60%; border:none">
+						<tr style="border:none">
+							<td width="50%" style="border:none">
+								<h5>
+								I tuoi aplogruppi sono in fase di approvazione.<br>
+								Torna fra un po'.
+								</h5>
+							</td>
+							<td style="border:none">
+								Your haplogroups are in pending approval.<br>
+								Come back later.
+							</td>
+						</tr>
+					</table>
+				</div>
+			</c:if>	
+			<c:if test="${!hasBozza}">
+				<div align=center>	
+					<br>
+					<table style="width:60%; border:none">
+						<tr style="border:none">
+							<td width="50%" style="border:none">
+								<h5>
+								Non hai inserito i tuoi dati genetici.<br>
+								<a href="/account/inserisci">Inseriscili!</a>
+								</h5>
+							</td>
+							<td style="border:none">
+								You haven't inserted your genetic data yet.<br>
+								<a href="/account/inserisci">Insert them!</a>
+							</td>
+						</tr>
+						<tr style="border:none">
+							<td colspan="2" style="border:none">
+								<h5>
+								Stai riscontrando dei problemi?<br>
+								<a href="https://www.ethnopedia.info/contatti.html">Contattaci!</a>
+								</h5>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</c:if>	
+			
 		</c:if>
 		
     </c:if>

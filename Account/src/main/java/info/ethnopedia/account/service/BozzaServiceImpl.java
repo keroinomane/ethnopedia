@@ -58,4 +58,14 @@ public class BozzaServiceImpl implements BozzaService {
 		return mrep.findOne(id);
 	}
 
+	@Override
+	public List<YdnaBozza> findByUsername(String username) {
+		return yrep.findByUsername(username);
+	}
+
+	@Override
+	public List<MtdnaBozza> findMtdnaBozzaByUsername(String username) {
+		return mrep.findByUsername(username);
+	}
+
 }

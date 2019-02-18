@@ -15,4 +15,6 @@ public interface BozzaService {
 	List<MtdnaBozza> findAllMtdna();
 	YdnaBozza findById(Long id);
 	MtdnaBozza findMtdnaBozzaById(Long id);
+	List<YdnaBozza> findByUsername(String username);
+	List<MtdnaBozza> findMtdnaBozzaByUsername(String username);
 }
