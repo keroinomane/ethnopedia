@@ -128,16 +128,27 @@ public class CruscottoController {
     public String insertMater(@PathVariable("id")Long id,Model model) {
     	MtdnaBozza mb = bozzaService.findMtdnaBozzaById(id);
     	String aplo;
-    	if (mb.getAplogruppo().startsWith("HV"))
-    		aplo = "HV";
+    	String[] aplo2lettere = {"HV","H1","H2","H3","H4","H5","T1","T2","U1","U2","U3","U4","U5","U6","U7","U8"};
+    	boolean isDueLettere = false;
+    	for (String tmp : aplo2lettere)
+    		if (mb.getAplogruppo().startsWith(tmp))
+    			isDueLettere = true;
+    	if (isDueLettere)
+    		aplo = mb.getAplogruppo().substring(0,2);
     	else
     		aplo = ""+mb.getAplogruppo().charAt(0);
 		MtdnaId mtdnaId= new MtdnaId(mb.getCognome(),mb.getNome(),aplo,mb.getProvincia());
 		Mtdna mtdna = new Mtdna();
 		mtdna.setMtdnaId(mtdnaId);
 		mtdna.setClade(mb.getAplogruppo());
+		
+		// per mostrare gli utenti giù presenti con quel cognome, se ci sono
+		List<Mtdna> utentiMtdnaConQuelCognome = mtdnaService.getPersoneByCognome(mb.getCognome());
+				
 		model.addAttribute("mtdna",mtdna);
 		model.addAttribute("idOld",mb.getId());
+		model.addAttribute("username",mb.getUsername());
+		model.addAttribute("utentiMtdna",utentiMtdnaConQuelCognome);
 		return "cruscotto";
     }
     
@@ -407,12 +418,29 @@ public class CruscottoController {
 		return "admin";
 	}
     
-    @RequestMapping(value = " /assegnaIDaUtente/{id}/{idBozza}/{username}", method=RequestMethod.GET)
-    public String assegnaIDaUtente(@PathVariable("id")Long id,@PathVariable("idBozza")Long idBozza,@PathVariable("username")String username,Model model) {
+    @RequestMapping(value = " /assegnaIDaUtenteYdna/{id}/{idBozza}/{username}", method=RequestMethod.GET)
+    public String assegnaIDaUtenteYdna(@PathVariable("id")Long id,@PathVariable("idBozza")Long idBozza,@PathVariable("username")String username,Model model) {
     	User user = userService.findByUsername(username);
     	user.setId(id);
     	userService.update(user);
     	bozzaService.deleteYdna(idBozza);
+    	
+    	List<YdnaBozza> lyb = bozzaService.findAllYdna();
+    	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();
+    	String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+    	User admin = userService.findByUsername(nome);
+    	model.addAttribute("ydnaBozza", lyb);
+    	model.addAttribute("mtdnaBozza", lmb);
+    	model.addAttribute("user",admin);
+    	return "admin";
+	}
+    
+    @RequestMapping(value = " /assegnaIDaUtenteMtdna/{id}/{idBozza}/{username}", method=RequestMethod.GET)
+    public String assegnaIDaUtenteMtdna(@PathVariable("id")Long id,@PathVariable("idBozza")Long idBozza,@PathVariable("username")String username,Model model) {
+    	User user = userService.findByUsername(username);
+    	user.setId(id);
+    	userService.update(user);
+    	bozzaService.deleteMtdna(idBozza);
     	
     	List<YdnaBozza> lyb = bozzaService.findAllYdna();
     	List<MtdnaBozza> lmb = bozzaService.findAllMtdna();

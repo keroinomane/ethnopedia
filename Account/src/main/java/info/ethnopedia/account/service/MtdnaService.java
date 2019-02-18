@@ -12,4 +12,5 @@ public interface MtdnaService {
 	 List<String> getRegioni();
 	 List<Mtdna> getPersoneByClade(String clade, Long id);
 	 List<Mtdna> getPersoneByAplogruppo(String aplogruppo, Long id);
+	 List<Mtdna> getPersoneByCognome(String cognome);
 }
