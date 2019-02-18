@@ -45,4 +45,6 @@ public interface MtdnaRepository extends JpaRepository<Mtdna, Long> {
     @Query(value = "SELECT m.* FROM mtdna m join usersito u on m.id=u.id WHERE m.aplogruppo = ?1 and m.id <> ?2 group by m.id", nativeQuery=true)
 	public List<Mtdna> getPersoneByAplogruppo(String aplogruppo, Long id);
     
+    @Query(value = "SELECT m.* FROM mtdna m WHERE m.cognome = ?1", nativeQuery=true)
+	public List<Mtdna> getPersoneByCognome(String cognome);
 }

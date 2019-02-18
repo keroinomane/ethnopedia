@@ -48,4 +48,9 @@ public class MtdnaServiceImpl implements MtdnaService {
 	public List<Mtdna> getPersoneByAplogruppo(String aplogruppo, Long id) {
 		return mtdnaRepository.getPersoneByAplogruppo(aplogruppo, id);
 	}
+	
+	@Override
+	public List<Mtdna> getPersoneByCognome(String cognome) {
+		return mtdnaRepository.getPersoneByCognome(cognome);
+	}
 }

@@ -147,7 +147,7 @@
 				
 					<c:if test="${ydna != null}">
 					
-						<div id="utentiConQuelCognome">
+						<div id="utentiYdnaConQuelCognome">
 							<c:if test="${utentiYdna != null}">
 								<h3>Ci sono i seguenti utenti con quel cognome:</h3>
 								<table style="width: 85%">
@@ -178,7 +178,7 @@
 												<td>${utente.ydnaId.provincia}</td>
 												<td>${utente.regione}</td>
 												<td>
-								        			<a style="text-decoration: none" href="<c:url value="/assegnaIDaUtente/${utente.id}/${idOld}/${username}" />" >
+								        			<a style="text-decoration: none" href="<c:url value="/assegnaIDaUtenteYdna/${utente.id}/${idOld}/${username}" />" >
 												        <button type="button" class="btn btn-success btn-sm">
 															<span class="glyphicon glyphicon-link"></span>
 														</button>
@@ -285,6 +285,54 @@
 					</c:if>
 					
 					<c:if test="${mtdna != null}">
+					
+						<div id="utentiMtdnaConQuelCognome">
+							<c:if test="${utentiMtdna != null}">
+								<h3>Ci sono i seguenti utenti con quel cognome:</h3>
+								<table style="width: 85%">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Cognome</th>
+											<th>Nome</th>
+											<th>Aplogruppo</th>
+											<th>Clade</th>
+											<th>Subclade</th>
+											<th>Downstream</th>
+											<th>Provincia</th>
+											<th>Regione</th>
+											<td></td>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${utentiMtdna}" var="utente">
+											<tr>
+												<td>${utente.id}</td>
+												<td>${utente.mtdnaId.cognome}</td>
+												<td>${utente.mtdnaId.nome}</td>
+												<td>${utente.mtdnaId.aplogruppo}</td>
+												<td>${utente.clade}</td>
+												<td>${utente.mtdnaId.provincia}</td>
+												<td>${utente.regione}</td>
+												<td>
+								        			<a style="text-decoration: none" href="<c:url value="/assegnaIDaUtenteMtdna/${utente.id}/${idOld}/${username}" />" >
+												        <button type="button" class="btn btn-success btn-sm">
+															<span class="glyphicon glyphicon-link"></span>
+														</button>
+													</a>&nbsp
+											        Assegna ID
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<br>
+							</c:if>
+							<c:if test="${utentiMtdna == null}">
+								<h3>Non ci sono utenti con quel cognome.</h3>
+							</c:if>
+						</div>
+						
 						<form:form action="${contextPath}/saveMtdna" method="post" modelAttribute="mtdna">
 							<table style="width:50%;">
 								<tr>
