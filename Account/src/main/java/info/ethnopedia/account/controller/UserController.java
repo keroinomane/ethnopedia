@@ -80,9 +80,6 @@ public class UserController {
     private MtdnaService mtdnaService;
     
     @Autowired
-    private YdnaService ydnaService;
-    
-    @Autowired
     private BozzaService bozzaService;
 
     @Autowired
@@ -177,23 +174,23 @@ public class UserController {
 			boolean b = false;
 			
 			if (test.equals("ancestry")) {
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
+				content = "Username: " + name + "\ncognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nGEDmatch: " + gedmatch + "\nnonno paterno: " + nonnop + "\nnonna paterna: " + nonnap + "\nnonno materno: " + nonnom + "\nnonna materna: " + nonnam + "\nemail: " + email;
 				b = true;
 			} else if (sesso.equals("femmina"))  {
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
+				content = "Username: " + name + "\ncognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 				b = true;
 			} else {
 				aplo = fileItemsList.get(5).getString();
 				clade = fileItemsList.get(6).getString();
-				content = "Cognome: " + cognome + "\nnome: " + nome + "\nData di nascita: " + nascita + "\naplogruppo: " + aplo + "\nclade: " + clade + 
+				content = "Username: " + name + "\ncognome: " + cognome + "\nnome: " + nome + "\ndata di nascita: " + nascita + "\naplogruppo: " + aplo + "\nclade: " + clade + 
 		           		"\nprovincia paterna: " + provinciaP + "\nmtDNA: " + mtDNA + "\nprovincia materna: " + provinciaM + "\nemail: " + email;
 				
 				b = VerifyAplo.isOk(test, rawdata, aplo, clade);
 			}
 			content += "\ntest: " + test;
 			if (b) {				
-				resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
-						+ "We're elaborating your data. <b>Don't insert them again.</b>";
+				resultMessage = "Stiamo elaborando i tuoi dati.<br><br>"
+						+ "We're elaborating your data.";
 				String usern = SecurityContextHolder.getContext().getAuthentication().getName();
 				if (sesso.equals("maschio") && !test.equals("ancestry")) {
 					content += "\n\nRaw data corretti.";
@@ -233,8 +230,8 @@ public class UserController {
         
         ModelAndView modelAndView=new ModelAndView("result"); 
 		
-        resultMessage = "Stiamo elaborando i tuoi dati. <b>Non reinserirli un'altra volta.</b><br><br>"
-				+ "We're elaborating your data. <b>Don't insert them again.</b>";
+        resultMessage = "Stiamo elaborando i tuoi dati.<br><br>"
+				+ "We're elaborating your data.";
         
 		MtdnaBozza mb = new MtdnaBozza(username, cognome, nome, aplogruppoM, provinciaM, sesso);
 		bozzaService.save(mb);

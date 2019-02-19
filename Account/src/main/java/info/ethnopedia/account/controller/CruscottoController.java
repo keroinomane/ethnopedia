@@ -78,7 +78,7 @@ public class CruscottoController {
 		ydna.setYdnaId(ydnaId);
 		MtdnaId mtdnaId = new MtdnaId();
 		Mtdna mtdna = new Mtdna();
-		mtdna.setMtdnaId(mtdnaId);
+		mtdna.setMtdnaId(mtdnaId);		
 		model.addAttribute("ydna",ydna);
 		model.addAttribute("mtdna",mtdna);
         return "scorciatoiaAplo";
@@ -281,7 +281,7 @@ public class CruscottoController {
     }
     
     @RequestMapping(value="/saveYdnaManual", method=RequestMethod.POST)
-    public String saveYdnaManual(@ModelAttribute Ydna ydna, Model model) {
+    public String saveYdnaManual(@ModelAttribute Ydna ydna, String username, Model model) {
     	if (ydna.getNome().equals("null"))
     		ydna.setNome(null);
     	else
@@ -306,7 +306,13 @@ public class CruscottoController {
         	UserDati ud = new UserDati(ydna.getYdnaId().getCognome(), ydna.getNome(), "maschio", true);
         	userDatiService.save(ud);
         	ydna.setId(ud.getId());
-        	ydnaService.save(ydna);    	
+        	ydnaService.save(ydna);  
+        	
+        	if (!username.equals("null")) {
+        		User user = userService.findByUsername(username);
+        		user.setId(ud.getId());
+        		userService.update(user);
+        	}
         	
         	statService.aggiornaMedieYdnaRegionali();
         	

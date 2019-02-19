@@ -64,6 +64,11 @@ public class UserServiceImpl implements UserService {
 	public List<String> findEmailById(long id) {
 		return userRepository.findEmailById(id);
 	}
+    
+    @Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
 
 	@Override
 	public Ydna findById(long id) {

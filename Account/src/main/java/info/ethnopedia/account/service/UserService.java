@@ -9,6 +9,7 @@ import info.ethnopedia.account.model.Ydna;
 
 public interface UserService {
     void save(User user);
+    List<User> findAll();
     User findByUsername(String username);
     Ydna findById(long id);
     Ydna findByCognomeAndNome(String cognome, String nome);

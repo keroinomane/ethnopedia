@@ -131,7 +131,7 @@
 				return false;
 			};	
 			function control() {
-				if ($('#cognome').val() == '' || $('#downstream').val() == '' || $('#clade').val() == '' || $('#subclade').val() == '' || $('#provincia').val() == '')
+				if ($('#cognome').val() == '' || $('#downstream').val() == '' || $('#clade').val() == '' || $('#subclade').val() == '' || $('#provincia').val() == '' || $('#username').val() == '')
 					$('#bottoney').prop('disabled', true);
 				else
 					$('#bottoney').prop('disabled', false);
@@ -140,6 +140,16 @@
 				else
 					$('#bottonem').prop('disabled', false);
 			}
+			function checkUsername() {
+				if ($('#noUsername').is(':checked')) {
+					$('#username').val('null');
+					$('#username').prop('readonly', true);
+		        } else {
+					$('#username').val('');
+					$('#username').prop('readonly', false);
+		        }
+				control();
+			};
 		</script>
 	</head>
 	
@@ -267,6 +277,13 @@
 									</form:select>
 								</td></tr>
 								<tr><td align="right">Provincia: </td><td align=center><form:input id="provincia" path="ydnaId.provincia" value="${ydna.ydnaId.provincia}" onKeyUp="control()" /></td></tr>
+								<tr>
+									<td align="right">Username:</td>
+									<td>
+										<input id="username" type="text" style="width:40%;" onKeyUp="control();"/>
+										<input id="noUsername" type="checkbox" onChange="checkUsername()" /> nessuno
+									</td>
+								</tr>
 							</table>
 		
 							<table style="width:40%;">
