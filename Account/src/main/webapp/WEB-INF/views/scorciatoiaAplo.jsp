@@ -280,7 +280,7 @@
 								<tr>
 									<td align="right">Username:</td>
 									<td>
-										<input id="username" type="text" style="width:40%;" onKeyUp="control();"/>
+										<input id="username" name="username" type="text" style="width:40%;" onKeyUp="control();"/>
 										<input id="noUsername" type="checkbox" onChange="checkUsername()" /> nessuno
 									</td>
 								</tr>

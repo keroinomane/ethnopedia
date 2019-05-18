@@ -62,7 +62,7 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     @Query(value = "SELECT provincia FROM ydna GROUP BY provincia HAVING COUNT(provincia) > 9", nativeQuery=true)
     public List<String> getProvinceConPiuCampioni();
     
-    @Query(value = "SELECT distinct(clade) FROM ydna WHERE aplogruppo = ?1 AND clade IS NOT NULL", nativeQuery=true)
+    @Query(value = "SELECT distinct(clade) FROM ydna WHERE aplogruppo = ?1 AND clade IS NOT NULL AND clade <> 'L23'", nativeQuery=true)
 	public List<String> getCladiByAplo(String aplo);
     
     @Query(value = "SELECT distinct(subclade) FROM ydna WHERE clade = ?1 AND subclade IS NOT NULL", nativeQuery=true)
@@ -72,6 +72,11 @@ public interface YdnaRepository extends JpaRepository<Ydna, Long> {
     		nativeQuery=true
     )
 	public int countCladeRegio(String clade, String regione);
+    
+    @Query(value = "select count(*) from ydna y where (y.clade = 'L23' or y.clade = 'Z2103') and y.regione = ?1", 
+    		nativeQuery=true
+    )
+	public int countCladeL23Regio(String regione);
     
     @Query(value = "select count(*) from ydna y where y.subclade = ?1 and y.regione = ?2", 
     		nativeQuery=true

@@ -109,7 +109,7 @@ public class StatisticheController {
     @RequestMapping(value = "/getCladiByAplo", method=RequestMethod.GET, produces="application/json")
     @ResponseBody
     public List<String> getCladiByAplo(@RequestParam("aplo") String aplo) {
-        return ydnaService.getCladiByAplo(aplo);
+    	return ydnaService.getCladiByAplo(aplo);
     }
     
     @RequestMapping(value = "/getSubcladiByClade", method=RequestMethod.GET, produces="application/json")

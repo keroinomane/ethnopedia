@@ -164,7 +164,10 @@ public class StatisticheServiceImpl implements StatisticheService {
 	
 	@Override
 	public int countCladeRegio(String clade, String regio) {
-		return yrep.countCladeRegio(clade, regio);
+		if (clade.equals("Z2103"))
+			return yrep.countCladeL23Regio(regio);
+		else
+			return yrep.countCladeRegio(clade, regio);
 	}
 	@Override
 	public int countSubcladeRegio(String subclade, String regio) {
