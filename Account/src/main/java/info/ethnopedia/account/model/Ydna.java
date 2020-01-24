@@ -1,10 +1,13 @@
 package info.ethnopedia.account.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity(name="ydna")
@@ -20,6 +23,7 @@ public class Ydna implements java.io.Serializable {
 	private String regione;
 	private String macroregione;
 	private Long id;
+	private Date datainserimento;
 	
 	public Ydna() {
 	}
@@ -106,6 +110,20 @@ public class Ydna implements java.io.Serializable {
 		this.id = id;
 	}
 	
+	@Column(name = "datainserimento")
+	public Date getDatainserimento() {
+		return datainserimento;
+	}
+
+	public void setDatainserimento(Date datainserimento) {
+		this.datainserimento = datainserimento;
+	}
+	
+	@PrePersist
+	protected void onCreate() {
+		this.datainserimento = new Date();
+	}
+
 	@Override
 	public String toString() {
 		return "Ydna [YdnaId=" + ydnaId + ", nome=" + nome + ", clade=" + clade
