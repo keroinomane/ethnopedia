@@ -254,7 +254,7 @@
 								</td></tr>
 								<tr><td align="right">Regione: </td><td>
 									<form:select path="regione" value="${ydna.regione}" id="regione">
-									   <form:option value="Abruzzo" class="centro">Abruzzo</form:option>
+									   <form:option value="Abruzzo" class="sud">Abruzzo</form:option>
 									   <form:option value="Basilicata" class="sud">Basilicata</form:option>
 									   <form:option value="Calabria" class="sud">Calabria</form:option>
 									   <form:option value="Campania" class="sud">Campania</form:option>
@@ -359,7 +359,7 @@
 								</td></tr>
 								<tr><td align="right">Regione: </td><td>
 									<form:select path="regione" value="${mtdna.regione}" id="regionem">
-									   <form:option value="Abruzzo" class="centro">Abruzzo</form:option>
+									   <form:option value="Abruzzo" class="sud">Abruzzo</form:option>
 									   <form:option value="Basilicata" class="sud">Basilicata</form:option>
 									   <form:option value="Calabria" class="sud">Calabria</form:option>
 									   <form:option value="Campania" class="sud">Campania</form:option>

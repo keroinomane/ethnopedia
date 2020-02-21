@@ -101,7 +101,7 @@
 					<td style="border:none; vertical-align:top;" width="18%">
 						<select name="nonnoP" id="nonnop">
 							  <option value=null selected="selected">regioni miste</option>
-							   <option value="Abruzzo" class="centro">Abruzzo</option>
+							   <option value="Abruzzo" class="sud">Abruzzo</option>
 							   <option value="Basilicata" class="sud">Basilicata</option>
 							   <option value="Calabria" class="sud">Calabria</option>
 							   <option value="Campania" class="sud">Campania</option>
@@ -126,7 +126,7 @@
 						 <br><br><br>
 						<select name="nonnaP" id="nonnap" >
 							<option value=null selected="selected">regioni miste</option>
-							   <option value="Abruzzo" class="centro">Abruzzo</option>
+							   <option value="Abruzzo" class="sud">Abruzzo</option>
 							   <option value="Basilicata" class="sud">Basilicata</option>
 							   <option value="Calabria" class="sud">Calabria</option>
 							   <option value="Campania" class="sud">Campania</option>
@@ -150,7 +150,7 @@
 							  <br><br><br>
 						<select name="nonnoM" id="nonnom" >
 								<option value=null selected="selected">regioni miste</option>
-							   <option value="Abruzzo" class="centro">Abruzzo</option>
+							   <option value="Abruzzo" class="sud">Abruzzo</option>
 							   <option value="Basilicata" class="sud">Basilicata</option>
 							   <option value="Calabria" class="sud">Calabria</option>
 							   <option value="Campania" class="sud">Campania</option>
@@ -174,7 +174,7 @@
 							  <br><br><br>
 							  <select name="nonnaM" id="nonnam">
 							  	<option value=null selected="selected">regioni miste</option>
-							   <option value="Abruzzo" class="centro">Abruzzo</option>
+							   <option value="Abruzzo" class="sud">Abruzzo</option>
 							   <option value="Basilicata" class="sud">Basilicata</option>
 							   <option value="Calabria" class="sud">Calabria</option>
 							   <option value="Campania" class="sud">Campania</option>
