@@ -80,11 +80,92 @@ td {
 				<div id="about">
 					<h3>Quale test hai fatto?</h3>
 					<ul class="tabs">
+						<li><a href="#living">Living DNA</a></li>
 						<li><a href="#23">23andMe</a></li>
 						<li><a href="#geno">Geno 2.0 Next Generation</a></li>
-						<li><a href="#living">Living DNA</a></li>
 					</ul>
 					<div class="tab_container">
+						<div style="display: none;" id="living" class="tab_content">
+							<table>
+								<tr style="border:none;">
+									<td style="border:none; text-align:right; vertical-align:middle;">
+										Accedi su <a href="https://my.livingdna.com/signin" onclick="window.open(this.href);return false">Living DNA.</a><br><br>
+										Una volta effettuato l'accesso, clicca su <strong>DNA Profiles</strong> a sinistra.<br>
+										Di fianco al tuo nome troverai un pulsante con l'immagine del download, cliccalo.<br>
+									</td>
+									<td style="border:none;">
+										<img src="${contextPath}/resources/img/howto/living/1.png" width=100%/>
+									</td>
+								</tr>
+								<tr style="border:none;">
+									<td style="border:none;">
+										<img src="${contextPath}/resources/img/howto/gedmatch/7.png" width=100% />
+									</td>
+						    		<td style="border:none; text-align:right; vertical-align:middle;">
+										Uscirà una nuova schermata in cui dovrai selezionare la casella per dare il consenso al download.<br><br>
+										Infine clicca su <b>Download <u>autosomal (family ancestry)</u> raw marker data.</b>.
+									</td>
+								</tr>	
+							
+								<tr style="border: none;">
+									<td style="border: none; vertical-align:middle;">Finito di scaricare i raw data,
+										potrai ora registrarti su <a
+										href="https://genesis.gedmatch.com/login1.php"
+										onclick="window.open(this.href);return false"><b>GEDmatch.</b></a><br>
+										<br>Completata la registrazione, carichi i raw data
+											andando nella sezione a destra <b>(Upload your DNA files)</b> e 
+											cliccando su <b>Generic Uploads (23andme, FTDNA, AncestryDNA, most others).</b><br>
+										<br> Dai il consenso e ti scegli un alias (soprannome).<br>
+										Inserisci tutti i tuoi dati personali, aplogruppi compresi
+											(inserisci i subcladi se presenti!).
+										<br>Ultimato il caricamento dei raw
+											data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
+												da qualche parte.</b><br>
+									</td>
+									<td style="border: none;"><img
+										src="${contextPath}/resources/img/howto/gedmatch/6.png"
+										width=100% /></td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none;" colspan="2">
+										<br>
+										Ora devi aspettare che finiscano di processare il tuo kit. Potrebbero volerci 
+										24 ore o più.<br>
+										Quando l'elaborazione è finita, troverai nell'homepage di GEDmatch il tuo kit 
+										number contrassegnato da una spunta blu di fianco.<br><br>
+										Torna qui quando apparirà questa spunta blu.
+									<br><br><b>.....</b><br><br><br>
+									</td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none;">
+										Ora puoi finalmente usufruire dei vari calcolatori
+										gratuiti di GEDmatch.<br>
+									<br>Sotto la sezione a destra <b>DNA Applications</b>, clicca su
+										<b>Admixture (heritage).</b>
+									</td>
+									<td style="border: none;">
+										<img
+										src="${contextPath}/resources/img/howto/gedmatch/5.png"
+										width=100% />
+									</td>
+								</tr>
+								<tr style="border: none;">
+									<td style="border: none;" colspan="2">Seleziona dalla
+										lista il progetto <b>Eurogenes,</b> lasci selezionato il primo
+										pallino e clicca <b>Continue.</b><br>
+									<br> Incolli il tuo <b>codice</b> che ti eri salvato
+										prima, scegli il calcolatore <b>EUtest</b> (l'ultimo nella
+										lista) e inserisci <b>Italian</b> su ethnicity.<br>
+									<br> Finito! Ora aspetta che ti esca una nuova schermata
+										con altri dati interessanti.<br>
+									<br> Tieni aperta la scheda, <a
+										href="http://www.ethnopedia.info/account/">torna nel tuo
+											profilo di Ethnopedia</a> e inserisci quei risultati.
+									</td>
+								</tr>
+							</table>
+						</div>
 						<div style="display: none;" id="23" class="tab_content">
 							<table style="border: none;">
 								<tr style="border: none;">
@@ -317,81 +398,7 @@ td {
 								</tr>
 							</table>
 						</div>
-						<div style="display: none;" id="living" class="tab_content">
-							<table>
-								<tr style="border: none;">
-									<td style="border: none;">Accedi su <a
-										href="https://my.livingdna.com/login"
-										onclick="window.open(this.href);return false"><b>Living
-												DNA.</b></a><br>
-									<br> Una volta entrato nel tuo profilo, clicca a sinistra
-										su <b>Download Raw Data,</b> clicca sulla casella per dare il
-										consenso e infine su <b>Download autosomal (family
-											ancestry) raw marker data.</b>
-									</td>
-									<td style="border: none;"><img
-										src="${contextPath}/resources/img/howto/gedmatch/7.png"
-										width=100% /></td>
-								</tr>
-								<tr style="border: none;">
-									<td style="border: none;"><img
-										src="${contextPath}/resources/img/howto/gedmatch/6.png"
-										width=100% /></td>
-									<td style="border: none;">Finito di scaricare i raw data,
-										potrai ora registrarti su <a
-										href="https://genesis.gedmatch.com/login1.php"
-										onclick="window.open(this.href);return false"><b>GEDmatch.</b></a><br>
-									<br>Completata la registrazione, carichi i raw data
-										andando nella sezione a destra <b>(Upload your DNA files)</b> e 
-										cliccando su <b>Generic Uploads (23andme, FTDNA, AncestryDNA, most others).</b><br>
-									<br> Dai il consenso e ti scegli un alias (soprannome).<br>
-									Inserisci tutti i tuoi dati personali, aplogruppi compresi
-										(inserisci i subcladi se presenti!).
-									<br>Ultimato il caricamento dei raw
-										data su GEDmatch, ti verrà dato un codice.<br> <b>Còpiatelo
-											da qualche parte.</b><br>
-									</td>
-								</tr>
-								<tr style="border: none;">
-									<td style="border: none;" colspan="2">
-										<br>
-										Ora devi aspettare che finiscano di processare il tuo kit. Potrebbero volerci 
-										24 ore o più.<br>
-										Quando l'elaborazione è finita, troverai nell'homepage di GEDmatch il tuo kit 
-										number contrassegnato da una spunta blu di fianco.<br><br>
-										Torna qui quando apparirà questa spunta blu.
-									<br><br><b>.....</b><br><br><br>
-									</td>
-								</tr>
-								<tr style="border: none;">
-									<td style="border: none;">
-										Ora puoi finalmente usufruire dei vari calcolatori
-										gratuiti di GEDmatch.<br>
-									<br>Sotto la sezione a destra <b>DNA Applications</b>, clicca su
-										<b>Admixture (heritage).</b>
-									</td>
-									<td style="border: none;">
-										<img
-										src="${contextPath}/resources/img/howto/gedmatch/5.png"
-										width=100% />
-									</td>
-								</tr>
-								<tr style="border: none;">
-									<td style="border: none;" colspan="2">Seleziona dalla
-										lista il progetto <b>Eurogenes,</b> lasci selezionato il primo
-										pallino e clicca <b>Continue.</b><br>
-									<br> Incolli il tuo <b>codice</b> che ti eri salvato
-										prima, scegli il calcolatore <b>EUtest</b> (l'ultimo nella
-										lista) e inserisci <b>Italian</b> su ethnicity.<br>
-									<br> Finito! Ora aspetta che ti esca una nuova schermata
-										con altri dati interessanti.<br>
-									<br> Tieni aperta la scheda, <a
-										href="http://www.ethnopedia.info/account/">torna nel tuo
-											profilo di Ethnopedia</a> e inserisci quei risultati.
-									</td>
-								</tr>
-							</table>
-						</div>
+						
 					</div>
 				</div>
 

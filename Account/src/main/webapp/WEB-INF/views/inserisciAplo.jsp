@@ -84,11 +84,11 @@
 						<tr>
 							<td>Test genetico effettuato:</td>
 							<td>
-								<input type="radio" name="test" value="23andMe" onChange="display()" checked> 23andMe
+								<input type="radio" name="test" value="living" onChange="display()" checked> LivingDNA
+								<br><input type="radio" name="test" value="23andMe" onChange="display()"> 23andMe
+								<br><input type="radio" name="test" value="ancestry" onChange="display()"> AncestryDNA
 								<br><input type="radio" name="test" value="geno" onChange="display()"> Geno 2.0
 								<br><input type="radio" name="test" value="genoNext" onChange="display()"> Geno 2.0 Next Generation
-								<br><input type="radio" name="test" value="ancestry" onChange="display()"> AncestryDNA
-								<br><input type="radio" name="test" value="living" onChange="display()"> LivingDNA
 							</td>
 						</tr>
 					</table>

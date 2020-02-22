@@ -368,40 +368,37 @@
     		
     		<!-- Se non ha inserito l'autosomal -->
     		<c:if test="${eutest == null}">
-    			<!--  Se utente con 4 nonni della stessa macroregione -->
-    			<c:if test="${userDati.autosomal == true}">
-					<div align="center">
-    					Inserisci i tuoi dati di <a href="https://www.gedmatch.com">GEDmatch</a> per avere maggiori informazioni sul tuo DNA.<br>
-    					Al momento puoi inviarci i tuoi risultati del calcolatore <b>Eurogenes EUtest.</b><br>
-						<a href="/account/inserisciEutest"><b>Inseriscili!</b></a>
-						<br>
-						Non conosci GEDmatch? È gratuito, segui queste <a href="/account/howToGedmatch"><b>istruzioni.</b></a>
-						<br><br>
+    			
+				<div>
+					<b>Bene, hai completato il tuo profilo a metà!</b><br>
+					Ti aspettano tante altre funzionalità che ti aiutano ad avere maggiori informazioni sul tuo DNA.<br>
+					Utilizzando <a href="https://www.gedmatch.com">GEDmatch</a> ad esempio, che è un sito <b>gratuito,</b> è possibile ottenere altri risultati genetici approfonditi. Una volta inseriti questi dati qui, 
+					il nostro algoritmo	li confronterà con quelli di altri italiani, restituendoti <b>una stima regionale molto dettagliata.</b><br><br>
+				</div>
+				<div align="center">	
+					<!--  Se utente con 4 nonni della stessa macroregione -->
+    				<c:if test="${userDati.autosomal == true}">
+    					Hai già fatto GEDmatch? <a href="/account/inserisciEutest"><b>Inserisci i tuoi dati!</b></a>
+					</c:if>
+					<!--  Se utente con 4 nonni misti -->
+					<c:if test="${userDati.autosomal == false}">
+						Hai già fatto GEDmatch? <a href="/account/inserisciEutestPlebe"><b>Inserisci i tuoi dati!</b></a>
+					</c:if>
+					<br>
+					Non conosci GEDmatch? Segui queste <a href="/account/howToGedmatch"><b>istruzioni.</b></a>
+					<br><br>
 						
-						<small>
+					<small>
 						We're gathering also autosomal DNA data, like the <a href="https://www.gedmatch.com">GedMatch</a>'s calculators results.<br>
-    					You can insert your Eurogenes EUtest's results right now.<br>
-						<a href="/account/inserisciEutest"><b>Insert them!</b></a>
-						</small>
-					</div>
-    			</c:if>
-    			<!--  Se utente con 4 nonni misti -->
-    			<c:if test="${userDati.autosomal == false}">
-    				<div align="center">
-    					Inserisci i tuoi dati di <a href="https://www.gedmatch.com">GedMatch</a> per avere maggiori informazioni sul tuo DNA.<br>
-    					Al momento puoi inviarci i tuoi risultati del calcolatore <b>Eurogenes EUtest.</b><br>
-						<a href="/account/inserisciEutestPlebe"><b>Inseriscili!</b></a>
-						<br>
-						Non sai come fare? È gratuito, segui queste <a href="/account/howToGedmatch"><b>indicazioni.</b></a>
-						<br><br>
-						
-						<small>
-						We're gathering also autosomal DNA data, like the <a href="https://www.gedmatch.com">GedMatch</a>'s calculators results.<br>
-    					You can insert your Eurogenes EUtest's results right now.<br>
-						<a href="/account/inserisciEutestPlebe"><b>Insert them!</b></a>
-						</small>
-					</div>
-    			</c:if>
+	    				You can insert your Eurogenes EUtest's results right now.<br>
+	    				<c:if test="${userDati.autosomal == true}">
+	    					<a href="/account/inserisciEutest"><b>Insert them!</b></a>
+						</c:if>
+						<c:if test="${userDati.autosomal == false}">
+							<a href="/account/inserisciEutestPlebe"><b>Insert them!</b></a>
+						</c:if>
+					</small>
+				</div>
     			<br><br>
     		</c:if>
     		<c:choose>

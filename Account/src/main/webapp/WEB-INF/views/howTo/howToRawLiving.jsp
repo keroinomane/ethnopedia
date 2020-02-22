@@ -58,13 +58,21 @@
     <table style="border:none; width:100%;">
     	<tr style="border:none;">
     		<td style="border:none; text-align:right; vertical-align:middle;">
-				Accedi su <a href="https://my.livingdna.com/login" onclick="window.open(this.href);return false">Living DNA.</a><br><br>
-				Una volta effettuato l'accesso, clicca su <strong>Download Raw Data</strong> a sinistra.<br><br>
-				Uscirà una nuova schermata in cui dovrai selezionare la casella per dare il consenso al download.<br><br>
-				Infine clicca su <strong>Download FT-DNA (fatherline) list of positive SNPs</strong>.
+				Accedi su <a href="https://my.livingdna.com/signin" onclick="window.open(this.href);return false">Living DNA.</a><br><br>
+				Una volta effettuato l'accesso, clicca su <strong>DNA Profiles</strong> a sinistra.<br>
+				Di fianco al tuo nome troverai un pulsante con l'immagine del download, cliccalo.<br>
 			</td>
 			<td style="border:none;">
 				<img src="${contextPath}/resources/img/howto/living/1.png" width=75%/>
+			</td>
+		</tr>
+		<tr style="border:none;">
+    		<td style="border:none; text-align:right; vertical-align:middle;">
+			Uscirà una nuova schermata in cui dovrai selezionare la casella per dare il consenso al download.<br><br>
+				Infine clicca su <strong>Download Y-DNA (fatherline) list of positive SNPs</strong>.
+			</td>
+			<td style="border:none;">
+				<img src="${contextPath}/resources/img/howto/living/2.png" width=75%/>
 			</td>
 		</tr>	
 	</table>
